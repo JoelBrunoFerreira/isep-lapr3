@@ -1,0 +1,40 @@
+ID Parcela;Parcela;Operação;Modo;Cultura;Data;Quantidade;Unidade;Fator de produção
+102;Campo Grande;Plantação;;Oliveira Galega;10/6/2016;30;un;
+102;Campo Grande;Plantação;;Oliveira Picual;10/10/2016;20;un;
+104;Lameiro da ponte;Plantação;;Macieira Jonagored;1/7/2017;90;un;
+104;Lameiro da ponte;Plantação;;Macieira Fuji;1/8/2017;60;un;
+104;Lameiro da ponte;Plantação;;Macieira Royal Gala;1/8/2017;40;un;
+104;Lameiro da ponte;Plantação;;Macieira Royal Gala;12/10/2018;30;un;
+101;Campo da bouça;Sementeira;;Tremoço Amarelo;10/10/2020;;;
+104;Lameiro da ponte;Poda;;Macieira Royal Gala;12/5/2020;70;un;
+104;Lameiro da ponte;Poda;;Macieira Jonagored;12/5/2020;50;un;
+104;Lameiro da ponte;Poda;;Macieira Jonagored;12/15/2020;40;un;
+104;Lameiro da ponte;Poda;;Macieira Fuji;12/15/2020;60;un;
+101;Campo da bouça;Incorporação no solo;;Tremoço Amarelo;3/30/2021;;;
+101;Campo da bouça;Sementeira;;Milho Doce Golden Bantam;4/15/2021;;;
+104;Lameiro da ponte;Fertilização;Foliar;Macieira;5/2/2021;10;kg;EPSO Microtop
+104;Lameiro da ponte;Rega;;Macieira;7/5/2021;5;m3;
+101;Campo da bouça;Colheita;;Milho Doce Golden Bantam;8/21/2021;3300;kg;
+104;Lameiro da ponte;Colheita;;Macieira Royal Gala;8/24/2021;900;kg;
+104;Lameiro da ponte;Colheita;;Macieira Royal Gala;9/5/2021;800;kg;
+104;Lameiro da ponte;Colheita;;Macieira Jonagored;9/12/2021;800;kg;
+104;Lameiro da ponte;Colheita;;Macieira Jonagored;9/23/2021;1200;kg;
+101;Campo da bouça;Sementeira;;Tremoço Amarelo;10/3/2021;;;
+104;Lameiro da ponte;Colheita;;Macieira Fuji;10/12/2021;950;kg;
+104;Lameiro da ponte;Colheita;;Macieira Fuji;11/3/2021;750;kg;
+104;Lameiro da ponte;Poda;;Macieira Royal Gala;11/28/2021;70;un;
+104;Lameiro da ponte;Poda;;Macieira Jonagored;12/3/2021;90;un;
+104;Lameiro da ponte;Poda;;Macieira Fuji;12/18/2021;60;un;
+101;Campo da bouça;Incorporação no solo;;Tremoço Amarelo;4/5/2022;;;
+101;Campo da bouça;Sementeira;;Milho Doce Golden Bantam;4/10/2022;;;
+104;Lameiro da ponte;Fertilização;Foliar;Macieira;5/13/2022;10;kg;EPSO Microtop
+101;Campo da bouça;Colheita;;Milho Doce Golden Bantam;8/12/2022;3500;kg;
+104;Lameiro da ponte;Colheita;;Macieira Royal Gala;8/20/2022;950;kg;
+104;Lameiro da ponte;Colheita;;Macieira Royal Gala;9/7/2022;830;kg;
+104;Lameiro da ponte;Colheita;;Macieira Jonagored;9/11/2022;750;kg;
+104;Lameiro da ponte;Colheita;;Macieira Jonagored;9/20/2022;1150;kg;
+104;Lameiro da ponte;Colheita;;Macieira Fuji;10/17/2022;850;kg;
+104;Lameiro da ponte;Colheita;;Macieira Fuji;11/6/2022;900;kg;
+104;Lameiro da ponte;Poda;;Macieira Royal Gala;12/4/2022;70;un;
+104;Lameiro da ponte;Poda;;Macieira Jonagored;12/7/2022;90;un;
+104;Lameiro da ponte;Poda;;Macieira Fuji;1/12/2023;60;un;
