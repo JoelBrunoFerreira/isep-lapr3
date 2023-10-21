@@ -3,6 +3,8 @@ package org.isep;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -12,9 +14,11 @@ import java.util.TreeMap;
 
 public class Controlador {
 
+    private static LocalDate startDate = null;
 
     public Controlador(String file) throws IOException {
         getInfo(file);
+        startDate = LocalDate.now();
     }
 
 
@@ -36,7 +40,7 @@ public class Controlador {
                 for (int j = 0; j < horarios.length; j++) {
                     LocalTime startTime = LocalTime.parse(horarios[j], DateTimeFormatter.ofPattern("H:mm"));
                     LocalTime duracao = startTime.plusMinutes(Integer.parseInt(parts[1]));
-                    map.get(startTime).add(new Parcela(parts[0], duracao, getRecorrencia(parts[2])));
+                    map.get(startTime).add(new Parcela(parts[0], duracao, getRegularidade(parts[2])));
                 }
             }
         }
@@ -44,14 +48,14 @@ public class Controlador {
     }
 
     public boolean regaAtiva(Map<LocalTime, List<Parcela>> mapaRega) { //parametro (String horaPretendida)
-        LocalTime horaAtual = LocalTime.now(); //LocalTime.parse(horaPretendida);//
-        Boolean bool = false;
+        LocalDateTime dataHoraAtual = LocalDateTime.now(); //LocalTime.parse(horaPretendida);//
+        boolean bool = false;
         for (LocalTime horaKey : mapaRega.keySet()
         ) {
 
             for (Parcela p : mapaRega.get(horaKey)
             ) {
-                if (horaKey.isBefore(horaAtual) && p.getDuracao().isAfter(horaAtual)) {
+                if (horaKey.isBefore(dataHoraAtual.toLocalTime()) && p.getDuracao().isAfter(dataHoraAtual.toLocalTime()) && verificarRegularidade(p.getRegularidade(), dataHoraAtual.toLocalDate())) {
                     System.out.println(p.getSetor());
                     bool = true;
                 }
@@ -60,7 +64,32 @@ public class Controlador {
         return bool;
     }
 
-    private Regularidade getRecorrencia(String valor) {
+    private boolean verificarRegularidade(Regularidade regularidade, LocalDate diaAtual) {
+        int dia = diaAtual.getDayOfMonth();
+        int daysSinceStart = (int) startDate.until(diaAtual).getDays();
+        boolean result = false;
+        switch (regularidade) {
+            case TODOS:
+                result = true;
+                break;
+            case PARES:
+                if (dia % 2 == 0) {
+                    result = true;
+                }
+                break;
+            case IMPARES:
+                if (dia % 2 != 0) {
+                    result = true;
+                }
+                break;
+            case CADA_3_DIAS:
+                result = daysSinceStart >= 0 && (daysSinceStart - dia) % 3 == 0;
+                break;
+        }
+        return result;
+    }
+
+    private Regularidade getRegularidade(String valor) {
         Regularidade result = null;
         switch (valor) {
             case "T":

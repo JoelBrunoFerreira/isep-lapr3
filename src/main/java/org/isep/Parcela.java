@@ -6,10 +6,10 @@ public class Parcela {
     private String setor;
     private LocalTime duracao;
     private Regularidade regularidade;
-    public Parcela(String setor, LocalTime duracao, Regularidade recorrencia) {
+    public Parcela(String setor, LocalTime duracao, Regularidade regularidade) {
         this.setor = setor;
         this.duracao = duracao;
-        this.regularidade = recorrencia;
+        this.regularidade = regularidade;
     }
 
     public String getSetor() {
