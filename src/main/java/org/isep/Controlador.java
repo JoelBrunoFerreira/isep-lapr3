@@ -27,10 +27,25 @@ public class Controlador {
                 LocalTime localTime = LocalTime.parse(aux[i], DateTimeFormatter.ofPattern("H:mm"));
                 horariosDeRega.add(localTime);
             }
-            for (int i = 1; i < lines.size(); i++) {
-                aux = lines.get(i).split(",");
-                parcelas.add(new Parcela(aux[0], Integer.parseInt(aux[1]), getRecorrencia(aux[2])));
+            for (LocalTime lc: horariosDeRega
+                 ) {
+                for (int i = 1; i < lines.size(); i++) {
+                    aux = lines.get(i).split(",");
+                    LocalTime duracao = lc.plusMinutes(Integer.parseInt(aux[1]));
+                    parcelas.add(new Parcela(aux[0],duracao , getRecorrencia(aux[2])));
+                }
             }
+
+        }
+    }
+    public void printer() {
+        for (LocalTime time : horariosDeRega
+        ) {
+            System.out.println(time);
+        }
+        for (Parcela parcela : parcelas
+        ) {
+            System.out.println(parcela);
         }
     }
 
