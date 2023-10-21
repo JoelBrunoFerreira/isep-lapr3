@@ -2,51 +2,62 @@ package org.isep;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Controlador {
-    private List<Parcela> parcelas = new ArrayList<>();
 
-    private List<LocalTime> horariosDeRega = new ArrayList<>();
 
     public Controlador(String file) throws IOException {
         getInfo(file);
     }
 
-    private void getInfo(String file) throws IOException {
-        List<String> lines = Files.lines(Paths.get(file)).collect(Collectors.toList());
+
+    public Map<LocalTime, List<Parcela>> getInfo(String file) throws IOException {
+        List<String> lines = Files.readAllLines(Path.of(file));
+
+        Map<LocalTime, List<Parcela>> map = new TreeMap<>();
 
         if (!lines.isEmpty()) {
-            String[] aux = lines.get(0).split(",");
-            for (int i = 0; i < aux.length; i++) {
-                LocalTime localTime = LocalTime.parse(aux[i], DateTimeFormatter.ofPattern("H:mm"));
-                horariosDeRega.add(localTime);
-            }
-            for (LocalTime lc: horariosDeRega
-                 ) {
-                for (int i = 1; i < lines.size(); i++) {
-                    aux = lines.get(i).split(",");
-                    LocalTime duracao = lc.plusMinutes(Integer.parseInt(aux[1]));
-                    parcelas.add(new Parcela(aux[0],duracao , getRecorrencia(aux[2])));
-                }
+            String[] horarios = lines.get(0).split(",");
+
+            for (String horario : horarios) {
+                LocalTime localTime = LocalTime.parse(horario, DateTimeFormatter.ofPattern("H:mm"));
+                map.put(localTime, new ArrayList<>());
             }
 
+            for (int i = 1; i < lines.size(); i++) {
+                String[] parts = lines.get(i).split(",");
+                for (int j = 0; j < horarios.length; j++) {
+                    LocalTime startTime = LocalTime.parse(horarios[j], DateTimeFormatter.ofPattern("H:mm"));
+                    LocalTime duracao = startTime.plusMinutes(Integer.parseInt(parts[1]));
+                    map.get(startTime).add(new Parcela(parts[0], duracao, getRecorrencia(parts[2])));
+                }
+            }
         }
+        return map;
     }
-    public void printer() {
-        for (LocalTime time : horariosDeRega
+
+    public boolean regaAtiva(Map<LocalTime, List<Parcela>> mapaRega) { //parametro (String horaPretendida)
+        LocalTime horaAtual = LocalTime.now(); //LocalTime.parse(horaPretendida);//
+        Boolean bool = false;
+        for (LocalTime horaKey : mapaRega.keySet()
         ) {
-            System.out.println(time);
+
+            for (Parcela p : mapaRega.get(horaKey)
+            ) {
+                if (horaKey.isBefore(horaAtual) && p.getDuracao().isAfter(horaAtual)) {
+                    System.out.println(p.getSetor());
+                    bool = true;
+                }
+            }
         }
-        for (Parcela parcela : parcelas
-        ) {
-            System.out.println(parcela);
-        }
+        return bool;
     }
 
     private Regularidade getRecorrencia(String valor) {
