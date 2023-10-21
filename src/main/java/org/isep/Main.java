@@ -6,13 +6,16 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         System.out.println("Projecto Integrador - 3");
-String file ="C:\\Users\\vns30\\Documents\\ISEP\\LEI_2\\LAPR3\\sem3pi2023_24_g311\\rega.csv";
+        // Win
+        String fileWin ="C:\\Users\\vns30\\Documents\\ISEP\\LEI_2\\LAPR3\\sem3pi2023_24_g311\\rega.csv";
+        // Linux
+        String fileLinux ="rega.csv";
 
         try {
-            Controlador c = new Controlador(file);
-            Map<LocalTime, List<Parcela>> result = c.getInfo(file);
+            Controlador c = new Controlador(fileLinux);
+            Map<LocalTime, List<Parcela>> result = c.getInfo(fileLinux);
             c.regaAtiva(result);
             //printer
 //            for (LocalTime lc : result.keySet()
