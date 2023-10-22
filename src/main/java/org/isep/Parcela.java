@@ -1,12 +1,12 @@
 package org.isep;
 
-import java.time.LocalTime;
+import java.io.Serializable;
 
-public class Parcela {
+public class Parcela implements Serializable {
     private String setor;
-    private LocalTime duracao;
+    private int duracao;
     private Regularidade regularidade;
-    public Parcela(String setor, LocalTime duracao, Regularidade regularidade) {
+    public Parcela(String setor, int duracao, Regularidade regularidade) {
         this.setor = setor;
         this.duracao = duracao;
         this.regularidade = regularidade;
@@ -16,7 +16,7 @@ public class Parcela {
         return setor;
     }
 
-    public LocalTime getDuracao() {
+    public int getDuracao() {
         return duracao;
     }
 

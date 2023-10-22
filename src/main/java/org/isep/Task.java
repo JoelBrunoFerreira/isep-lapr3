@@ -1,0 +1,62 @@
+package org.isep;
+
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+public class Task implements Serializable {
+    private LocalDate diaInicio;
+    private LocalTime horaInicioRega;
+    private LocalTime horaFimRega;
+    private Parcela parcela;
+
+    public Task(LocalDate diaInicio, LocalTime horaInicioRega, LocalTime horaFimRega, Parcela parcela) {
+        this.diaInicio = diaInicio;
+        this.horaInicioRega = horaInicioRega;
+        this.horaFimRega = horaFimRega;
+        this.parcela = parcela;
+    }
+
+    public LocalTime getHoraInicioRega() {
+        return horaInicioRega;
+    }
+
+    public LocalTime getHoraFimRega() {
+        return horaFimRega;
+    }
+
+    public Parcela getParcela() {
+        return parcela;
+    }
+
+    public boolean verificaRegaAtivaHoras(LocalDateTime dataHoraAtual) {
+        LocalTime horaAtual = dataHoraAtual.toLocalTime();
+        return horaAtual.isAfter(horaInicioRega) && horaAtual.isBefore(horaFimRega);
+    }
+
+    public boolean verificarRegularidadeDias(LocalDateTime dataHoraAtual) {
+        int hoje = dataHoraAtual.getDayOfMonth();
+        switch (parcela.getRegularidade()) {
+            case TODOS:
+                return true;
+            case PARES:
+                return hoje % 2 == 0;
+            case IMPARES:
+                return hoje % 2 != 0;
+            case CADA_3_DIAS:
+                return diaInicio.getDayOfMonth() >= 0 && (diaInicio.getDayOfMonth() - hoje) % 3 == 0;
+            default:
+                return false;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "horaInicioRega=" + horaInicioRega +
+                ", horaFimRega=" + horaFimRega +
+                ", parcela=" + parcela +
+                '}';
+    }
+}
