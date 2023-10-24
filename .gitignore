@@ -5,6 +5,10 @@ target/
 
 ### IntelliJ IDEA ###
 .idea/*
+.idea/csv-editor.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/vcs.xml
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
@@ -12,6 +16,7 @@ target/
 *.iws
 *.iml
 *.ipr
+tasksRep.ser
 
 ### Eclipse ###
 .apt_generated
