@@ -6,20 +6,19 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class Task implements Serializable {
+    private final int DIAS_PLANO = 30;
     private LocalDate diaInicio;
+    private LocalDate diaFim;
     private LocalTime horaInicioRega;
     private LocalTime horaFimRega;
     private Parcela parcela;
 
     public Task(LocalDate diaInicio, LocalTime horaInicioRega, LocalTime horaFimRega, Parcela parcela) {
         this.diaInicio = diaInicio;
+        this.diaFim = diaInicio.plusDays(DIAS_PLANO);
         this.horaInicioRega = horaInicioRega;
         this.horaFimRega = horaFimRega;
         this.parcela = parcela;
-    }
-
-    public LocalTime getHoraInicioRega() {
-        return horaInicioRega;
     }
 
     public LocalTime getHoraFimRega() {
@@ -49,6 +48,10 @@ public class Task implements Serializable {
             default:
                 return false;
         }
+    }
+    public boolean verificaRegaAtivaDia(LocalDateTime dataHoraAtual) {
+        LocalDate diaAtual = dataHoraAtual.toLocalDate();
+        return !diaAtual.isBefore(diaInicio) && !diaAtual.isAfter(diaFim);
     }
 
     @Override
