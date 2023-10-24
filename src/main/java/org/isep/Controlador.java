@@ -29,7 +29,7 @@ public class Controlador {
             for (Task t : tasks
             ) {
                 System.out.println(t.getParcela().getSetor());
-                System.out.printf("Faltam %d minutos para fim.\n", minutosQueFaltam(t.getHoraFimRega()));
+                System.out.printf("Faltam %02d minutos para fim.\n", minutosQueFaltam(t.getHoraFimRega()));
             }
         }
     }
