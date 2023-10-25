@@ -31,7 +31,7 @@ public class Task implements Serializable {
 
     public boolean verificaRegaAtivaHoras(LocalDateTime dataHoraAtual) {
         LocalTime horaAtual = dataHoraAtual.toLocalTime();
-        return horaAtual.isAfter(horaInicioRega) && horaAtual.isBefore(horaFimRega);
+        return !horaAtual.isBefore(horaInicioRega) && !horaAtual.isAfter(horaFimRega);
     }
 
     public boolean verificarRegularidadeDias(LocalDateTime dataHoraAtual) {
@@ -56,10 +56,11 @@ public class Task implements Serializable {
 
     @Override
     public String toString() {
-        return "Task{" +
-                "horaInicioRega=" + horaInicioRega +
-                ", horaFimRega=" + horaFimRega +
-                ", parcela=" + parcela +
+        return "| Dia de Início:" + diaInicio +
+                "| Dia Fim:" + diaFim +
+                "| Hora de Início de Rega:" + horaInicioRega +
+                "| Hora de Fim de Rega=" + horaFimRega +
+                "| Parcela:" + parcela +
                 '}';
     }
 }
