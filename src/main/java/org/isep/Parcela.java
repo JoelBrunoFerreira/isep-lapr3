@@ -27,8 +27,7 @@ public class Parcela implements Serializable {
     @Override
     public String toString() {
         return   "Setor:'" + setor + '\'' +
-                ", Duração em minutos:" + duracao +
-                ", Regularidade:" + regularidade +
-                '}';
+                ", Duração em minutos: " + duracao +
+                ", Regularidade: " + regularidade;
     }
 }

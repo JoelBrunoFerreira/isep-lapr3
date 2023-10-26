@@ -49,6 +49,7 @@ public class Task implements Serializable {
                 return false;
         }
     }
+
     public boolean verificaRegaAtivaDia(LocalDateTime dataHoraAtual) {
         LocalDate diaAtual = dataHoraAtual.toLocalDate();
         return !diaAtual.isBefore(diaInicio) && !diaAtual.isAfter(diaFim);
@@ -56,11 +57,9 @@ public class Task implements Serializable {
 
     @Override
     public String toString() {
-        return "| Dia de Início:" + diaInicio +
-                "| Dia Fim:" + diaFim +
-                "| Hora de Início de Rega:" + horaInicioRega +
-                "| Hora de Fim de Rega=" + horaFimRega +
-                "| Parcela:" + parcela +
-                '}';
+        return parcela + "\nDia de Início: " + diaInicio +
+                " | Dia Fim: " + diaFim +
+                " | Hora de Início de Rega: " + horaInicioRega +
+                " | Hora de Fim de Rega :" + horaFimRega;
     }
 }
