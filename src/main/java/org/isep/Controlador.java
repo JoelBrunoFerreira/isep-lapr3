@@ -17,9 +17,8 @@ public class Controlador {
 
     public void mostrarTodasAsTasks() {
         System.out.println("PLANO DE REGA");
-        for (Task task : taskRep.getTaskList()
-        ) {
-            System.out.println(task);
+        for (int i = 0; i < taskRep.getTaskList().size(); i++) {
+            System.out.println((i+1) + " - " + taskRep.getTaskList().get(i));
         }
     }
 
@@ -32,8 +31,7 @@ public class Controlador {
                 System.out.println(t.getParcela().getSetor());
                 System.out.printf("Faltam %02d minutos para fim.\n", minutosQueFaltam(t.getHoraFimRega()));
             }
-        }
-        else {
+        } else {
             System.out.println("Nada a regar!");
         }
     }
