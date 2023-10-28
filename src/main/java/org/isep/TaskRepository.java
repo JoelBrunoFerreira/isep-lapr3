@@ -20,8 +20,8 @@ public class TaskRepository implements Serializable {
     }
 
     private List<Task> taskList = recuperarTaskListInfo();
-    private static final String PLANO_DE_REGA_FILE = "rega.csv";
-    private static final String FILE_PATH = "tasksRep.ser";
+    private static final String PLANO_DE_REGA_FILE = "src/main/resources/rega.csv";
+    private static final String FILE_PATH = "src/main/resources/tasksRep.ser";
 
     private static LocalDate startDate = null;
 
