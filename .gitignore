@@ -15,7 +15,6 @@ target/
 *.iws
 *.iml
 *.ipr
-tasksRep.ser
 
 ### Eclipse ###
 .apt_generated
