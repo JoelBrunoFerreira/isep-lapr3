@@ -1,6 +1,6 @@
 CREATE TABLE Cultivo (CulturaID number(10) NOT NULL, ParcelaID number(10) NOT NULL, DataInicio date NOT NULL, DataFim date, Quantidade number(10) NOT NULL, UnidadeID number(10), PRIMARY KEY (CulturaID, ParcelaID));
 CREATE TABLE Cultura (CulturaID number(10) NOT NULL, Variedade nvarchar2(255) NOT NULL, EspecieVegetalID number(10) NOT NULL, EpocaSementeiraPlantacao nvarchar2(255), EpocaPoda nvarchar2(255), EpocaFloracao nvarchar2(255), EpocaColheita nvarchar2(255), PRIMARY KEY (CulturaID));
-CREATE TABLE Edifício (EdificioID number(10) NOT NULL, DesignacaoEdificio varchar2(255) NOT NULL, Area double precision, UnidadeID number(10), TipoEdificioID number(10) NOT NULL, PRIMARY KEY (EdificioID));
+CREATE TABLE Edificio (EdificioID number(10) NOT NULL, DesignacaoEdificio varchar2(255) NOT NULL, Area double precision, UnidadeID number(10), TipoEdificioID number(10) NOT NULL, PRIMARY KEY (EdificioID));
 CREATE TABLE Elemento (ElementoID number(19) NOT NULL, Nome varchar2(255) NOT NULL, PRIMARY KEY (ElementoID));
 CREATE TABLE EspecieVegetal (EspecieVegetalID number(10) NOT NULL, DesignacaoEspecie nvarchar2(255) NOT NULL, NomeComum nvarchar2(255) NOT NULL, TipoCulturaID number(10) NOT NULL, PRIMARY KEY (EspecieVegetalID));
 CREATE TABLE EstaçãoMeteorologica (EstacaoMeteorologicaID number(19) NOT NULL, PRIMARY KEY (EstacaoMeteorologicaID));
@@ -31,7 +31,7 @@ ALTER TABLE Cultivo ADD CONSTRAINT FKCultivo621857 FOREIGN KEY (CulturaID) REFER
 ALTER TABLE Cultivo ADD CONSTRAINT FKCultivo601844 FOREIGN KEY (ParcelaID) REFERENCES Parcela (ParcelaID);
 ALTER TABLE FatorProdução ADD CONSTRAINT FKFatorProdu567872 FOREIGN KEY (FabricanteID) REFERENCES Fabricante (FabricanteID);
 ALTER TABLE FatorProducao_Elemento ADD CONSTRAINT FKFatorProdu356006 FOREIGN KEY (ElementoID) REFERENCES Elemento (ElementoID);
-ALTER TABLE Edifício ADD CONSTRAINT FKEdifício456707 FOREIGN KEY (TipoEdificioID) REFERENCES TipoEdificio (TipoEdificioID);
+ALTER TABLE Edificio ADD CONSTRAINT FKEdificio389123 FOREIGN KEY (TipoEdificioID) REFERENCES TipoEdificio (TipoEdificioID);
 ALTER TABLE EspecieVegetal ADD CONSTRAINT FKEspecieVeg556568 FOREIGN KEY (TipoCulturaID) REFERENCES TipoCultura (TipoCulturaID);
 ALTER TABLE Sensor ADD CONSTRAINT FKSensor787417 FOREIGN KEY (EstacaoMeteorologicaID) REFERENCES EstaçãoMeteorologica (EstacaoMeteorologicaID);
 ALTER TABLE Sensor ADD CONSTRAINT FKSensor66938 FOREIGN KEY (TipoSensorID) REFERENCES TipoSensor (TipoSensorID);
@@ -51,7 +51,7 @@ ALTER TABLE FatorProducao_Elemento ADD CONSTRAINT FKFatorProdu894239 FOREIGN KEY
 ALTER TABLE Cultura ADD CONSTRAINT FKCultura85527 FOREIGN KEY (EspecieVegetalID) REFERENCES EspecieVegetal (EspecieVegetalID);
 ALTER TABLE Cultivo ADD CONSTRAINT FKCultivo769866 FOREIGN KEY (UnidadeID) REFERENCES Unidade (UnidadeID);
 ALTER TABLE Parcela ADD CONSTRAINT FKParcela861407 FOREIGN KEY (UnidadeID) REFERENCES Unidade (UnidadeID);
-ALTER TABLE Edifício ADD CONSTRAINT FKEdifício955570 FOREIGN KEY (UnidadeID) REFERENCES Unidade (UnidadeID);
+ALTER TABLE Edificio ADD CONSTRAINT FKEdificio23155 FOREIGN KEY (UnidadeID) REFERENCES Unidade (UnidadeID);
 ALTER TABLE FatorProducao_Elemento ADD CONSTRAINT FKFatorProdu92110 FOREIGN KEY (UnidadeID) REFERENCES Unidade (UnidadeID);
 ALTER TABLE ViaAplicacao_FatorProdução ADD CONSTRAINT FKViaAplicac635298 FOREIGN KEY (ViaAplicacaoID) REFERENCES ViaAplicacao (ViaAplicacaoID);
 ALTER TABLE ViaAplicacao_FatorProdução ADD CONSTRAINT FKViaAplicac964263 FOREIGN KEY (FatorProducaoID) REFERENCES FatorProdução (FatorProducaoID);

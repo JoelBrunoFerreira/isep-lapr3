@@ -1,6 +1,6 @@
 SELECT CulturaID, ParcelaID, DataInicio, DataFim, Quantidade, UnidadeID FROM Cultivo;
 SELECT CulturaID, Variedade, EspecieVegetalID, EpocaSementeiraPlantacao, EpocaPoda, EpocaFloracao, EpocaColheita FROM Cultura;
-SELECT EdificioID, DesignacaoEdificio, Area, UnidadeID, TipoEdificioID FROM Edifício;
+SELECT EdificioID, DesignacaoEdificio, Area, UnidadeID, TipoEdificioID FROM Edificio;
 SELECT ElementoID, Nome FROM Elemento;
 SELECT EspecieVegetalID, DesignacaoEspecie, NomeComum, TipoCulturaID FROM EspecieVegetal;
 SELECT EstacaoMeteorologicaID FROM EstaçãoMeteorologica;

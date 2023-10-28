@@ -1,6 +1,6 @@
 INSERT INTO Cultivo(CulturaID, ParcelaID, DataInicio, DataFim, Quantidade, UnidadeID) VALUES (?, ?, ?, ?, ?, ?);
 INSERT INTO Cultura(CulturaID, Variedade, EspecieVegetalID, EpocaSementeiraPlantacao, EpocaPoda, EpocaFloracao, EpocaColheita) VALUES (?, ?, ?, ?, ?, ?, ?);
-INSERT INTO Edifício(EdificioID, DesignacaoEdificio, Area, UnidadeID, TipoEdificioID) VALUES (?, ?, ?, ?, ?);
+INSERT INTO Edificio(EdificioID, DesignacaoEdificio, Area, UnidadeID, TipoEdificioID) VALUES (?, ?, ?, ?, ?);
 INSERT INTO Elemento(ElementoID, Nome) VALUES (?, ?);
 INSERT INTO EspecieVegetal(EspecieVegetalID, DesignacaoEspecie, NomeComum, TipoCulturaID) VALUES (?, ?, ?, ?);
 INSERT INTO EstaçãoMeteorologica(EstacaoMeteorologicaID) VALUES (?);

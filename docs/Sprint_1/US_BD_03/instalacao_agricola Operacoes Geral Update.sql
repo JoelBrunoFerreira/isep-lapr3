@@ -1,6 +1,6 @@
 UPDATE Cultivo SET DataInicio = ?, DataFim = ?, Quantidade = ?, UnidadeID = ? WHERE CulturaID = ? AND ParcelaID = ?;
 UPDATE Cultura SET Variedade = ?, EspecieVegetalID = ?, EpocaSementeiraPlantacao = ?, EpocaPoda = ?, EpocaFloracao = ?, EpocaColheita = ? WHERE CulturaID = ?;
-UPDATE Edifício SET DesignacaoEdificio = ?, Area = ?, UnidadeID = ?, TipoEdificioID = ? WHERE EdificioID = ?;
+UPDATE Edificio SET DesignacaoEdificio = ?, Area = ?, UnidadeID = ?, TipoEdificioID = ? WHERE EdificioID = ?;
 UPDATE Elemento SET Nome = ? WHERE ElementoID = ?;
 UPDATE EspecieVegetal SET DesignacaoEspecie = ?, NomeComum = ?, TipoCulturaID = ? WHERE EspecieVegetalID = ?;
 UPDATE EstaçãoMeteorologica SET  WHERE EstacaoMeteorologicaID = ?;
