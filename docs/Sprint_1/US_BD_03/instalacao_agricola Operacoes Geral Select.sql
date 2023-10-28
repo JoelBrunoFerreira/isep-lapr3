@@ -10,11 +10,10 @@ SELECT FatorProducaoID, NomeComercial, FabricanteID, FormatoID, TipoFatorProduca
 SELECT FormatoID, DescricaoFormato FROM Formato;
 SELECT GrandezaID, DesignacaoGrandeza FROM Grandeza;
 SELECT MedicaoID, ValorMedido, EstacaoMeteorologicaID, TipoSensorID FROM Medição;
-SELECT OperacaoID, CulturaID, ParcelaID, TipoOperacaoID, DataRealizacao, Quantidade, UnidadeID FROM Operacao;
-SELECT OperacaoID, FatorProducaoID, Quantidade, UnidadeID, AplicacaoFitofarmacoOperacaoID FROM Operacao_FatorProdução;
+SELECT OperacaoID, CulturaID, ParcelaID, TipoOperacaoID, DataRealizacao, Quantidade, UnidadeID, FatorProducaoID FROM Operacao;
 SELECT OperacaoOperacaoID, ProdutoProdutoID, Quantidade, UnidadeID FROM Operacao_Produto;
 SELECT ParcelaID, Designacao, Area, UnidadeID FROM Parcela;
-SELECT PlanoAgricolaID, Ano, "Instalação AgricolaIntalacaoAgricolaID" FROM PlanoAgricola;
+SELECT PlanoAgricolaID, Ano FROM PlanoAgricola;
 SELECT PlanoColheita, DataPrevista, QuantidadePrevista, PlanoAgricolaID, CulturaID, ParcelaID FROM PlanoColheita;
 SELECT PlanoFertilizacaoID, DataPrevista, ViaAplicacaoID, PlanoAgricolaID, CulturaID, ParcelaID FROM PlanoFertilizacao;
 SELECT PlanoRegaID, PlanoAgricolaID, CulturaID, ParcelaID FROM PlanoRega;

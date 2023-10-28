@@ -10,11 +10,10 @@ UPDATE FatorProdução SET NomeComercial = ?, FabricanteID = ?, FormatoID = ?, T
 UPDATE Formato SET DescricaoFormato = ? WHERE FormatoID = ?;
 UPDATE Grandeza SET DesignacaoGrandeza = ? WHERE GrandezaID = ?;
 UPDATE Medição SET ValorMedido = ?, EstacaoMeteorologicaID = ?, TipoSensorID = ? WHERE MedicaoID = ?;
-UPDATE Operacao SET CulturaID = ?, ParcelaID = ?, TipoOperacaoID = ?, DataRealizacao = ?, Quantidade = ?, UnidadeID = ? WHERE OperacaoID = ?;
-UPDATE Operacao_FatorProdução SET Quantidade = ?, UnidadeID = ?, AplicacaoFitofarmacoOperacaoID = ? WHERE OperacaoID = ? AND FatorProducaoID = ?;
+UPDATE Operacao SET CulturaID = ?, ParcelaID = ?, TipoOperacaoID = ?, DataRealizacao = ?, Quantidade = ?, UnidadeID = ?, FatorProducaoID = ? WHERE OperacaoID = ?;
 UPDATE Operacao_Produto SET Quantidade = ?, UnidadeID = ? WHERE OperacaoOperacaoID = ? AND ProdutoProdutoID = ?;
 UPDATE Parcela SET Designacao = ?, Area = ?, UnidadeID = ? WHERE ParcelaID = ?;
-UPDATE PlanoAgricola SET Ano = ?, "Instalação AgricolaIntalacaoAgricolaID" = ? WHERE PlanoAgricolaID = ?;
+UPDATE PlanoAgricola SET Ano = ? WHERE PlanoAgricolaID = ?;
 UPDATE PlanoColheita SET DataPrevista = ?, QuantidadePrevista = ?, PlanoAgricolaID = ?, CulturaID = ?, ParcelaID = ? WHERE PlanoColheita = ?;
 UPDATE PlanoFertilizacao SET DataPrevista = ?, ViaAplicacaoID = ?, PlanoAgricolaID = ?, CulturaID = ?, ParcelaID = ? WHERE PlanoFertilizacaoID = ?;
 UPDATE PlanoRega SET PlanoAgricolaID = ?, CulturaID = ?, ParcelaID = ? WHERE PlanoRegaID = ?;

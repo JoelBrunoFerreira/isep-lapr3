@@ -10,11 +10,10 @@ INSERT INTO FatorProdução(FatorProducaoID, NomeComercial, FabricanteID, Format
 INSERT INTO Formato(FormatoID, DescricaoFormato) VALUES (?, ?);
 INSERT INTO Grandeza(GrandezaID, DesignacaoGrandeza) VALUES (?, ?);
 INSERT INTO Medição(MedicaoID, ValorMedido, EstacaoMeteorologicaID, TipoSensorID) VALUES (?, ?, ?, ?);
-INSERT INTO Operacao(OperacaoID, CulturaID, ParcelaID, TipoOperacaoID, DataRealizacao, Quantidade, UnidadeID) VALUES (?, ?, ?, ?, ?, ?, ?);
-INSERT INTO Operacao_FatorProdução(OperacaoID, FatorProducaoID, Quantidade, UnidadeID, AplicacaoFitofarmacoOperacaoID) VALUES (?, ?, ?, ?, ?);
+INSERT INTO Operacao(OperacaoID, CulturaID, ParcelaID, TipoOperacaoID, DataRealizacao, Quantidade, UnidadeID, FatorProducaoID) VALUES (?, ?, ?, ?, ?, ?, ?, ?);
 INSERT INTO Operacao_Produto(OperacaoOperacaoID, ProdutoProdutoID, Quantidade, UnidadeID) VALUES (?, ?, ?, ?);
 INSERT INTO Parcela(ParcelaID, Designacao, Area, UnidadeID) VALUES (?, ?, ?, ?);
-INSERT INTO PlanoAgricola(PlanoAgricolaID, Ano, "Instalação AgricolaIntalacaoAgricolaID") VALUES (?, ?, ?);
+INSERT INTO PlanoAgricola(PlanoAgricolaID, Ano) VALUES (?, ?);
 INSERT INTO PlanoColheita(PlanoColheita, DataPrevista, QuantidadePrevista, PlanoAgricolaID, CulturaID, ParcelaID) VALUES (?, ?, ?, ?, ?, ?);
 INSERT INTO PlanoFertilizacao(PlanoFertilizacaoID, DataPrevista, ViaAplicacaoID, PlanoAgricolaID, CulturaID, ParcelaID) VALUES (?, ?, ?, ?, ?, ?);
 INSERT INTO PlanoRega(PlanoRegaID, PlanoAgricolaID, CulturaID, ParcelaID) VALUES (?, ?, ?, ?);
