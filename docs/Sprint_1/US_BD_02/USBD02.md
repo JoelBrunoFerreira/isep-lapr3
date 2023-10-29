@@ -2,6 +2,8 @@
 
 Como Product Owner, pretendo que seja elaborado o modelo relacional (nível lógico).
 
+![ModeloRelacional.svg](ModeloRelacional.svg)
+
 ### Restrições de integridade
 
 * As quantidades não podem ter valores ser negativos.
