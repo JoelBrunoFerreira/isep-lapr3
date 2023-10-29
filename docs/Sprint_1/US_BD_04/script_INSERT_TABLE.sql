@@ -466,3 +466,7 @@ INSERT INTO Operacao(OperacaoID, CulturaID, ParcelaID, TipoOperacaoID, DataReali
 INSERT INTO Operacao(OperacaoID, CulturaID, ParcelaID, TipoOperacaoID, DataRealizacao, Quantidade, UnidadeID, FatorProducaoID) VALUES (206, 94, 107, 5,TO_DATE('20/01/2023','dd/mm/yyyy'), 4, 3, 1);
 INSERT INTO Operacao(OperacaoID, CulturaID, ParcelaID, TipoOperacaoID, DataRealizacao, Quantidade, UnidadeID, FatorProducaoID) VALUES (207, 95, 107, 5,TO_DATE('20/01/2023','dd/mm/yyyy'), 5, 3, 1);
 INSERT INTO Operacao(OperacaoID, CulturaID, ParcelaID, TipoOperacaoID, DataRealizacao, Quantidade, UnidadeID, FatorProducaoID) VALUES (208, 80, 103, 8,TO_DATE('20/03/2023','dd/mm/yyyy'), 1.3, 4, null);
+
+INSERT INTO Produto(ProdutoID, DesignacaoProduto) VALUES (10, 'Prod');
+INSERT INTO Operacao_Produto(OperacaoID, ProdutoID, Quantidade, UnidadeID) VALUES (197, 10, 10, NULL);
+INSERT INTO Operacao_Produto(OperacaoID, ProdutoID, Quantidade, UnidadeID) VALUES (198, 10, 10, NULL);

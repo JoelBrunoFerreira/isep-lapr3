@@ -16,4 +16,4 @@ INNER JOIN
 WHERE
     Operacao.DataRealizacao BETWEEN TO_DATE('2022-01-01', 'YYYY-MM-DD') AND TO_DATE('2023-09-15', 'YYYY-MM-DD')
 AND Parcela.Designacao = 'Vinha'
-GROUP BY TipoFatorProducao.DescricaoTipoFatorProducao
+GROUP BY TipoFatorProducao.DescricaoTipoFatorProducao;

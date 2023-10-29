@@ -3,17 +3,13 @@
 
 -- SQL Query
 
-INSERT INTO Produto(ProdutoID, DesignacaoProduto) VALUES (10, 'Prod');
-INSERT INTO Operacao_Produto(OperacaoID, ProdutoProdutoID, Quantidade, UnidadeID) VALUES (197, 10, 10, NULL);
-INSERT INTO Operacao_Produto(OperacaoID, ProdutoProdutoID, Quantidade, UnidadeID) VALUES (198, 10, 10, NULL);
-
 SELECT
     Produto.DesignacaoProduto,
     SUM(Operacao_Produto.Quantidade) AS QuantidadeColhida
     FROM
     Operacao_Produto
 JOIN
-    Produto ON Operacao_Produto.ProdutoProdutoID = Produto.ProdutoID
+    Produto ON Operacao_Produto.ProdutoID = Produto.ProdutoID
 JOIN
     Operacao ON Operacao_Produto.OperacaoID = Operacao.OperacaoID
 JOIN
