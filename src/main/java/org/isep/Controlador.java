@@ -1,5 +1,6 @@
 package org.isep;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -9,16 +10,15 @@ public class Controlador {
     private static TaskRepository taskRep;
     private static LocalDateTime dataHoraAtual;
 
-    public Controlador() {
+    public Controlador(LocalDateTime dataHoraAtual) {
         taskRep = new TaskRepository();
-        dataHoraAtual = LocalDateTime.now();
+        this.dataHoraAtual = dataHoraAtual;
     }
 
     public void mostrarTodasAsTasks() {
-        System.out.println("LISTA DE TAREFAS");
-        for (Task task : taskRep.getTaskList()
-        ) {
-            System.out.println(task);
+        System.out.println("PLANO DE REGA");
+        for (int i = 0; i < taskRep.getTaskList().size(); i++) {
+            System.out.println((i+1) + " - " + taskRep.getTaskList().get(i));
         }
     }
 
@@ -29,8 +29,10 @@ public class Controlador {
             for (Task t : tasks
             ) {
                 System.out.println(t.getParcela().getSetor());
-                System.out.printf("Faltam %d minutos para fim.\n", minutosQueFaltam(t.getHoraFimRega()));
+                System.out.printf("Faltam %02d minutos para fim.\n", minutosQueFaltam(t.getHoraFimRega()));
             }
+        } else {
+            System.out.println("Nada a regar!");
         }
     }
 

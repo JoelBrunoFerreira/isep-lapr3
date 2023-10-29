@@ -5,10 +5,13 @@ target/
 
 ### IntelliJ IDEA ###
 .idea/*
+.idea/csv-editor.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/vcs.xml
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
-.idea/libraries/
 *.iws
 *.iml
 *.ipr
