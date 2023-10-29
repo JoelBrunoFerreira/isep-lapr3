@@ -2829,7 +2829,7 @@ ENP/qeWq69DliQZre6S+vzjI8H/zBIn/51fyZKPLEw3KI436K6KMGiqjjJsrooyn
 I8sBAK/DBJK9idpeAAAAAElFTkSuQmCC" font-style="italic" height="18" preserveAspectRatio="none" font-weight="bold"
       /><text x="24" y="12" transform="translate(0,2)" clip-path="url(#clipPath204)" font-style="italic" stroke="none" font-weight="bold" xml:space="preserve"
       >OperacaoID</text
-      ><text x="140" y="12" transform="translate(0,2)" clip-path="url(#clipPath204)" font-style="italic" stroke="none" font-weight="bold" xml:space="preserve"
+      ><text x="104" y="12" transform="translate(0,2)" clip-path="url(#clipPath204)" font-style="italic" stroke="none" font-weight="bold" xml:space="preserve"
       >number(10)</text
       ><image x="4" y="0" transform="translate(0,20)" clip-path="url(#clipPath205)" width="18" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAACH0lEQVR4XmNgwAIU
 9idwoIuRDPTPJNkor/Wfjy5OEjC6mFKgti3ks9QMp7NC9cbzQVigwaRAsMFEB10t
@@ -2845,8 +2845,8 @@ X7w9y/T/40UGMAaxgYYcbHBARApRYFqNovqKTrn/788xgPHiFoVnuGOMANg0SfL/
 ENP/qeWq69DliQZre6S+vzjI8H/zBIn/51fyZKPLEw3KI436K6KMGiqjjJsrooyn
 I8sBAK/DBJK9idpeAAAAAElFTkSuQmCC" font-style="italic" height="18" preserveAspectRatio="none" font-weight="bold"
       /><text x="24" y="12" transform="translate(0,20)" clip-path="url(#clipPath205)" font-style="italic" stroke="none" font-weight="bold" xml:space="preserve"
-      >ProdutoProdutoID</text
-      ><text x="140" y="12" transform="translate(0,20)" clip-path="url(#clipPath205)" font-style="italic" stroke="none" font-weight="bold" xml:space="preserve"
+      >ProdutoID</text
+      ><text x="104" y="12" transform="translate(0,20)" clip-path="url(#clipPath205)" font-style="italic" stroke="none" font-weight="bold" xml:space="preserve"
       >number(10)</text
     ></g
     ><g fill-opacity="1" text-rendering="geometricPrecision" stroke="rgb(255,255,174)" stroke-linecap="butt" transform="translate(339.8571,597.8297)" stroke-miterlimit="0" stroke-opacity="1" fill="rgb(255,255,174)" font-weight="bold" font-family="sans-serif" font-style="italic" stroke-linejoin="bevel" font-size="11px" image-rendering="optimizeQuality"
@@ -2860,9 +2860,9 @@ QWrR9cOBpHPu7/9EApBadP1wgG5Q++bz//kz5oMxiI0MSDIIHyDJoFEXYQJ0g6jm
 IqoZhA/gNUjCKeeXtGveX2IwSC26fqoAAJ39TRmoGdqcAAAAAElFTkSuQmCC" height="18" preserveAspectRatio="none"
       /><text x="24" xml:space="preserve" y="12" clip-path="url(#clipPath206)" stroke="none"
       >Quantidade</text
-      ><text x="140" xml:space="preserve" y="12" clip-path="url(#clipPath206)" stroke="none"
+      ><text x="104" xml:space="preserve" y="12" clip-path="url(#clipPath206)" stroke="none"
       >number(10)</text
-      ><image x="219" y="0" clip-path="url(#clipPath206)" width="18" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAwElEQVR4Xs2TsQ3D
+      ><image x="183" y="0" clip-path="url(#clipPath206)" width="18" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAwElEQVR4Xs2TsQ3D
 IBBFGYEuLV1atkhL5/a2SJsuLVXm8Ag3CiOwAbmPDSJOLMXQ+EkncRz3BBgrdXYu
 Ei+JtAbGv2osMTW1Lx5CKjjn0HTf1pi5yHb5EIUQktYaTdhNvwggV8uRxkTAWovG
 cVFp7BZ57+uYiPIxwWERLhoXDmKMVXxYJHl+AgXIQJdIgtHY0iuajDF1NyMi8Gzn
@@ -2881,9 +2881,9 @@ oO7bNxVdD1ZAE4OwAbIMopqLBodBLqlzw4Dqc3BhveBJviB1AG/ChZn+MrpkAAAA
 AElFTkSuQmCC" font-style="italic" height="18" preserveAspectRatio="none"
       /><text x="24" y="12" transform="translate(0,18)" clip-path="url(#clipPath207)" font-style="italic" stroke="none" xml:space="preserve"
       >UnidadeID</text
-      ><text x="140" y="12" transform="translate(0,18)" clip-path="url(#clipPath207)" font-style="italic" stroke="none" xml:space="preserve"
+      ><text x="104" y="12" transform="translate(0,18)" clip-path="url(#clipPath207)" font-style="italic" stroke="none" xml:space="preserve"
       >number(10)</text
-      ><image x="219" y="0" transform="translate(0,18)" clip-path="url(#clipPath207)" width="18" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAwElEQVR4Xs2TsQ3D
+      ><image x="183" y="0" transform="translate(0,18)" clip-path="url(#clipPath207)" width="18" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAwElEQVR4Xs2TsQ3D
 IBBFGYEuLV1atkhL5/a2SJsuLVXm8Ag3CiOwAbmPDSJOLMXQ+EkncRz3BBgrdXYu
 Ei+JtAbGv2osMTW1Lx5CKjjn0HTf1pi5yHb5EIUQktYaTdhNvwggV8uRxkTAWovG
 cVFp7BZ57+uYiPIxwWERLhoXDmKMVXxYJHl+AgXIQJdIgtHY0iuajDF1NyMi8Gzn
@@ -3056,12 +3056,12 @@ AElFTkSuQmCC" font-style="italic" height="18" preserveAspectRatio="none"
       /><circle transform="translate(69,107) rotate(-180) translate(-69,-107)" clip-path="url(#clipPath258)" fill="white" r="4.125" cx="69" cy="118.2679" stroke="none"
       /><circle fill="none" r="4.125" clip-path="url(#clipPath258)" cx="69" transform="translate(69,107) rotate(-180) translate(-69,-107)" cy="118.2679"
     /></g
-    ><g fill-opacity="1" text-rendering="geometricPrecision" stroke="rgb(128,128,255)" stroke-linecap="butt" transform="translate(475.8571,975.8297)" stroke-miterlimit="0" stroke-opacity="1" fill="rgb(128,128,255)" stroke-dasharray="5,5" font-family="sans-serif" stroke-linejoin="round" font-size="11px" image-rendering="optimizeQuality"
+    ><g fill-opacity="1" text-rendering="geometricPrecision" stroke="black" stroke-linecap="butt" transform="translate(475.8571,975.8297)" stroke-miterlimit="0" stroke-opacity="1" fill="black" stroke-dasharray="5,5" font-family="sans-serif" stroke-linejoin="round" font-size="11px" image-rendering="optimizeQuality"
     ><line y2="89" fill="none" x1="69" clip-path="url(#clipPath260)" x2="69" y1="69"
       /><line y2="89" fill="none" x1="69" clip-path="url(#clipPath260)" x2="283" y1="89"
       /><line y2="107" fill="none" x1="283" clip-path="url(#clipPath260)" x2="283" y1="89"
     /></g
-    ><g font-size="11px" transform="translate(475.8571,975.8297)" fill-opacity="1" fill="rgb(128,128,255)" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="rgb(128,128,255)" stroke-opacity="1"
+    ><g font-size="11px" transform="translate(475.8571,975.8297)" fill-opacity="1" fill="black" text-rendering="geometricPrecision" image-rendering="optimizeQuality" font-family="sans-serif" stroke="black" stroke-opacity="1"
     ><line y2="77.25" fill="none" x1="64.875" clip-path="url(#clipPath260)" x2="73.125" y1="77.25"
       /><path fill="none" d="M283 114.1429 L278.875 107 L283 114.1429 L283 107 L283 114.1429 L287.125 107 Z" clip-path="url(#clipPath261)" transform="translate(283,107) rotate(-180) translate(-283,-107)" stroke-linecap="butt" stroke-linejoin="bevel"
       /><circle transform="translate(283,107) rotate(-180) translate(-283,-107)" clip-path="url(#clipPath261)" fill="white" r="4.125" cx="283" cy="118.2679" stroke="none"

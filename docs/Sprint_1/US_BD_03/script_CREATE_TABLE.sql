@@ -11,7 +11,7 @@ CREATE TABLE Formato (FormatoID number(10) NOT NULL, DescricaoFormato varchar2(2
 CREATE TABLE Grandeza (GrandezaID number(10) NOT NULL, DesignacaoGrandeza varchar2(255) NOT NULL, PRIMARY KEY (GrandezaID));
 CREATE TABLE Medição (MedicaoID number(10) NOT NULL, ValorMedido double precision NOT NULL, EstacaoMeteorologicaID number(19) NOT NULL, TipoSensorID number(19) NOT NULL, PRIMARY KEY (MedicaoID));
 CREATE TABLE Operacao (OperacaoID number(10) NOT NULL, ParcelaID number(10) NOT NULL, CulturaID number(10), TipoOperacaoID number(10) NOT NULL, DataRealizacao date NOT NULL, Quantidade double precision, UnidadeID number(10), FatorProducaoID number(19), PRIMARY KEY (OperacaoID));
-CREATE TABLE Operacao_Produto (OperacaoID number(10) NOT NULL, ProdutoProdutoID number(10) NOT NULL, Quantidade number(10), UnidadeID number(10), PRIMARY KEY (OperacaoID, ProdutoProdutoID));
+CREATE TABLE Operacao_Produto (OperacaoID number(10) NOT NULL, ProdutoID number(10) NOT NULL, Quantidade number(10), UnidadeID number(10), PRIMARY KEY (OperacaoID, ProdutoID));
 CREATE TABLE Parcela (ParcelaID number(10) NOT NULL, Designacao varchar2(255) NOT NULL, Area double precision, UnidadeID number(10), PRIMARY KEY (ParcelaID));
 CREATE TABLE PlanoAgricola (PlanoAgricolaID number(10) NOT NULL, Ano number(4) NOT NULL, PRIMARY KEY (PlanoAgricolaID));
 CREATE TABLE PlanoColheita (PlanoColheita number(10) NOT NULL, DataPrevista date NOT NULL, QuantidadePrevista number(10) NOT NULL, PlanoAgricolaID number(10) NOT NULL, CulturaID number(10) NOT NULL, ParcelaID number(10) NOT NULL, CultivoCultivoID number(10), PRIMARY KEY (PlanoColheita));
@@ -57,9 +57,8 @@ ALTER TABLE ViaAplicacao_FatorProducao ADD CONSTRAINT FKViaAplicac226028 FOREIGN
 ALTER TABLE Operacao ADD CONSTRAINT FKOperacao546210 FOREIGN KEY (TipoOperacaoID) REFERENCES TipoOperacao (TipoOperacaoID);
 ALTER TABLE Operacao ADD CONSTRAINT FKOperacao275413 FOREIGN KEY (UnidadeID) REFERENCES Unidade (UnidadeID);
 ALTER TABLE Operacao_Produto ADD CONSTRAINT FKOperacao_P169962 FOREIGN KEY (OperacaoID) REFERENCES Operacao (OperacaoID);
-ALTER TABLE Operacao_Produto ADD CONSTRAINT FKOperacao_P957748 FOREIGN KEY (ProdutoProdutoID) REFERENCES Produto (ProdutoID);
+ALTER TABLE Operacao_Produto ADD CONSTRAINT FKOperacao_P134384 FOREIGN KEY (ProdutoID) REFERENCES Produto (ProdutoID);
 ALTER TABLE Operacao_Produto ADD CONSTRAINT FKOperacao_P296410 FOREIGN KEY (UnidadeID) REFERENCES Unidade (UnidadeID);
 ALTER TABLE Operacao ADD CONSTRAINT FKOperacao604165 FOREIGN KEY (FatorProducaoID) REFERENCES FatorProducao (FatorProducaoID);
 ALTER TABLE Operacao ADD CONSTRAINT FKOperacao675533 FOREIGN KEY (ParcelaID) REFERENCES Parcela (ParcelaID);
 ALTER TABLE Operacao ADD CONSTRAINT FKOperacao548168 FOREIGN KEY (CulturaID) REFERENCES Cultura (CulturaID);
-
