@@ -14,7 +14,9 @@ public class Controlador {
         taskRep = new TaskRepository();
         this.dataHoraAtual = dataHoraAtual;
     }
-
+    public boolean checkDate(){
+        return dataHoraAtual.toLocalDate().isBefore(taskRep.getTaskList().get(0).getDiaInicio()) || dataHoraAtual.toLocalDate().isAfter(taskRep.getTaskList().get(0).getDiaFim());
+    }
     public void mostrarTodasAsTasks() {
         System.out.println("PLANO DE REGA");
         for (int i = 0; i < taskRep.getTaskList().size(); i++) {
