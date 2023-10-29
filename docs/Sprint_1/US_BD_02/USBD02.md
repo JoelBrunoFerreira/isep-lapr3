@@ -1,5 +1,6 @@
 # US BD02
 
+Como Product Owner, pretendo que seja elaborado o modelo relacional (nível lógico).
 
 ### Restrições de integridade
 
