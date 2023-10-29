@@ -13,6 +13,14 @@ public class Task implements Serializable {
     private LocalTime horaFimRega;
     private Parcela parcela;
 
+    public LocalDate getDiaInicio() {
+        return diaInicio;
+    }
+
+    public LocalDate getDiaFim() {
+        return diaFim;
+    }
+
     public Task(LocalDate diaInicio, LocalTime horaInicioRega, LocalTime horaFimRega, Parcela parcela) {
         this.diaInicio = diaInicio;
         this.diaFim = diaInicio.plusDays(DIAS_PLANO);
