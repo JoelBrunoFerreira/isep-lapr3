@@ -41,6 +41,6 @@ SELECT Produto.DesignacaoProduto, SUM(Operacao_Produto.Quantidade) AS Quantidade
 
 As imagens das tabelas são mostradas a seguir:
 
-![TabelaParcela.png](Images/TabelaOperacoes.png)
-![TabelaOperacao.png](Images/TabelaFatorProducao.png)
+![TabelaParcela.png](Images/TabelaParcela.png)
+![TabelaOperacao.png](Images/TabelaOperacao.png)
 

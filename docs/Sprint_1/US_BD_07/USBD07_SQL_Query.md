@@ -39,27 +39,6 @@ Para validar os dados, foram analisados os dados da tabela **Operacao** e **Fato
 
 As imagens das tabelas são mostradas a seguir:
 
-![TabelaOperacoes.png](Images/TabelaOperacoes.png)
-![TabelaFatorProducao.png](Images/TabelaFatorProducao.png)
-
-A análise da tabela "Operações" permitiu identificar os fatores de produção aplicados nas operações durante o período em estudo:
-
-| Fator Producao           | Numero de Aplicações |
-|--------------------------|---------------------:|
-| Calda Bordalesa ASCENZA  |                    2 |
-| EPSO Microtop            |                    1 |
-| Patentkali               |                    2 |
-
-Consultando a tabela "Fator de Produção", foi possível determinar o tipo de cada fator de produção:
-
-- Calda Bordalesa ASCENZA: Fitofármaco
-- EPSO Microtop e Patentkali: Adubo
-
-Desta forma, ao agruparmos os fatores de produção por tipo e somando o número de operações, obtemos o seguinte resultado:
-
-| DESCRICAOTIPOFATORPRODUCAO | NUMEROOPERACOES |
-|----------------------------|----------------:|
-| Adubo                       |               3 |
-| Fitofármaco                 |               2 |
-
-Em resumo, durante o período em estudo, foram realizadas 3 operações utilizando adubos e 2 operações com fitofármacos.
+![TabelaOperacao.png](Images/TabelaOperacao.png)
+![TabelaParcela.png](Images/TabelaParcela.png)
+![TabelaTipoOperacao.png](Images/TabelaTipoOperacao.png)
