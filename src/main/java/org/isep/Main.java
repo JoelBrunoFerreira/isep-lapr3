@@ -1,5 +1,7 @@
 package org.isep;
 
+import org.isep.JDBC.DB_Connection;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -8,7 +10,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner read = new Scanner(System.in);
-
+        /*
         boolean flag = false;
 
         while (!flag) {
@@ -29,5 +31,12 @@ public class Main {
                 System.out.println("Formato errado!");
             }
         }
+         */
+        DB_Connection db = new DB_Connection();
+        // db.create_or_INSERT("INSERT INTO test (FirstName, LastName) VALUES ('Joel', 'Ferreira')");
+
+        // db.select("SELECT * FROM test");
+
+        // db.delete("DELETE FROM test WHERE FirstName='Joel'");
     }
 }

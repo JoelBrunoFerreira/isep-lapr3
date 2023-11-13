@@ -11,10 +11,10 @@ import java.util.Scanner;
 public class DB_Connection {
 
     // DB connection
-    private String db_URL_Localhost = "jdbc:oracle:thin:@localhost:1521:xe/...";
-    private String db_URL_Remote = "";
-    private String userName = "";
-    private String password = "";
+    private final String db_URL_Localhost = "jdbc:oracle:thin:@localhost:1521:xe/...";
+    private final String db_URL_Remote = "jdbc:oracle:thin:@vsgate-s1.dei.isep.ipp.pt:10988:XE";
+    private final String userName = "system";
+    private final String password = "elcaro";
 
 
     // ******************** Basic CRUD Functionally ***********************
@@ -22,12 +22,12 @@ public class DB_Connection {
     // 1) --> Read
     public void select(String SQL_Query) {
         try {
-            Connection db_connection = DriverManager.getConnection(this.db_URL_Localhost, this.userName, this.password);
+            Connection db_connection = DriverManager.getConnection(this.db_URL_Remote, this.userName, this.password);
             Statement statement = db_connection.createStatement();
             ResultSet rs = statement.executeQuery(SQL_Query);
 
             while (rs.next()) {
-                System.out.println(rs.getString("...")); // column name(s)
+                System.out.println(rs.getString("FirstName") + " " + rs.getString("LastName")); // column name(s)
             }
 
             db_connection.close();
@@ -58,10 +58,10 @@ public class DB_Connection {
         }
     }
 
-    // 2) --> Create OR Update
-    public void create_or_update(String SQL_Query) {
+    // 2) --> Create OR INSERT
+    public void create_or_INSERT(String SQL_Query) {
         try {
-            Connection db_connection = DriverManager.getConnection(this.db_URL_Localhost, this.userName, this.password);
+            Connection db_connection = DriverManager.getConnection(this.db_URL_Remote, this.userName, this.password);
             Statement statement = db_connection.createStatement();
             statement.executeUpdate(SQL_Query);
             db_connection.close();
@@ -75,7 +75,7 @@ public class DB_Connection {
     // 3) --> Delete
     public void delete(String SQL_Query) {
         try {
-            Connection db_connection = DriverManager.getConnection(this.db_URL_Localhost, this.userName, this.password);
+            Connection db_connection = DriverManager.getConnection(this.db_URL_Remote, this.userName, this.password);
             Statement statement = db_connection.createStatement();
             int rowsAffected = statement.executeUpdate(SQL_Query);
 
@@ -96,7 +96,7 @@ public class DB_Connection {
         try {
 
             Connection db_connection = DriverManager.getConnection(this.db_URL_Localhost, this.userName, this.password);
-            PreparedStatement preparedStatement = db_connection.prepareStatement("SELECT * FROM musica WHERE titulo=?");
+            PreparedStatement preparedStatement = db_connection.prepareStatement("SELECT * FROM test WHERE FIRSTNAME=?");
 
             // Set the parameters
             preparedStatement.setString(1, param); // Summer of Love
