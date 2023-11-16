@@ -11,10 +11,11 @@ import java.util.Scanner;
 public class DB_Connection {
 
     // DB connection
-    private final String db_URL_Localhost = "jdbc:oracle:thin:@localhost:1521:xe/...";
-    private final String db_URL_Remote = "jdbc:oracle:thin:@vsgate-s1.dei.isep.ipp.pt:10988:XE";
-    private final String userName = "system";
-    private final String password = "elcaro";
+    private final String db_URL = "jdbc:oracle:thin:@localhost:1521:xe";
+
+    //private final String db_URL = "jdbc:oracle:thin:@vsgate-s1.dei.isep.ipp.pt:10988:XE";
+    private final String userName = "";
+    private final String password = "";
 
 
     // ******************** Basic CRUD Functionally ***********************
@@ -22,7 +23,7 @@ public class DB_Connection {
     // 1) --> Read
     public void select(String SQL_Query) {
         try {
-            Connection db_connection = DriverManager.getConnection(this.db_URL_Remote, this.userName, this.password);
+            Connection db_connection = DriverManager.getConnection(this.db_URL, this.userName, this.password);
             Statement statement = db_connection.createStatement();
             ResultSet rs = statement.executeQuery(SQL_Query);
 
@@ -41,7 +42,7 @@ public class DB_Connection {
     public void select_and_Store(String SQL_Query) {
         ArrayList<String> output = new ArrayList<>();
         try {
-            Connection db_connection = DriverManager.getConnection(this.db_URL_Localhost, this.userName, this.password);
+            Connection db_connection = DriverManager.getConnection(this.db_URL, this.userName, this.password);
             Statement statement = db_connection.createStatement();
             ResultSet rs = statement.executeQuery(SQL_Query);
 
@@ -61,7 +62,7 @@ public class DB_Connection {
     // 2) --> Create OR INSERT
     public void create_or_INSERT(String SQL_Query) {
         try {
-            Connection db_connection = DriverManager.getConnection(this.db_URL_Remote, this.userName, this.password);
+            Connection db_connection = DriverManager.getConnection(this.db_URL, this.userName, this.password);
             Statement statement = db_connection.createStatement();
             statement.executeUpdate(SQL_Query);
             db_connection.close();
@@ -75,7 +76,7 @@ public class DB_Connection {
     // 3) --> Delete
     public void delete(String SQL_Query) {
         try {
-            Connection db_connection = DriverManager.getConnection(this.db_URL_Remote, this.userName, this.password);
+            Connection db_connection = DriverManager.getConnection(this.db_URL, this.userName, this.password);
             Statement statement = db_connection.createStatement();
             int rowsAffected = statement.executeUpdate(SQL_Query);
 
@@ -95,7 +96,7 @@ public class DB_Connection {
     public void select_ps(String param) {
         try {
 
-            Connection db_connection = DriverManager.getConnection(this.db_URL_Localhost, this.userName, this.password);
+            Connection db_connection = DriverManager.getConnection(this.db_URL, this.userName, this.password);
             PreparedStatement preparedStatement = db_connection.prepareStatement("SELECT * FROM test WHERE FIRSTNAME=?");
 
             // Set the parameters
@@ -120,7 +121,7 @@ public class DB_Connection {
         // NOTE: the procedure should already be in the database
         // ------------------------------------------------------
         try {
-            Connection db_connection = DriverManager.getConnection(this.db_URL_Localhost, this.userName, this.password);
+            Connection db_connection = DriverManager.getConnection(this.db_URL, this.userName, this.password);
 
             // Set the parameters
             String paramOne = "Some String";
@@ -154,7 +155,7 @@ public class DB_Connection {
     // 6)
     public void transaction(String SQL_Query_1, String SQL_Query_2) {
         try {
-            Connection db_connection = DriverManager.getConnection(this.db_URL_Localhost, this.userName, this.password);
+            Connection db_connection = DriverManager.getConnection(this.db_URL, this.userName, this.password);
 
             // Turn off auto-commit
             db_connection.setAutoCommit(false); // because by default is set to TRUE
@@ -197,7 +198,7 @@ public class DB_Connection {
     // 7)
     public void metadata() {
         try{
-            Connection db_connection = DriverManager.getConnection(this.db_URL_Localhost, this.userName, this.password);
+            Connection db_connection = DriverManager.getConnection(this.db_URL, this.userName, this.password);
             DatabaseMetaData databaseMetaData = db_connection.getMetaData();
 
             // Display info about database
