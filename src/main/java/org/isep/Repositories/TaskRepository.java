@@ -1,4 +1,8 @@
-package org.isep;
+package org.isep.Repositories;
+
+import org.isep.Domain.Parcela;
+import org.isep.Domain.Task;
+import org.isep.Domain.Regularidade;
 
 import java.io.*;
 import java.nio.file.Files;

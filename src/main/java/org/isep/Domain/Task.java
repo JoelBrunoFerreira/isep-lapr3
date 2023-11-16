@@ -1,4 +1,4 @@
-package org.isep;
+package org.isep.Domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;

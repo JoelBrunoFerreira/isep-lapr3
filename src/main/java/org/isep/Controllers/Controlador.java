@@ -1,6 +1,8 @@
-package org.isep;
+package org.isep.Controllers;
 
-import java.io.Serializable;
+import org.isep.Domain.Task;
+import org.isep.Repositories.TaskRepository;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
