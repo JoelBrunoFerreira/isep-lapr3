@@ -1,14 +1,23 @@
 package org.isep.ui;
 
 import org.isep.Controllers.Controlador;
+import org.isep.Controllers.LoadData;
+import org.isep.Utilities.graph.Edge;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+   static final String distancias_big = "distancias_big.csv";
+   static final String distancias_small = "distancias_small.csv";
+   static final String locais_big = "locais_big.csv";
+   static final String locais_small = "locais_small.csv";
+
     public static void main(String[] args) {
+        /*
         Scanner read = new Scanner(System.in);
         boolean flag = false;
 
@@ -29,6 +38,13 @@ public class Main {
             } catch (DateTimeParseException e) {
                 System.out.println("Formato errado!");
             }
+        }
+        */
+        List<Edge> edges = LoadData.readCSV(distancias_small);
+
+        // Displaying the content of the edges list
+        for (Edge edge : edges) {
+            System.out.println("Locations: " + edge.getVOrig() + " to " + edge.getVDest() + ", Length: " + edge.getWeight());
         }
     }
 }

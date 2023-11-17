@@ -1,6 +1,6 @@
-package org.isep.ESINF.graph.map;
+package org.isep.Utilities.graph.map;
 
-import org.isep.ESINF.graph.Edge;
+import org.isep.Utilities.graph.Edge;
 import java.util.*;
 
 /**

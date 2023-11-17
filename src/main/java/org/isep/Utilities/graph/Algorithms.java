@@ -1,6 +1,6 @@
-package org.isep.ESINF.graph;
+package org.isep.Utilities.graph;
 
-import org.isep.ESINF.graph.matrix.MatrixGraph;
+import org.isep.Utilities.graph.matrix.MatrixGraph;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
