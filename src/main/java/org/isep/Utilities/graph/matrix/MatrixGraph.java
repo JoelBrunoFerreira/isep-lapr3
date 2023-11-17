@@ -1,8 +1,8 @@
-package org.isep.ESINF.graph.matrix;
+package org.isep.Utilities.graph.matrix;
 
-import org.isep.ESINF.graph.CommonGraph;
-import org.isep.ESINF.graph.Edge;
-import org.isep.ESINF.graph.Graph;
+import org.isep.Utilities.graph.CommonGraph;
+import org.isep.Utilities.graph.Edge;
+import org.isep.Utilities.graph.Graph;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;

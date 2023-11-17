@@ -1,4 +1,4 @@
-package org.isep.ESINF.graph;
+package org.isep.Utilities.graph;
 
 import java.util.ArrayList;
 import java.util.Collection;
