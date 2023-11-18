@@ -32,8 +32,13 @@ public class MapGraph<V, E> extends CommonGraph<V, E> {
 
     @Override
     public Collection<V> adjVertices(V vert) {
-        
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        if (!validVertex(vert))
+            return null;
+
+        MapVertex<V, E> mv = mapVertices.get(vert);
+
+        return mv.getAllAdjVerts();
     }
 
     @Override
@@ -105,7 +110,14 @@ public class MapGraph<V, E> extends CommonGraph<V, E> {
     @Override
     public Collection<Edge<V, E>> incomingEdges(V vert) {
 
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (!validVertex(vert))
+            return null;
+
+        List<Edge<V, E>> incomingEdges = new ArrayList<>();
+
+        //Completar lógica
+
+        return incomingEdges;
     }
 
     @Override

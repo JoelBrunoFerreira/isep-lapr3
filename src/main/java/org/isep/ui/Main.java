@@ -53,7 +53,9 @@ public class Main {
 
         // Display vertex data
         for (Vertex vertex : vertexData) {
-            System.out.println(vertex.getName() + " Latitude: " + vertex.getLatitude() + " - Longitude: " + vertex.getLongitude());
+            System.out.println(vertex.getName() + " Latitude: " + vertex.getLatitude() + " - Longitude: " + vertex.getLongitude() +
+                    " - Employees: " + vertex.getNumerOfEmployees() + " - Required opening time: " + vertex.getOpeningTime() +
+                    " - Required closing time: " + vertex.getClosingTime());
         }
     }
 }
