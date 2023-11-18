@@ -1,6 +1,7 @@
 package org.isep.Controllers;
 
 import org.isep.Utilities.graph.Edge;
+import org.isep.Utilities.graph.Vertex;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -9,37 +10,59 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoadData {
-    private String distancias_big = "distancias_big.csv";
-    private String distancias_small = "distancias_small.csv";
-    private String locais_big = "locais_big.csv";
-    private String locais_small = "locais_small.csv";
-
+    private static final List<Edge> graph = new ArrayList<>();
+    private static final List<Vertex> vertexList = new ArrayList<>();
 
 
     // Methods
     // ---------------------------------------------------
-    public static List<Edge> readCSV(String filePath) {
-        List<Edge> edges = new ArrayList<>();
+    public static List<Edge> readCSV1(String file) { // distancias_*.csv
 
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
+            reader.readLine();
 
-            while ((line = br.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
 
                 if (data.length == 3) {
-                    String vOrig = data[0];
-                    String vDest = data[1];
-                    // double weight = Double.parseDouble(data[2].trim());
-                    String weight = data[2];
-                    Edge edge = new Edge(vOrig, vDest, weight);
-                    edges.add(edge);
+                    Vertex vOrig = new Vertex(data[0]);
+                    Vertex vDest = new Vertex(data[1]);
+                    Edge edge = new Edge(vOrig, vDest, data[2]);
+                    graph.add(edge);
                 }
             }
         } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
         }
+        return graph;
+    }
 
-        return edges;
+    public static List<Vertex> readCSV2(String file) { // locais_*.csv
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line;
+            reader.readLine();
+
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+
+                if (!vertexList.contains(new Vertex(data[0]))) {
+                    vertexList.add(new Vertex(data[0]));
+
+                    for (Vertex v: vertexList) {
+                        if (v.getName().equals(data[0])) {
+                            v.setLatitude(Double.parseDouble(data[1]));
+                            v.setLongitude(Double.parseDouble(data[2]));
+                        }
+                    }
+                }
+            }
+        } catch (IOException | NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return vertexList;
     }
 }

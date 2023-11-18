@@ -10,10 +10,15 @@ import java.util.Scanner;
 
 public class DB_Connection {
 
-    // DB connection URLs
+    // DB connection URLs:
     // -------------------------------------------------------------------
+    // URL for localhost:
     private final String db_URL = "jdbc:oracle:thin:@localhost:1521:xe";
+
+    // URL for remote:
     // private final String db_URL = "jdbc:oracle:thin:@vsgate-s1.dei.isep.ipp.pt:10988:XE";
+
+    // DB Credentials
     private final String userName = "";
     private final String password = "";
 

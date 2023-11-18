@@ -3,6 +3,7 @@ package org.isep.ui;
 import org.isep.Controllers.Controlador;
 import org.isep.Controllers.LoadData;
 import org.isep.Utilities.graph.Edge;
+import org.isep.Utilities.graph.Vertex;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -40,11 +41,19 @@ public class Main {
             }
         }
         */
-        List<Edge> edges = LoadData.readCSV(distancias_small);
+        List<Edge> graph = LoadData.readCSV1(distancias_small);
+        List<Vertex> vertexData = LoadData.readCSV2(locais_small);
 
         // Displaying the content of the edges list
-        for (Edge edge : edges) {
-            System.out.println("Locations: " + edge.getVOrig() + " to " + edge.getVDest() + ", Length: " + edge.getWeight());
+        for (Edge edge : graph) {
+            System.out.println(edge.getVOrig() + " to " + edge.getVDest() + ", Length: " + edge.getWeight());
+        }
+
+        System.out.println("===============================");
+
+        // Display vertex data
+        for (Vertex vertex : vertexData) {
+            System.out.println(vertex.getName() + " Latitude: " + vertex.getLatitude() + " - Longitude: " + vertex.getLongitude());
         }
     }
 }
