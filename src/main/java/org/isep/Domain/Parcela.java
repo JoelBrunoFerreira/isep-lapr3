@@ -6,6 +6,7 @@ public class Parcela implements Serializable {
     private String setor;
     private int duracao;
     private Regularidade regularidade;
+
     public Parcela(String setor, int duracao, Regularidade regularidade) {
         this.setor = setor;
         this.duracao = duracao;
@@ -26,8 +27,8 @@ public class Parcela implements Serializable {
 
     @Override
     public String toString() {
-        return   "Setor:'" + setor + '\'' +
-                ", Duração em minutos: " + duracao +
-                ", Regularidade: " + regularidade;
+
+        return String.format("Setor: %s | Duração: %2d(min) | Regularidade: %s",setor,duracao,regularidade);
+        //return "Setor: " + setor + " | Duração(min): " + duracao + " | Regularidade: " + regularidade;
     }
 }

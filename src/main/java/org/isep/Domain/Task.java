@@ -6,12 +6,16 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class Task implements Serializable {
-    private final int DIAS_PLANO = 30;
+    //private final int DIAS_PLANO = 30;
     private LocalDate diaInicio;
     private LocalDate diaFim;
     private LocalTime horaInicioRega;
     private LocalTime horaFimRega;
     private Parcela parcela;
+
+    public LocalTime getHoraInicioRega() {
+        return horaInicioRega;
+    }
 
     public LocalDate getDiaInicio() {
         return diaInicio;
@@ -23,7 +27,7 @@ public class Task implements Serializable {
 
     public Task(LocalDate diaInicio, LocalTime horaInicioRega, LocalTime horaFimRega, Parcela parcela) {
         this.diaInicio = diaInicio;
-        this.diaFim = diaInicio.plusDays(DIAS_PLANO);
+        this.diaFim = diaInicio;//diaInicio.plusDays(1);
         this.horaInicioRega = horaInicioRega;
         this.horaFimRega = horaFimRega;
         this.parcela = parcela;
@@ -58,16 +62,10 @@ public class Task implements Serializable {
         }
     }
 
-    public boolean verificaRegaAtivaDia(LocalDateTime dataHoraAtual) {
-        LocalDate diaAtual = dataHoraAtual.toLocalDate();
-        return !diaAtual.isBefore(diaInicio) && !diaAtual.isAfter(diaFim);
-    }
-
     @Override
     public String toString() {
-        return parcela + "\nDia de Início: " + diaInicio +
-                " | Dia Fim: " + diaFim +
-                " | Hora de Início de Rega: " + horaInicioRega +
-                " | Hora de Fim de Rega :" + horaFimRega;
+       // return String.format("")
+        return parcela + " | Hora de Início de Rega: " + horaInicioRega +
+                " | Hora de Fim de Rega: " + horaFimRega + " | Dia de rega: " + diaInicio;
     }
 }
