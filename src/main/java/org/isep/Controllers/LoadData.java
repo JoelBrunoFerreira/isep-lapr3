@@ -8,12 +8,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class LoadData {
     private static final List<Edge> graph = new ArrayList<>();
     private static final List<Vertex> vertexList = new ArrayList<>();
-
 
     // Methods
     // ---------------------------------------------------
@@ -68,24 +68,68 @@ public class LoadData {
     }
 
 
-    
-    public MatrixGraph<String, Double> fillMatrixGraph(String file1) {
-        MatrixGraph<String, Double> matrixGraph = new MatrixGraph<>(false);
+    public static MatrixGraph<Vertex, Double> fillMatrixGraph(String file, List<Vertex> locals) {
+        MatrixGraph<Vertex, Double> matrixGraph = new MatrixGraph<>(false);
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(file1));
+            BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
             reader.readLine();
 
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
+                Vertex vDest = null;
+                Vertex vOrig = null;
+                for (Vertex local : locals) {
+                    if (data[0].equals(local.getName())) {
+                        vOrig = local;
+                    }
+                    if (data[1].equals(local.getName())) {
+                        vDest = local;
+                    }
+                }
+                if (vOrig != null && vDest != null) {
+                    matrixGraph.addEdge(vOrig, vDest, Double.parseDouble(data[2]));
+                }
 
-                matrixGraph.addEdge(data[0], data[1], Double.parseDouble(data[2]));
 
             }
         } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
         }
+
+       setVertexDegrees(matrixGraph, locals);
+       setMaxDistance(matrixGraph, locals);
+       //setNumOfMinPaths(matrixGraph, locals);
+
         return matrixGraph;
+    }
+
+    private static void setMaxDistance(MatrixGraph<Vertex, Double> matrixGraph, List<Vertex> locals) {
+        for (Vertex vertex : locals) {
+            double maxDistance = 0;
+
+            Collection<Edge<Vertex, Double>> edges = matrixGraph.outgoingEdges(vertex);
+
+            for (Edge<Vertex, Double> edge : edges) {
+                double distance = edge.getWeight();
+
+                if (distance > maxDistance) {
+                    maxDistance = distance;
+                }
+            }
+
+            vertex.setAdjMaxDistance(maxDistance);
+        }
+    }
+
+    private static void setVertexDegrees(MatrixGraph<Vertex, Double> matrixGraph, List<Vertex> locals) {
+        for (Vertex local : locals) {
+            local.setDegree(matrixGraph.inDegree(local));
+        }
+    }
+
+    private static void setNumOfMinPaths(MatrixGraph<Vertex, Double> matrixGraph, List<Vertex> locals){
+
     }
 }

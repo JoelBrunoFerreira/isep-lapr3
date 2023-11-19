@@ -14,10 +14,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-   static final String distancias_big = "distancias_big.csv";
-   static final String distancias_small = "distancias_small.csv";
-   static final String locais_big = "locais_big.csv";
-   static final String locais_small = "locais_small.csv";
+    static final String distancias_big = "distancias_big.csv";
+    static final String distancias_small = "distancias_small.csv";
+    static final String locais_big = "locais_big.csv";
+    static final String locais_small = "locais_small.csv";
 
     public static void main(String[] args) {
         /*
@@ -60,9 +60,15 @@ public class Main {
                     " - Required closing time: " + vertex.getClosingTime());
         }
 
+/*
+        GetNStrategicHubs hubs = new GetNStrategicHubs(locais_small, distancias_small);
+        List<Vertex> NHubs = hubs.getNStrategicHubs(3);
 
-        GetNStrategicHubs hubs = new GetNStrategicHubs(distancias_small);
-        hubs.getNStrategicHubs(10);
+        System.out.println("**************RESULT**************");
+        for (Vertex v: NHubs) {
+            System.out.println(v.getDegree() + " " + v.getName() + " " + v.getAdjMaxDistance());
+        }
 
+*/
     }
 }

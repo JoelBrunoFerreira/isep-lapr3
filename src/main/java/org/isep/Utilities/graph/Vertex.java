@@ -14,6 +14,8 @@ public class Vertex {
     private LocalTime openingTime;
     private LocalTime closingTime;
     private int numerOfEmployees;
+    private int degree;
+    private double adjMaxDistance;  // --> Represents the max distance to the adjVertices
     private double distance; // --> Represents the distance from the starting vertex
     private Vertex predecessor; // --> Represents the previous vertex on the shortest path
     private List<Vertex> adjacencyList;
@@ -70,6 +72,14 @@ public class Vertex {
         return numerOfEmployees;
     }
 
+    public int getDegree() {
+        return degree;
+    }
+
+    public double getAdjMaxDistance() {
+        return adjMaxDistance;
+    }
+
     // Setters
     // -------------------------------------
     public void setVisited(boolean visited) {
@@ -84,6 +94,13 @@ public class Vertex {
         this.longitude = longitude;
     }
 
+    public void setDegree(int degree) {
+        this.degree = degree;
+    }
+
+    public void setAdjMaxDistance(double adjMaxDistance) {
+        this.adjMaxDistance = adjMaxDistance;
+    }
 
     // toString
     // -------------------------------------
@@ -91,9 +108,5 @@ public class Vertex {
     public String toString() {
         return name;
     }
-
-
-
-
 
 }
