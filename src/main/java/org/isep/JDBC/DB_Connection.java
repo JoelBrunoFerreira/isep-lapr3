@@ -19,8 +19,8 @@ public class DB_Connection {
     // private final String db_URL = "jdbc:oracle:thin:@vsgate-s1.dei.isep.ipp.pt:10988:XE";
 
     // DB Credentials
-    private final String userName = "";
-    private final String password = "";
+    private final String userName = "system";
+    private final String password = "bddad2023";
 
 
     // ******************** Basic CRUD Functionally ***********************

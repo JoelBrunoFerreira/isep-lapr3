@@ -1,6 +1,8 @@
 package org.isep.Utilities.graph;
 
 
+import org.isep.Utilities.graph.matrix.MatrixGraph;
+
 import java.time.LocalTime;
 import java.util.List;
 
@@ -15,6 +17,8 @@ public class Vertex {
     private double distance; // --> Represents the distance from the starting vertex
     private Vertex predecessor; // --> Represents the previous vertex on the shortest path
     private List<Vertex> adjacencyList;
+
+    MatrixGraph<String, Integer> instance = null;
 
 
     // Constructor
@@ -87,6 +91,8 @@ public class Vertex {
     public String toString() {
         return name;
     }
+
+
 
 
 

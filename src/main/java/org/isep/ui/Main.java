@@ -1,9 +1,11 @@
 package org.isep.ui;
 
 import org.isep.Controllers.Controlador;
+import org.isep.Controllers.GetNStrategicHubs;
 import org.isep.Controllers.LoadData;
 import org.isep.Utilities.graph.Edge;
 import org.isep.Utilities.graph.Vertex;
+import org.isep.Utilities.graph.matrix.MatrixGraph;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -57,5 +59,10 @@ public class Main {
                     " - Employees: " + vertex.getNumerOfEmployees() + " - Required opening time: " + vertex.getOpeningTime() +
                     " - Required closing time: " + vertex.getClosingTime());
         }
+
+
+        GetNStrategicHubs hubs = new GetNStrategicHubs(distancias_small);
+        hubs.getNStrategicHubs(10);
+
     }
 }

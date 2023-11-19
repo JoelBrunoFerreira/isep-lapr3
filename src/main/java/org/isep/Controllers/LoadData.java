@@ -2,6 +2,7 @@ package org.isep.Controllers;
 
 import org.isep.Utilities.graph.Edge;
 import org.isep.Utilities.graph.Vertex;
+import org.isep.Utilities.graph.matrix.MatrixGraph;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -52,7 +53,7 @@ public class LoadData {
                 if (!vertexList.contains(new Vertex(data[0]))) {
                     vertexList.add(new Vertex(data[0]));
 
-                    for (Vertex v: vertexList) {
+                    for (Vertex v : vertexList) {
                         if (v.getName().equals(data[0])) {
                             v.setLatitude(Double.parseDouble(data[1]));
                             v.setLongitude(Double.parseDouble(data[2]));
@@ -64,5 +65,27 @@ public class LoadData {
             e.printStackTrace();
         }
         return vertexList;
+    }
+
+
+    
+    public MatrixGraph<String, Double> fillMatrixGraph(String file1) {
+        MatrixGraph<String, Double> matrixGraph = new MatrixGraph<>(false);
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file1));
+            String line;
+            reader.readLine();
+
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+
+                matrixGraph.addEdge(data[0], data[1], Double.parseDouble(data[2]));
+
+            }
+        } catch (IOException | NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return matrixGraph;
     }
 }
