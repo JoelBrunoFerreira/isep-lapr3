@@ -10,79 +10,86 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
-public class Main {
-    private static Scanner read = new Scanner(System.in);
-    public static Controller controller;
-    private static LocalDate startDate = LocalDate.now();
-    private static String originalFilePath = "plano.csv";
-    private static String filePath;
+    public class Main {
+        private static Scanner read = new Scanner(System.in);
+        public static Controller controller;
+        private static LocalDate startDate = LocalDate.now();
+        private static String filePath = "plano.csv";
 
-    public static void main(String[] args) {
-        boolean flag = true;
-        while (flag) {
-            getPlanoRega();
+        public static void main(String[] args) {
+            boolean flag = true;
             controller = new Controller(filePath, startDate);
-            getTasks();
-            System.out.println("Continuar? S/N");
-            String answer = read.nextLine();
-            if (answer.equalsIgnoreCase("n")) {
-                flag = false;
+            while (flag) {
+                System.out.println("1 - Carregar novo plano de rega");
+                System.out.println("2 - Setores a regar");
+                System.out.println("3 - Verificar Caderno de Campo");
+                System.out.println("4 - Sair");
+                String resposta = read.nextLine();
+
+                switch (resposta) {
+                    case "1":
+                        getPlanoRega();
+                        controller = new Controller(filePath, startDate);
+                        break;
+                    case "2":
+                        getTasks();
+                        break;
+                    case "3":
+                        controller.mostrarCadernoDeCampo();
+                        break;
+                    case "4":
+                        flag = false;
+                        break;
+                    default:
+                        System.out.println("Opção inválida.\n");
+                }
             }
         }
-    }
 
-    private static void getPlanoRega() {
-        boolean flag = false;
-        while (!flag) {
-            try {
-                System.out.println("Utilizar novo plano de rega? S/N");
-                String fileInputAnswer = read.nextLine();
-                if (fileInputAnswer.equalsIgnoreCase("s")) {
+        private static void getPlanoRega() {
+            boolean flag = false;
+            while (!flag) {
+                try {
                     System.out.println("Nome do ficheiro:");
                     filePath = read.nextLine();
-                    if (checkIfFileExists(filePath)) {
+                    if (verificaSeFicheiroExiste(filePath)) {
                         flag = true;
-                        System.out.println("Data para início do plano: dd-mm-yyyy");
+                        System.out.println("Data para início do plano: (formato: dd-mm-yyyy)");
                         startDate = LocalDate.parse(read.nextLine(), DateTimeFormatter.ofPattern("d-MM-yyyy"));
                     } else {
-                        System.out.println("Ficheiro não encontrado.");
+                        System.out.println("Ficheiro não encontrado.\n");
                     }
-                } else if (fileInputAnswer.equalsIgnoreCase("n")) {
-                    filePath = originalFilePath;
+                } catch (DateTimeParseException e) {
+                    System.out.println("Formato errado!\n");
+                    flag = false;
+                }
+            }
+        }
+
+        private static void getTasks() {
+            boolean flag = false;
+            while (!flag) {
+                try {
+                    System.out.println("Dia e hora pretendida para verificação? (formato: dd-MM-yyyy HH:mm)");
+                    LocalDateTime dataHoraPretendida = LocalDateTime.parse(read.nextLine(), DateTimeFormatter.ofPattern("d-MM-yyyy H:mm"));
+                    controller.setDataHoraPretendida(dataHoraPretendida);
+                    if (controller.verificarData()) {
+                        System.out.println("Fora do plano de rega!\n");
+                    } else {
+                        controller.mostrarTodasAsTasks();
+                        System.out.println();
+                        controller.mostrarParcelasARegar();
+                    }
                     flag = true;
-                } else {
-                    System.out.println("Resposta inválida.");
+                } catch (DateTimeParseException e) {
+                    System.out.println("Formato errado!\n");
                 }
-            } catch (DateTimeParseException e) {
-                System.out.println("Formato errado!");
-                flag = false;
             }
         }
-    }
 
-    private static void getTasks() {
-        boolean flag = false;
-        while (!flag) {
-            try {
-                System.out.println("Dia e hora pretendida para verificação em formato: dd-MM-yyyy HH:mm");
-                LocalDateTime dataHoraPretendida = LocalDateTime.parse(read.nextLine(), DateTimeFormatter.ofPattern("d-MM-yyyy H:mm"));
-
-                if (controller.checkDate(dataHoraPretendida)) {
-                    System.out.println("Fora do plano de rega!");
-                } else {
-                    controller.mostrarTodasAsTasks();
-                    System.out.println();
-                    controller.mostrarParcelasARegar(dataHoraPretendida);
-                }
-                flag = true;
-            } catch (DateTimeParseException e) {
-                System.out.println("Formato errado!");
-            }
+        private static boolean verificaSeFicheiroExiste(String filePath) {
+            File check = new File(filePath);
+            return check.exists() && !check.isDirectory();
         }
-    }
 
-    private static boolean checkIfFileExists(String filePath) {
-        File check = new File(filePath);
-        return check.exists() && !check.isDirectory();
     }
-}

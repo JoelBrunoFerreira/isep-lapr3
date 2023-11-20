@@ -1,5 +1,4 @@
 package org.isep.Repositories;
-
 import org.isep.Domain.Parcela;
 import org.isep.Domain.Regularidade;
 import org.isep.Domain.Task;
@@ -19,8 +18,7 @@ import java.util.TreeMap;
 public class TaskRepository implements Serializable {
     private static final int DIAS = 30;
     private TreeMap<LocalDate, List<Task>> taskMap = new TreeMap<>();
-    private static final String FILE_PATH = "tasksRep.ser";
-    private static final String MAP_FILE_PATH = "taskMapRep.ser";
+        private static final String MAP_FILE_PATH = "taskMapRep.ser";
     private LocalDate startDate = null;
 
     public TaskRepository(String filePath, LocalDate startDate) {
@@ -107,7 +105,7 @@ public class TaskRepository implements Serializable {
         }
     }
 
-    private static void adicionarTarefa(Map<LocalDate, List<Task>> result, LocalDate nextDay, Task newTask) {
+    private static void adicionarTarefa(TreeMap<LocalDate, List<Task>> result, LocalDate nextDay, Task newTask) {
         if (!result.containsKey(nextDay)) {
             result.put(nextDay, new ArrayList<>(List.of(newTask)));
         } else {

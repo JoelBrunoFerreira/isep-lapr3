@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Objects;
 
 public class Task implements Serializable {
     //private final int DIAS_PLANO = 30;
@@ -63,9 +64,21 @@ public class Task implements Serializable {
     }
 
     @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Task task)) return false;
+        return Objects.equals(diaInicio, task.diaInicio) && Objects.equals(diaFim, task.diaFim) && Objects.equals(horaInicioRega, task.horaInicioRega) && Objects.equals(horaFimRega, task.horaFimRega) && Objects.equals(parcela, task.parcela);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(diaInicio, diaFim, horaInicioRega, horaFimRega, parcela);
+    }
+
+    @Override
     public String toString() {
        // return String.format("")
         return parcela + " | Hora de Início de Rega: " + horaInicioRega +
-                " | Hora de Fim de Rega: " + horaFimRega + " | Dia de rega: " + diaInicio;
+                " | Hora de Fim de Rega: " + horaFimRega;
     }
 }
