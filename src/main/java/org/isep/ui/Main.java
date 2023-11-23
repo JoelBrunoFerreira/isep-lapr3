@@ -60,15 +60,15 @@ public class Main {
                     " - Required closing time: " + vertex.getClosingTime());
         }
 
-/*
+
         GetNStrategicHubs hubs = new GetNStrategicHubs(locais_small, distancias_small);
         List<Vertex> NHubs = hubs.getNStrategicHubs(3);
 
         System.out.println("**************RESULT**************");
         for (Vertex v: NHubs) {
-            System.out.println(v.getDegree() + " " + v.getName() + " " + v.getAdjMaxDistance());
+            System.out.println(v.getDegree() + " " + v.getName() + " " + v.getAverageDistance() + " " + v.getNumMinPaths());
         }
 
-*/
+
     }
 }

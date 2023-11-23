@@ -97,8 +97,21 @@ public class Algorithms {
      */
     private static <V, E> void allPaths(Graph<V, E> g, V vOrig, V vDest, boolean[] visited,
                                         LinkedList<V> path, ArrayList<LinkedList<V>> paths) {
+        path.push(vOrig);
+        visited[g.key(vOrig)] = true;
 
-        throw new UnsupportedOperationException("Not supported yet.");
+        for (V vAdj : g.adjVertices(vOrig)) {
+            if (vAdj == vDest) {
+                path.push(vDest);
+                paths.add(path);
+                path.pop();
+            } else {
+                if (!visited[g.key(vAdj)]) {
+                    allPaths(g, vAdj, vDest, visited, path, paths);
+                }
+            }
+            path.pop();
+        }
     }
 
     /** Returns all paths from vOrig to vDest
@@ -110,7 +123,13 @@ public class Algorithms {
      */
     public static <V, E> ArrayList<LinkedList<V>> allPaths(Graph<V, E> g, V vOrig, V vDest) {
 
-        throw new UnsupportedOperationException("Not supported yet.");
+        LinkedList<V> path = new LinkedList<>();
+        ArrayList<LinkedList<V>> paths = new ArrayList<>();
+        boolean[] visited = new boolean[g.numVertices()];
+
+        allPaths(g, vOrig, vDest, visited, path, paths);
+
+        return paths;
     }
 
     /**
@@ -127,8 +146,48 @@ public class Algorithms {
     private static <V, E> void shortestPathDijkstra(Graph<V, E> g, V vOrig,
                                                     Comparator<E> ce, BinaryOperator<E> sum, E zero,
                                                     boolean[] visited, V [] pathKeys, E [] dist) {
-        
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        Iterable<V> verticesIterator = g.vertices();
+
+        for (V v : verticesIterator) {
+            int index = g.key(v);
+            visited[index] = false;
+            pathKeys[index] = null;
+            dist[index] = null;
+        }
+
+        dist[g.key(vOrig)] = zero;
+
+        int vOrigAux = g.key(vOrig);
+
+        while (vOrigAux != -1) {
+            visited[vOrigAux] = true;
+            vOrig = g.vertex(vOrigAux);
+            verticesIterator = g.adjVertices(vOrig);
+
+            for (V vertex : verticesIterator) {
+                Edge<V, E> edge = g.edge(vOrig, vertex);
+                int aux = g.key(vertex);
+
+                if (!visited[aux] && (dist[aux]) == null || ce.compare(dist[aux], sum.apply(dist[g.key(vOrig)], edge.getWeight())) > 0) {
+                    dist[aux] = sum.apply(dist[g.key(vOrig)], edge.getWeight());
+                    pathKeys[aux] = vOrig;
+                }
+            }
+
+            E minDist = null;
+            int indice = -1;
+
+            for (int i = 0; i < dist.length; i++) {
+                if (!visited[i] && (dist[i] != null) && ((minDist == null) || ce.compare(dist[i], minDist) > 0)) {
+                    indice = i;
+                    minDist = dist[i];
+                }
+            }
+
+            vOrigAux = indice;
+        }
+
     }
 
    
@@ -147,7 +206,28 @@ public class Algorithms {
                                         Comparator<E> ce, BinaryOperator<E> sum, E zero,
                                         LinkedList<V> shortPath) {
 
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (!g.validVertex(vOrig) || !g.validVertex(vDest)) {
+            return null;
+        }
+
+        if (vOrig == vDest) {
+            shortPath.push(vOrig);
+            return zero;
+        }
+
+        shortPath.clear();
+        boolean[] visited = new boolean[g.numVertices()];
+
+        @SuppressWarnings("unchecked")
+        E[] dist = (E[]) new Object[g.numVertices()];
+        @SuppressWarnings("unchecked")
+        V[] pathKeys = (V[]) new Object[g.numVertices()];
+
+        shortestPathDijkstra(g, vOrig, ce, sum, zero, visited, pathKeys, dist);
+
+        getPath(g, vOrig, vDest, pathKeys, shortPath);
+
+        return shortPath.isEmpty() ? null : dist[g.key(vDest)];
     }
 
     /** Shortest-path between a vertex and all other vertices
@@ -165,7 +245,38 @@ public class Algorithms {
                                                Comparator<E> ce, BinaryOperator<E> sum, E zero,
                                                ArrayList<LinkedList<V>> paths, ArrayList<E> dists) {
 
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (!g.validVertex(vOrig)) {
+            return false;
+        }
+
+        int numVerts = g.numVertices();
+        boolean[] visited = new boolean[g.numVertices()];
+        @SuppressWarnings("unchecked")
+        E[] dist = (E[]) new Object[g.numVertices()];
+        @SuppressWarnings("unchecked")
+        V[] pathKeys = (V[]) new Object[g.numVertices()];
+
+        shortestPathDijkstra(g, vOrig, ce, sum, zero, visited, pathKeys, dist);
+
+        dists.clear();
+        paths.clear();
+
+        for (int i = 0; i < numVerts; i++) {
+            paths.add(null);
+            dists.add(null);
+        }
+
+        for (V vertDest : g.vertices()) {
+            int i = g.key(vertDest);
+            if (dist[i] != null) {
+                LinkedList<V> shortPath = new LinkedList<>();
+                getPath(g, vOrig, vertDest, pathKeys, shortPath);
+                paths.set(i, shortPath);
+                dists.set(i, dist[i]);
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -181,7 +292,19 @@ public class Algorithms {
     private static <V, E> void getPath(Graph<V, E> g, V vOrig, V vDest,
                                        V [] pathKeys, LinkedList<V> path) {
 
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (g.adjVertices(vDest).isEmpty()) {
+            return;
+        }
+
+        if (vDest != null) {
+            path.addFirst(vDest);
+
+            if (g.key(vOrig) != g.key(vDest)) {
+                int index = g.key(vDest);
+                vDest = pathKeys[index];
+                getPath(g, vOrig, vDest, pathKeys, path);
+            }
+        }
     }
 
     /** Calculates the minimum distance graph using Floyd-Warshall

@@ -7,9 +7,10 @@ import org.isep.Utilities.graph.matrix.MatrixGraph;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+import java.util.function.BinaryOperator;
+
+import static org.isep.Utilities.graph.Algorithms.shortestPaths;
 
 public class LoadData {
     private static final List<Edge> graph = new ArrayList<>();
@@ -98,38 +99,49 @@ public class LoadData {
             e.printStackTrace();
         }
 
-       setVertexDegrees(matrixGraph, locals);
-       setMaxDistance(matrixGraph, locals);
-       //setNumOfMinPaths(matrixGraph, locals);
+        calculateVertexDegrees(matrixGraph, locals);
+        calculateAverageDistanceAndMinPaths(matrixGraph, locals);
+
 
         return matrixGraph;
     }
 
-    private static void setMaxDistance(MatrixGraph<Vertex, Double> matrixGraph, List<Vertex> locals) {
+    private static void calculateAverageDistanceAndMinPaths(MatrixGraph<Vertex, Double> matrixGraph, List<Vertex> locals) {
         for (Vertex vertex : locals) {
-            double maxDistance = 0;
+            Comparator<Double> comparator = Comparator.naturalOrder();
+            BinaryOperator<Double> sum = Double::sum;
+            Double zero = 0.0;
 
-            Collection<Edge<Vertex, Double>> edges = matrixGraph.outgoingEdges(vertex);
+            ArrayList<LinkedList<Vertex>> paths = new ArrayList<>();
+            ArrayList<Double> dists = new ArrayList<>();
 
-            for (Edge<Vertex, Double> edge : edges) {
-                double distance = edge.getWeight();
+            boolean success = shortestPaths(matrixGraph, vertex, comparator, sum, zero, paths, dists);
 
-                if (distance > maxDistance) {
-                    maxDistance = distance;
+            if (success) {
+                double totalDist = 0;
+                for(Double dist: dists){
+                    totalDist += dist;
+                }
+                double averageDist = totalDist / dists.size();
+                vertex.setAverageDistance(averageDist);
+
+
+                for(LinkedList<Vertex> path : paths){
+                    for(Vertex v : path){
+                        if(!v.equals(vertex)){
+                            v.incrementMinPaths();
+                        }
+                    }
                 }
             }
 
-            vertex.setAdjMaxDistance(maxDistance);
         }
     }
 
-    private static void setVertexDegrees(MatrixGraph<Vertex, Double> matrixGraph, List<Vertex> locals) {
+    private static void calculateVertexDegrees(MatrixGraph<Vertex, Double> matrixGraph, List<Vertex> locals) {
         for (Vertex local : locals) {
             local.setDegree(matrixGraph.inDegree(local));
         }
     }
 
-    private static void setNumOfMinPaths(MatrixGraph<Vertex, Double> matrixGraph, List<Vertex> locals){
-
-    }
 }

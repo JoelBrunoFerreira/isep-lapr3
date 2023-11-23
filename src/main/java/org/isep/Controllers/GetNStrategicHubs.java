@@ -2,15 +2,12 @@ package org.isep.Controllers;
 
 
 
-import org.isep.Utilities.graph.Graph;
 import org.isep.Utilities.graph.Vertex;
 import org.isep.Utilities.graph.matrix.MatrixGraph;
 
 
 import java.util.*;
 
-import static org.isep.Utilities.graph.Algorithms.BreadthFirstSearch;
-import static org.isep.Utilities.graph.Algorithms.DepthFirstSearch;
 
 
 public class GetNStrategicHubs {
@@ -52,17 +49,24 @@ public class GetNStrategicHubs {
                     return degreeComparison;
                 }
 
-                return Double.compare(v1.getAdjMaxDistance(), v2.getAdjMaxDistance());
+                int avgDistanceComparison = Integer.compare(v2.getNumMinPaths(), v1.getNumMinPaths());
+                if (avgDistanceComparison != 0) {
+                    return avgDistanceComparison;
+                }
+
+                // Compare by numMinPaths in decreasing order
+                return Double.compare(v1.getAverageDistance(), v2.getAverageDistance());
             }
         };
 
         vertices.sort(vertexComparator);
 
-        /*System.out.println("All:");
+
+        System.out.println("All:");
         for(Vertex v : vertices){
-            System.out.println(v.getDegree() + " " + v.getName() + " " + v.getAdjMaxDistance());
+            System.out.println(v.getDegree() + " " + v.getName() + " " + v.getAverageDistance() + " " + v.getNumMinPaths());
         }
-*/
+
         return vertices;
 
     }

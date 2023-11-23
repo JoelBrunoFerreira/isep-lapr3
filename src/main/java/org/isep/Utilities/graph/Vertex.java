@@ -15,7 +15,8 @@ public class Vertex {
     private LocalTime closingTime;
     private int numerOfEmployees;
     private int degree;
-    private double adjMaxDistance;  // --> Represents the max distance to the adjVertices
+    private double averageDistance;  // --> Represents the avg distance to all vertices
+    private int numMinPaths; // ---> number of minPanths
     private double distance; // --> Represents the distance from the starting vertex
     private Vertex predecessor; // --> Represents the previous vertex on the shortest path
     private List<Vertex> adjacencyList;
@@ -76,8 +77,11 @@ public class Vertex {
         return degree;
     }
 
-    public double getAdjMaxDistance() {
-        return adjMaxDistance;
+    public double getAverageDistance() {
+        return averageDistance;
+    }
+    public int getNumMinPaths() {
+        return numMinPaths;
     }
 
     // Setters
@@ -98,8 +102,11 @@ public class Vertex {
         this.degree = degree;
     }
 
-    public void setAdjMaxDistance(double adjMaxDistance) {
-        this.adjMaxDistance = adjMaxDistance;
+    public void setAverageDistance(double averageDistance) {
+        this.averageDistance = averageDistance;
+    }
+    public void incrementMinPaths(){
+        this.numMinPaths ++;
     }
 
     // toString
