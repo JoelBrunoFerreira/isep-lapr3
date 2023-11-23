@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 
 public class Controller {
@@ -38,7 +39,9 @@ public class Controller {
         for (LocalDate date : taskRep.getTaskMap().keySet()
         ) {
             System.out.printf("Dia: %s\n", date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-            for (Task t : taskRep.getTaskMap().get(date)
+            List<Task> sortedTask =  taskRep.getTaskMap().get(date);
+            Collections.sort(sortedTask);
+            for (Task t : sortedTask
             ) {
                 System.out.println(t);
             }

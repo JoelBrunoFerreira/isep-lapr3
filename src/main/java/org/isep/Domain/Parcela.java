@@ -2,7 +2,7 @@ package org.isep.Domain;
 
 import java.io.Serializable;
 
-public class Parcela implements Serializable {
+public class Parcela implements Comparable<Parcela>, Serializable {
     private String setor;
     private int duracao;
     private Regularidade regularidade;
@@ -30,5 +30,10 @@ public class Parcela implements Serializable {
 
         return String.format("Setor: %s | Duração: %2d(min) | Regularidade: %s",setor,duracao,regularidade);
         //return "Setor: " + setor + " | Duração(min): " + duracao + " | Regularidade: " + regularidade;
+    }
+
+    @Override
+    public int compareTo(Parcela o) {
+        return this.setor.compareTo(o.getSetor());
     }
 }

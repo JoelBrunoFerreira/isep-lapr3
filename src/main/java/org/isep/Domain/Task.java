@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
 
-public class Task implements Serializable {
+public class Task  implements Comparable<Task>, Serializable {
     //private final int DIAS_PLANO = 30;
     private LocalDate diaInicio;
     private LocalDate diaFim;
@@ -80,5 +80,10 @@ public class Task implements Serializable {
        // return String.format("")
         return parcela + " | Hora de Início de Rega: " + horaInicioRega +
                 " | Hora de Fim de Rega: " + horaFimRega;
+    }
+
+    @Override
+    public int compareTo(Task o) {
+        return this.parcela.getSetor().compareTo(o.getParcela().getSetor());
     }
 }
