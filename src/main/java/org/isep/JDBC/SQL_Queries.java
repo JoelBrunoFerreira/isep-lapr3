@@ -2,7 +2,7 @@ package org.isep.JDBC;
 
 public record SQL_Queries() {
 
-    public static String USBD11 ="";
+    public static String USBD11 ="SELECT * FROM TEST";
     public static String USBD12 ="";
     public static String USBD13 ="";
     public static String USBD14 ="";
