@@ -1,8 +1,8 @@
-package org.isep.ESINF.graph.matrix;
+package org.isep.Utilities.graph.matrix;
 
-import org.isep.ESINF.graph.CommonGraph;
-import org.isep.ESINF.graph.Edge;
-import org.isep.ESINF.graph.Graph;
+import org.isep.Utilities.graph.CommonGraph;
+import org.isep.Utilities.graph.Edge;
+import org.isep.Utilities.graph.Graph;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -60,8 +60,16 @@ public class MatrixGraph<V,E> extends CommonGraph<V,E> {
 
     @Override
     public Collection<Edge<V, E>> edges() {
-        
-        throw new UnsupportedOperationException("Not supported yet.");
+        ArrayList<Edge<V, E>> edges = new ArrayList<>();
+
+        for (int i = 0; i < edgeMatrix.length; i++) {
+            for (int j = 0; j < edgeMatrix.length; j++) {
+                if (edgeMatrix[i][j] != null) {
+                    edges.add(edgeMatrix[i][j]);
+                }
+            }
+        }
+        return edges;
     }
 
     @Override
@@ -110,8 +118,19 @@ public class MatrixGraph<V,E> extends CommonGraph<V,E> {
 
     @Override
     public Collection<Edge<V, E>> outgoingEdges(V vert) {
-        
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        Collection<Edge<V, E>> oe = new ArrayList<>();
+        int vertKey = key(vert);
+        if (vertKey == -1) {
+            return oe;
+        }
+
+        for (int i = 0; i < numVerts; i++) {
+            if (edgeMatrix[vertKey][i] != null) {
+                oe.add(edgeMatrix[vertKey][i]);
+            }
+        }
+        return oe;
     }
 
     @Override

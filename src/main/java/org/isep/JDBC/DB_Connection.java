@@ -10,12 +10,17 @@ import java.util.Scanner;
 
 public class DB_Connection {
 
-    // DB connection
+    // DB connection URLs:
+    // -------------------------------------------------------------------
+    // URL for localhost:
     private final String db_URL = "jdbc:oracle:thin:@localhost:1521:xe";
 
-    //private final String db_URL = "jdbc:oracle:thin:@vsgate-s1.dei.isep.ipp.pt:10988:XE";
-    private final String userName = "";
-    private final String password = "";
+    // URL for remote:
+    // private final String db_URL = "jdbc:oracle:thin:@vsgate-s1.dei.isep.ipp.pt:10988:XE";
+
+    // DB Credentials
+    private final String userName = "system";
+    private final String password = "bddad2023";
 
 
     // ******************** Basic CRUD Functionally ***********************
@@ -229,7 +234,7 @@ public class DB_Connection {
             // Read the properties
             String theUser = properties.getProperty("username");
             String thePassword = properties.getProperty("password");
-            String theURL = properties.getProperty("dbURL");
+            String theURL = properties.getProperty("dbURL_remote");
 
             System.out.println("Connecting to database...");
             System.out.println("Database URL: " + theURL);
@@ -242,7 +247,7 @@ public class DB_Connection {
             ResultSet rs = statement.executeQuery(SQL_Query);
 
             while (rs.next()) {
-                System.out.println(rs.getString("...")); // column name(s)
+                System.out.println(rs.getString("FirstName") + " " + rs.getString("LastName")); // column name(s)
             }
 
             db_connection.close();
