@@ -23,7 +23,8 @@ public class DB_Connection {
     private final String password = "bddad2023";
 
 
-    // ******************** Basic CRUD Functionally ***********************
+    // ************************************ Basic CRUD Functionally ********************************************
+    // *********************************************************************************************************
 
     // 1) --> Read
     public void select(String SQL_Query) {
@@ -65,7 +66,7 @@ public class DB_Connection {
     }
 
     // 2) --> Create OR INSERT
-    public void create_or_INSERT(String SQL_Query) {
+    public void create_or_insert(String SQL_Query) {
         try {
             Connection db_connection = DriverManager.getConnection(this.db_URL, this.userName, this.password);
             Statement statement = db_connection.createStatement();
@@ -96,7 +97,8 @@ public class DB_Connection {
         }
     }
 
-    // ******************** Prepared Statements ***********************
+    // ****************************************** Prepared Statements ******************************************
+    // *********************************************************************************************************
     // 4)
     public void select_ps(String param) {
         try {
@@ -120,7 +122,8 @@ public class DB_Connection {
         }
     }
 
-    // ******************** Stored Procedures ***********************
+    // **************************************** Stored Procedures *************************************************
+    // ************************************************************************************************************
     // 5)
     public void storedProcedure() {
         // NOTE: the procedure should already be in the database
@@ -150,7 +153,8 @@ public class DB_Connection {
         }
     }
 
-    // ******************** Transactions ***********************
+    // *********************************************** Transactions ***********************************************
+    // // *********************************************************************************************************
     // NOTES:
     // * A transaction is a unity of work.
     // * One or more SQL statements executed together
@@ -199,7 +203,8 @@ public class DB_Connection {
         return answer.equalsIgnoreCase("yes");
     }
 
-    // ******************** Metadata ***********************
+    // ****************************************** Metadata *****************************************************
+    // *********************************************************************************************************
     // 7)
     public void metadata() {
         try{
@@ -224,8 +229,9 @@ public class DB_Connection {
         }
     }
 
-    // ******************** Reading connection properties from file ***********************
-    public void loadCredentials(String SQL_Query) {
+    // ******************************** Reading connection properties from file ********************************
+    // *********************************************************************************************************
+    public void loadCredentialsAndQueringDB(String SQL_Query) {
         try {
             // Load the credentials file
             Properties properties = new Properties();
@@ -242,6 +248,7 @@ public class DB_Connection {
             System.out.println("=========================================================");
             System.out.println();
 
+            // Get a connection
             Connection db_connection = DriverManager.getConnection(theURL, theUser, thePassword);
             Statement statement = db_connection.createStatement();
             ResultSet rs = statement.executeQuery(SQL_Query);
