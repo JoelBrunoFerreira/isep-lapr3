@@ -3,10 +3,7 @@ package org.isep.Controllers;
 import org.isep.Utilities.graph.Vertex;
 import org.isep.Utilities.graph.matrix.MatrixGraph;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.function.BinaryOperator;
 
 import static org.isep.Utilities.graph.Algorithms.shortestPath;
@@ -25,6 +22,25 @@ public class GetNStategicClusters {
         this.locals = LoadData.readCSV2(locais);
         this.matrixGraph = LoadData.fillMatrixGraph(distancias, locals);
     }
+
+    public Map<ArrayList<Vertex>, Double> getClustersAndSilhouette(List<String> ids){
+
+        Map<ArrayList<Vertex>, Double> clustersAndSilhouette = new HashMap<>();
+
+        List<ArrayList<Vertex>> clusters = getNStrategicClusters(ids);
+        List<Double> silhouetteCoefficients = calculateSilhouetteCoefficients(clusters);
+
+        for (int i = 0; i < clusters.size(); i++) {
+            ArrayList<Vertex> cluster = clusters.get(i);
+            Double silhouetteCoefficient = silhouetteCoefficients.get(i);
+
+            clustersAndSilhouette.put(cluster, silhouetteCoefficient);
+        }
+
+
+        return clustersAndSilhouette;
+    }
+
 
 
     public List<ArrayList<Vertex>> getNStrategicClusters(List<String> hubsID) {
@@ -50,7 +66,7 @@ public class GetNStategicClusters {
 
             for (Vertex centroid : centroids) {
 
-                if(!vertex.equals(centroid) && !centroids.contains(vertex)) {
+                if (!vertex.equals(centroid) && !centroids.contains(vertex)) {
 
                     LinkedList<Vertex> shortestPath = new LinkedList<>();
                     Vertex vOrig = centroid;
@@ -66,8 +82,8 @@ public class GetNStategicClusters {
             }
 
 
-            for (ArrayList<Vertex> cluster: clusters){
-                if (cluster.contains(allocatedCentroid)){
+            for (ArrayList<Vertex> cluster : clusters) {
+                if (cluster.contains(allocatedCentroid)) {
                     cluster.add(vertex);
                 }
             }
@@ -97,6 +113,66 @@ public class GetNStategicClusters {
 
             }
         }
+    }
+
+
+
+    public List<Double> calculateSilhouetteCoefficients(List<ArrayList<Vertex>> clusters) {
+        List<Double> clusterSilhouetteCoefficients = new ArrayList<>();
+        int totalVertices = matrixGraph.numVertices();
+
+        for (ArrayList<Vertex> cluster : clusters) {
+            double clusterSilhouetteCoefficient = 0;
+
+            for (Vertex vertex : cluster) {
+                double a = calculateAverageDistance(vertex, cluster);
+                double b = calculateAverageDistance(vertex, clusters, cluster);
+
+                double silhouetteCoefficient = (b - a) / Math.max(a, b);
+
+                clusterSilhouetteCoefficient += silhouetteCoefficient;
+            }
+
+            clusterSilhouetteCoefficients.add(clusterSilhouetteCoefficient / cluster.size());
+        }
+
+        return clusterSilhouetteCoefficients;
+    }
+
+    private double calculateAverageDistance(Vertex vertex, ArrayList<Vertex> cluster) {
+        double totalDistance = 0.0;
+        int numOfVertices = 0;
+
+        Comparator<Double> comparator = Comparator.naturalOrder();
+        BinaryOperator<Double> sum = Double::sum;
+        Double zero = 0.0;
+
+        for (Vertex otherVertex : cluster) {
+            if (!vertex.equals(otherVertex)) {
+                LinkedList<Vertex> shortestPath = new LinkedList<>();
+
+                totalDistance += shortestPath(matrixGraph, vertex, otherVertex, comparator, sum, zero, shortestPath);
+                numOfVertices++;
+            }
+        }
+
+        if (numOfVertices == 0) {
+            return 0;
+        }
+        return totalDistance / numOfVertices;
+    }
+
+    private double calculateAverageDistance(Vertex vertex, List<ArrayList<Vertex>> clusters, ArrayList<Vertex> cluster) {
+        double minDistance = Double.MAX_VALUE;
+
+        for (ArrayList<Vertex> otherCluster : clusters) {
+            if (otherCluster != cluster) {
+                double distance = calculateAverageDistance(vertex, otherCluster);
+                minDistance = Math.min(minDistance, distance);
+            }
+        }
+
+        return minDistance;
     }
 
 
