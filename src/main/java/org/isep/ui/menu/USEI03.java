@@ -7,8 +7,11 @@ import org.isep.Utilities.graph.EdgeEI03;
 import org.isep.Utilities.graph.Vertex;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class USEI03 {
+
+    public static Scanner read = new Scanner(System.in);
 
     public static void usei03Start() {
 
@@ -98,7 +101,10 @@ public class USEI03 {
 
         // Shortest Path
         DijkstraAlgorithm algorithmV2 = new DijkstraAlgorithm();
-        int numberOfStops = algorithmV2.computePath(CT8, 300);
+
+        // Get Vehicle capacity
+        int vehicleCapacity = getVehicleCapacity();
+        int numberOfStops = algorithmV2.computePath(CT8, vehicleCapacity);
 
         System.out.println("Caminho mais curto entre ambos --> " + algorithmV2.getShortestPathTo(CT4));
         if (numberOfStops > 0) {
@@ -107,5 +113,20 @@ public class USEI03 {
 
         System.out.println();
         App.askAgain();
+    }
+
+    private static int getVehicleCapacity() {
+        int totalCapacity = 0;
+        System.out.println();
+        System.out.println("Qual é a capacidade do seu veiculo?");
+
+        while (totalCapacity <= 0) {
+            totalCapacity = read.nextInt();
+
+            if (totalCapacity <= 0) {
+                System.out.println("Por favor, insira um valor maior que zero para a capacidade do veículo:");
+            }
+        }
+        return totalCapacity;
     }
 }
