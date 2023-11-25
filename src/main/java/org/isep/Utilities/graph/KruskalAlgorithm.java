@@ -30,10 +30,13 @@ public class KruskalAlgorithm {
 
         // Display the MST
         double totalDistance = 0;
+        System.out.println();
+        System.out.println();
+        System.out.println("Rede de ligação minima:");
         for (EdgeEI04 e : mst) {
             System.out.println(e.toString2());
             totalDistance += e.getWeight();
         }
-        System.out.printf("Total minimum distance = %.2f Km\n", totalDistance);
+        System.out.printf("Distância total da rede = %.2f Km\n", totalDistance);
     }
 }

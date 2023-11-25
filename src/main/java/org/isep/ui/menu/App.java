@@ -23,7 +23,7 @@ public class App {
         boolean validInput = false;
 
         while (!validInput) {
-            System.out.println("Selecione uma opção: ");
+            System.out.print("Selecione uma opção: ");
 
             try {
                 option = read.nextInt();
@@ -44,7 +44,7 @@ public class App {
                 USLP03.uslp03Start();
                 break;
             case 2:
-                System.out.println("Case 2 --> not implemented yet");
+                distributionNetworkMenu();
                 break;
             case 3:
                 System.out.println("Case 3 --> not implemented yet");
@@ -70,6 +70,61 @@ public class App {
         System.out.print("\t Victor Salgado - 1221722@isep.ipp.pt \n");
         System.out.print("\t Ana Rita Andrade - 1180708@isep.ipp.pt \n");
         System.out.println("\n");
+
+    }
+
+    public static void distributionNetworkMenu() {
+        System.out.println("=============================================");
+        System.out.println("|           Rede de Distribuição            |");
+        System.out.println("=============================================");
+        System.out.println("1 --> Listar hubs por ordem decrescente de centralidade e influência.");
+        System.out.println("2 --> Devolver percurso entre os dois locais mais afastados da rede de distribuição.");
+        System.out.println("3 --> Devolver rede de ligação minima, distância entre locais e distância total da rede.");
+        System.out.println("4 --> Devolver a rede de cada cluster e o respectivo coeficiente de Silhoutte.");
+        System.out.println("=============================================");
+        System.out.println("0 --> Voltar ao menu inicial");
+        System.out.println("=============================================");
+
+        int option = 0;
+        boolean validInput = false;
+
+        while (!validInput) {
+            System.out.print("Selecione uma opção: ");
+
+            try {
+                option = read.nextInt();
+
+                if (option >= 0 && option <= 4) {
+                    validInput = true;
+                } else {
+                    System.out.println("Opção inválida. Selecione uma opção entre 1 e 5.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Opção inválida. Selecione uma opção entre 1 e 5.");
+                read.nextLine();
+            }
+        }
+
+        switch (option) {
+            case 1:
+                USEI02.usei02Start();
+                break;
+            case 2:
+                USEI03.usei03Start();
+                break;
+            case 3:
+                USEI04.usei04Start();
+                break;
+            case 4:
+                USEI05.usei05Start();
+                break;
+            case 0:
+                runApp();
+                break;
+        }
+    }
+
+    public static void dataBaseMenu() {
 
     }
 }
