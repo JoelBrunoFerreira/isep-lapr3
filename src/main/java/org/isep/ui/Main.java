@@ -1,6 +1,7 @@
 package org.isep.ui;
 
 import org.isep.Controllers.Controlador;
+import org.isep.Controllers.GetNStategicClusters;
 import org.isep.Controllers.GetNStrategicHubs;
 import org.isep.Controllers.LoadData;
 import org.isep.Utilities.graph.Edge;
@@ -10,6 +11,7 @@ import org.isep.Utilities.graph.matrix.MatrixGraph;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -60,7 +62,7 @@ public class Main {
                     " - Required closing time: " + vertex.getClosingTime());
         }
 
-
+/*
         GetNStrategicHubs hubs = new GetNStrategicHubs(locais_small, distancias_small);
         List<Vertex> NHubs = hubs.getNStrategicHubs(3);
 
@@ -68,7 +70,13 @@ public class Main {
         for (Vertex v: NHubs) {
             System.out.println(v.getDegree() + " " + v.getName() + " " + v.getAverageDistance() + " " + v.getNumMinPaths());
         }
+*/
 
 
     }
+
+
+
+
+
 }
