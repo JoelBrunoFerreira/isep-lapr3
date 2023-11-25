@@ -25,7 +25,7 @@ public class USLP03 {
                 System.out.println("1 - Carregar novo plano de rega");
                 System.out.println("2 - Setores a regar");
                 System.out.println("3 - Verificar Caderno de Campo");
-                System.out.println("4 - Sair");
+                System.out.println("0 - Sair");
                 String resposta = read.nextLine();
 
                 switch (resposta) {
@@ -39,7 +39,7 @@ public class USLP03 {
                     case "3":
                         controller.mostrarCadernoDeCampo();
                         break;
-                    case "4":
+                    case "0":
                         App.runApp();
                         break;
                     default:

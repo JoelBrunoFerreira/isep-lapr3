@@ -17,6 +17,8 @@ public class USEI04 {
         KruskalAlgorithm algorithm = new KruskalAlgorithm();
         algorithm.runKruskal(vertexList,  edgeList);
 
+        System.out.println();
+        App.askAgain();
     }
 
     public static void loadGraph() {

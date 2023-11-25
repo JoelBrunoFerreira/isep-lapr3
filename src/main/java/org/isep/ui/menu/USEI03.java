@@ -91,8 +91,10 @@ public class USEI03 {
         // Calculate the furthest vertices
         List<Vertex> result = FurthestVertices.findFurthestVertices(vertexData);
 
+        System.out.println();
+        System.out.println();
         System.out.println("Os locais mais afastados da rede de distribuição são: " + result.get(0).getName() +
-                " e o " + result.get(1).getName());
+                " e o " + result.get(1).getName() + ".");
 
         // Shortest Path
         DijkstraAlgorithm algorithmV2 = new DijkstraAlgorithm();
@@ -102,5 +104,8 @@ public class USEI03 {
         if (numberOfStops > 0) {
             System.out.println("O veiculo terá de recarregar : " + numberOfStops + " vez(es)");
         }
+
+        System.out.println();
+        App.askAgain();
     }
 }
