@@ -31,13 +31,13 @@ public class USEI02 {
 
         int numClusters;
         do {
-            System.out.println("(só são válidos números entre 0 e " + numLines + ") ");
+            System.out.println("(só são válidos números entre 1 e " + numLines + ") ");
             while (!sc.hasNextInt()) {
                 System.out.println("Input inválido");
                 sc.next();
             }
             numClusters = sc.nextInt();
-        } while (numClusters < 0 || numClusters > numLines);
+        } while (numClusters < 1 || numClusters > numLines);
 
 
 
@@ -58,6 +58,9 @@ public class USEI02 {
 
             System.out.println();
         }
+
+        System.out.println();
+        App.askAgain();
 
     }
 

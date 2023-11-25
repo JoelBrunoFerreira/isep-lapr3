@@ -27,9 +27,25 @@ public class USEI05 {
 
         System.out.println("Esta funcionalidade permite dividir a rede em N clusters o mais conexos e coesos possíveis.");
         System.out.println("Deve indicar o número de clusters a obter e posteriormente as localidades que vão agrupar os pontos mais próximos.");
+
+
         System.out.println("Quantos clusters deseja obter?");
-        int numClusters = sc.nextInt();
+
+
+        int numLines = countLines(locais_small) - 1;
+
+        int numClusters;
+        do {
+            System.out.println("(só são válidos números entre 1 e " + numLines + ") ");
+            while (!sc.hasNextInt()) {
+                System.out.println("Input inválido");
+                sc.next();
+            }
+            numClusters = sc.nextInt();
+        } while (numClusters < 1 || numClusters > numLines);
         sc.nextLine();
+
+
 
         List<String> ids = new ArrayList<>();
         int[] minAndMax = findMinAndMax(locais_small);
@@ -111,4 +127,23 @@ public class USEI05 {
     }
 
 
+    private static int countLines(String filePath) {
+        int lineCount = 0;
+
+        try {
+            File file = new File(filePath);
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNextLine()) {
+                scanner.nextLine();
+                lineCount++;
+            }
+
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return lineCount;
+    }
 }
