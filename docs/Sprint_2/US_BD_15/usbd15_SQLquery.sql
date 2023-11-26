@@ -1,5 +1,4 @@
 -- USBD15 - Como Gestor Agrıcola, quero registar uma operacao de poda
-
 CREATE OR REPLACE PROCEDURE registar_operacao_poda (
     nome_parcela IN NVARCHAR2,
     especie_vegetal IN NVARCHAR2,

@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class USLP08 {
 
-    public static void uslp08Start(String paramOne, String paramTwo, String paramThree, String paramFour, float paramFive) {
+    public static void uslp08Start(String paramOne, String paramTwo, String paramThree, String paramFour, double paramFive) {
 
         // Call USBD_15
         try{
@@ -38,7 +38,7 @@ public class USLP08 {
             callableStatement.setString(2, paramTwo); // it will replace the second '?'
             callableStatement.setString(3, paramThree); // it will replace the third '?'
             callableStatement.setDate(4, Date.valueOf(paramFour)); // it will replace the fourth '?'
-            callableStatement.setFloat(5, paramFive); // it will replace the fifth '?''
+            callableStatement.setDouble(5, paramFive); // it will replace the fifth '?''
 
             // call Stored procedure
             callableStatement.execute();
