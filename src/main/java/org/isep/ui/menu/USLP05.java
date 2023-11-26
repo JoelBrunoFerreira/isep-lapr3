@@ -34,7 +34,7 @@ public class USLP05 {
             Connection db_connection = DriverManager.getConnection(theURL, theUser, thePassword);
 
             // Prepare the stored procedure call
-            CallableStatement callableStatement = db_connection.prepareCall("{ ? = call fnc_USBD12(?, ?, ?, ?, ?) }");
+            CallableStatement callableStatement = db_connection.prepareCall("{call proc_USBD12(?, ?, ?, ?, ?) }");
 
             // Assign values to params
             callableStatement.setString(1, paramOne); // it will replace the first '?'
@@ -47,10 +47,10 @@ public class USLP05 {
             callableStatement.execute();
 
             // Retrieving the result (if the function returns a value)
-            int result = callableStatement.getInt(1);
+            //int result = callableStatement.getInt(1);
 
             // Using the result obtained from the function call
-            System.out.println("Result: " + result);
+            //System.out.println("Result: " + result);
             System.out.println("Registo de operação de monda efectuado com sucesso.");
             db_connection.close();
 
