@@ -36,17 +36,17 @@
 
 ## USEI05
 ### Methods Used | Time Complexity:
-> getClustersAndSilhouette | O(n^4 * V * E)
+> getClustersAndSilhouette | O(n^4 * V + E)
 
-> getNStrategicClusters | O(n^2 * V * E)
+> getNStrategicClusters | O(n^2 * V + E)
  
 > InitializeClusters | O(n)
  
 > InitializeCentroids |  O(n^2)
 
-> calculateSilhouetteCoefficients | O(n^4 * V * E)
+> calculateSilhouetteCoefficients | O(n^4 * V + E)
  
-> calculateAverageDistance | O(n * V * E)
+> calculateAverageDistance | O(n * V + E)
  
-> calculateAverageDistance | O(n^2 * V * E)
+> calculateAverageDistance | O(n^2 * V + E)
 
