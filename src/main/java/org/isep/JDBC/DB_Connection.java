@@ -231,6 +231,7 @@ public class DB_Connection {
 
     // ******************************** Reading connection properties from file ********************************
     // *********************************************************************************************************
+    // 8)
     public void loadCredentialsAndQueringDB(String SQL_Query) {
         try {
             // Load the credentials file
@@ -266,4 +267,55 @@ public class DB_Connection {
             throw new RuntimeException(e);
         }
     }
+
+    // *********************************************************************************************************
+    // ********************************  Stored Procedures - Final LAPR  ***************************************
+    // *********************************************************************************************************
+    // 9)
+    public void loadCredentialsAndCallProcedure() {
+        try{
+            // Load the credentials file
+            Properties properties = new Properties();
+            properties.load(new FileInputStream("db_credentials.properties")); // file with credentials
+
+            // Read the properties
+            String theUser = properties.getProperty("username");
+            String thePassword = properties.getProperty("password");
+            String theURL = properties.getProperty("dbURL_remote");
+
+            System.out.println("Connecting to database...");
+            System.out.println("Database URL: " + theURL);
+            System.out.println("User: " + theUser);
+            System.out.println("=========================================================");
+            System.out.println();
+
+            // Set the parameters
+            String paramOne = "Some String";
+            int paramTwo = 12345;
+            double paramThree = 3.14;
+
+            // Get a connection
+            Connection db_connection = DriverManager.getConnection(theURL, theUser, thePassword);
+
+            // Prepare the stored procedure call
+            CallableStatement callableStatement = db_connection.prepareCall("{call precedureName(?, ?, ?)}");
+
+            // Assign values to params
+            callableStatement.setString(1, paramOne); // it will replace the first '?'
+            callableStatement.setInt(2, paramTwo); // it will replace the second '?'
+            callableStatement.setDouble(3, paramThree); // it will replace the three '?'
+
+            // call Stored procedure
+            callableStatement.execute();
+
+            db_connection.close();
+
+        } catch (SQLException | FileNotFoundException e) {
+            System.out.println("Something went wrong :(");
+            e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
