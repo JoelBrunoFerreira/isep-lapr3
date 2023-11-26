@@ -3,10 +3,7 @@ package org.isep.ui.menu;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 public class USLP05 {
@@ -40,7 +37,7 @@ public class USLP05 {
             callableStatement.setString(1, paramOne); // it will replace the first '?'
             callableStatement.setString(2, paramTwo); // it will replace the second '?'
             callableStatement.setString(3, paramThree); // it will replace the three '?'
-            callableStatement.setString(4, paramFour); // it will replace the three '?'
+            callableStatement.setDate(4, Date.valueOf(paramFour)); // it will replace the three '?'
             callableStatement.setDouble(5, paramFive); // it will replace the three '?'
 
             // call Stored procedure
