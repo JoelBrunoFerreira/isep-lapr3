@@ -9,8 +9,10 @@
 
 ## USEI02
 ### Methods Used:
->
-### Time Complexity:
+> getNStrategicHubs | O(V logV)
+> 
+> getAllVerticesSorted | O(V logV)
+### Time Complexity: O(V logV)
 
 
 ## USEI03
@@ -26,9 +28,21 @@
 
 
 ## USEI05
-### Methods Used:
+### Methods Used: 
+> getClustersAndSilhouette | O(n^4 * V * E)
+> 
+> getNStrategicClusters | O(n^2 * V * E)
+> 
+> InitializeClusters | O(n)
+> 
+> InitializeCentroids |  O(n^2)
 >
-### Time Complexity:
+> calculateSilhouetteCoefficients | O(n^4 * V * E)
+> 
+> calculateAverageDistance | O(n * V * E)
+> 
+> calculateAverageDistance | O(n^2 * V * E)
+### Time Complexity: O(n^4 * V * E)
 
 
 

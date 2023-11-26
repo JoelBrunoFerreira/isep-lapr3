@@ -26,22 +26,24 @@ public class GetNStrategicHubs {
     }
 
 
+    //O(V logV)
     public List<Vertex> getNStrategicHubs(int numberOfStrategicHubs) {
-        List<Vertex> nStrategicHubs = new ArrayList<>();
+        List<Vertex> nStrategicHubs = new ArrayList<>(); //O(1)
 
-        ArrayList<Vertex> allLocalsSorted = getAllVerticesSorted();
+        ArrayList<Vertex> allLocalsSorted = getAllVerticesSorted(); //O(V logV)
 
-        for (int i = 0; i < numberOfStrategicHubs; i++) {
+        for (int i = 0; i < numberOfStrategicHubs; i++) { //O(n)
             nStrategicHubs.add(allLocalsSorted.get(i));
         }
 
         return nStrategicHubs;
     }
 
+    //O(V logV)
     private ArrayList<Vertex> getAllVerticesSorted() {
 
         ArrayList<Vertex> vertices = matrixGraph.vertices();
-        Comparator<Vertex> vertexComparator = new Comparator<Vertex>() {
+        Comparator<Vertex> vertexComparator = new Comparator<Vertex>() { //O(V logV)
             @Override
             public int compare(Vertex v1, Vertex v2) {
                 int degreeComparison = Integer.compare(v2.getDegree(), v1.getDegree());
