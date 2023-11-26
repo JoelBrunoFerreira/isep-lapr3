@@ -173,7 +173,7 @@ public class App {
                 USLP07.uslp07Start();
                 break;
             case 5:
-                USLP08.uslp08Start();
+                USLP08.uslp08Start("Campo Grande", "Oliveira", "Galega", "2023-11-06", 20.0);
                 break;
             case 0:
                 runApp();

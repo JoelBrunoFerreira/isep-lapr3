@@ -22,7 +22,7 @@ public class USLP07 {
             // Read the properties
             String theUser = properties.getProperty("username");
             String thePassword = properties.getProperty("password");
-            String theURL = properties.getProperty("dbURL_remote");
+            String theURL = properties.getProperty("dbURL_localhost");
 
             System.out.println("Connecting to database...");
             System.out.println("Database URL: " + theURL);
