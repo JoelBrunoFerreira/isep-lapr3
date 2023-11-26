@@ -36,9 +36,9 @@ public class USLP05 {
             // Assign values to params
             callableStatement.setString(1, paramOne); // it will replace the first '?'
             callableStatement.setString(2, paramTwo); // it will replace the second '?'
-            callableStatement.setString(3, paramThree); // it will replace the three '?'
-            callableStatement.setDate(4, Date.valueOf(paramFour)); // it will replace the three '?'
-            callableStatement.setDouble(5, paramFive); // it will replace the three '?'
+            callableStatement.setString(3, paramThree); // it will replace the third '?'
+            callableStatement.setDate(4, Date.valueOf(paramFour)); // it will replace the fourth '?'
+            callableStatement.setDouble(5, paramFive); // it will replace the fifth '?'
 
             // call Stored procedure
             callableStatement.execute();
