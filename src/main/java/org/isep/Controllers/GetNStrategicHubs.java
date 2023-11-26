@@ -49,29 +49,19 @@ public class GetNStrategicHubs {
                     return degreeComparison;
                 }
 
-                int avgDistanceComparison = Integer.compare(v2.getNumMinPaths(), v1.getNumMinPaths());
-                if (avgDistanceComparison != 0) {
-                    return avgDistanceComparison;
+                int numMinPathsComparison  = Integer.compare(v2.getNumMinPaths(), v1.getNumMinPaths());
+                if (numMinPathsComparison  != 0) {
+                    return numMinPathsComparison ;
                 }
 
-                // Compare by numMinPaths in decreasing order
                 return Double.compare(v1.getAverageDistance(), v2.getAverageDistance());
             }
         };
 
         vertices.sort(vertexComparator);
 
-
-        System.out.println("All:");
-        for(Vertex v : vertices){
-            System.out.println(v.getDegree() + " " + v.getName() + " " + v.getAverageDistance() + " " + v.getNumMinPaths());
-        }
-
         return vertices;
 
     }
 
-    public List<Vertex> getLocals() {
-        return locals;
-    }
 }

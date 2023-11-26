@@ -1,9 +1,11 @@
 package org.isep.Utilities.graph;
 
+import org.isep.Utilities.graph.map.MapGraph;
 import org.isep.Utilities.graph.matrix.MatrixGraph;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.function.BinaryOperator;
 
 /**
@@ -317,6 +319,35 @@ public class Algorithms {
     public static <V,E> MatrixGraph<V,E> minDistGraph(Graph <V,E> g, Comparator<E> ce, BinaryOperator<E> sum) {
         
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+
+
+    public static <V, E> Graph<V, E> kruskalAlgorithm(Graph<V, E> g) {
+        Graph<V, E> mst = new MatrixGraph<>(false);
+        List<Edge<V, E>> lstEdges = new ArrayList<>(g.edges());
+        LinkedList<V> connectedVertexes;
+
+        for (V vertice : g.vertices()) {
+            mst.addVertex(vertice);
+        }
+
+        lstEdges.sort(new Comparator<Edge<V, E>>() {
+            @Override
+            public int compare(Edge<V, E> o1, Edge<V, E> o2) {
+                return Double.compare((Double) o1.getWeight(), (Double) o2.getWeight());
+            }
+        });
+
+        for (Edge e : lstEdges) {
+            V vertexOrigin = (V) e.getVOrig();
+            V vertexDestination = (V) e.getVDest();
+            connectedVertexes = DepthFirstSearch(mst, vertexOrigin);
+            if (!connectedVertexes.contains(vertexDestination)) {
+                mst.addEdge(vertexOrigin, vertexDestination, (E) e.getWeight());
+            }
+        }
+        return mst;
     }
 
 }
