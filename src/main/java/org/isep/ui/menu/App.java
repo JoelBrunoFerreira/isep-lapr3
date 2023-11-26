@@ -164,7 +164,7 @@ public class App {
                 USLP04.uslp04Start();
                 break;
             case 2:
-                USLP05.uslp05Start("Campo Novo", "Cenoura", "Danvers Half Long", "11/10/2023", 0.5);
+                USLP05.uslp05Start("Campo Novo", "Cenoura", "Danvers Half Long", "2023-10-11", 0.5);
                 break;
             case 3:
                 USLP06.uslp06Start();
