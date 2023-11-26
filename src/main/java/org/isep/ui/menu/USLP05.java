@@ -11,7 +11,7 @@ import java.util.Properties;
 
 public class USLP05 {
 
-    public static void uslp05Start() {
+    public static void uslp05Start(String paramOne, String paramTwo, String paramThree, String paramFour, double paramFive) {
 
         // Call USBD_12
         try{
@@ -30,21 +30,18 @@ public class USLP05 {
             System.out.println("=========================================================");
             System.out.println();
 
-            // Set the parameters
-            String paramOne = "Some String";
-            int paramTwo = 12345;
-            double paramThree = 3.14;
-
             // Get a connection
             Connection db_connection = DriverManager.getConnection(theURL, theUser, thePassword);
 
             // Prepare the stored procedure call
-            CallableStatement callableStatement = db_connection.prepareCall("{call registrar_operacao_monda(?, ?, ?)}");
+            CallableStatement callableStatement = db_connection.prepareCall("{call fnc_USBD12(?, ?, ?, ?, ?)}");
 
             // Assign values to params
             callableStatement.setString(1, paramOne); // it will replace the first '?'
-            callableStatement.setInt(2, paramTwo); // it will replace the second '?'
-            callableStatement.setDouble(3, paramThree); // it will replace the three '?'
+            callableStatement.setString(2, paramTwo); // it will replace the second '?'
+            callableStatement.setString(3, paramThree); // it will replace the three '?'
+            callableStatement.setString(4, paramFour); // it will replace the three '?'
+            callableStatement.setDouble(5, paramFive); // it will replace the three '?'
 
             // call Stored procedure
             callableStatement.execute();
