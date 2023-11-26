@@ -23,13 +23,13 @@ public class GetNStategicClusters {
         this.matrixGraph = LoadData.fillMatrixGraph(distancias, locals);
     }
 
-    //O(n^4 * V * E)
+    //O(n^4 * V + E)
     public Map<ArrayList<Vertex>, Double> getClustersAndSilhouette(List<String> ids){
 
         Map<ArrayList<Vertex>, Double> clustersAndSilhouette = new HashMap<>(); //O(1)
 
-        List<ArrayList<Vertex>> clusters = getNStrategicClusters(ids); //O(n^2 * V * E)
-        List<Double> silhouetteCoefficients = calculateSilhouetteCoefficients(clusters); //O(n^4 * V * E)
+        List<ArrayList<Vertex>> clusters = getNStrategicClusters(ids); //O(n^2 * V + E)
+        List<Double> silhouetteCoefficients = calculateSilhouetteCoefficients(clusters); //O(n^4 * V + E)
 
         for (int i = 0; i < clusters.size(); i++) {     //O(n)
             ArrayList<Vertex> cluster = clusters.get(i);    //O(n)
@@ -44,7 +44,7 @@ public class GetNStategicClusters {
 
 
 
-    //O(n^2 * V * E)
+    //O(n^2 * V + E)
     public List<ArrayList<Vertex>> getNStrategicClusters(List<String> hubsID) {
 
         List<ArrayList<Vertex>> clusters = new ArrayList<>(); //O(1)
@@ -74,7 +74,7 @@ public class GetNStategicClusters {
                     Vertex vOrig = centroid;
                     Vertex vDest = vertex;
 
-                    Double distance = shortestPath(matrixGraph, vOrig, vDest, comparator, sum, zero, shortestPath); //O(n^2 * V * E)
+                    Double distance = shortestPath(matrixGraph, vOrig, vDest, comparator, sum, zero, shortestPath); //O(n^2 * V + E)
                     if (distance < minDistance) {
                         minDistance = distance;
                         allocatedCentroid = centroid;
@@ -121,7 +121,7 @@ public class GetNStategicClusters {
 
 
 
-    //O(n^4 * V * E)
+    //O(n^4 * V + E)
     public List<Double> calculateSilhouetteCoefficients(List<ArrayList<Vertex>> clusters) {
         List<Double> clusterSilhouetteCoefficients = new ArrayList<>(); //O(1)
         int totalVertices = matrixGraph.numVertices(); //O(1)
@@ -144,7 +144,7 @@ public class GetNStategicClusters {
         return clusterSilhouetteCoefficients; //O(1)
     }
 
-    //O(n * V * E)
+    //O(n * V + E)
     private double calculateAverageDistance(Vertex vertex, ArrayList<Vertex> cluster) {
         double totalDistance = 0.0; //O(1)
         int numOfVertices = 0; //O(1)
@@ -157,7 +157,7 @@ public class GetNStategicClusters {
             if (!vertex.equals(otherVertex)) {
                 LinkedList<Vertex> shortestPath = new LinkedList<>();
 
-                totalDistance += shortestPath(matrixGraph, vertex, otherVertex, comparator, sum, zero, shortestPath); //O(n * V * E)
+                totalDistance += shortestPath(matrixGraph, vertex, otherVertex, comparator, sum, zero, shortestPath); //O(n * V + E)
                 numOfVertices++;
             }
         }
@@ -168,13 +168,13 @@ public class GetNStategicClusters {
         return totalDistance / numOfVertices;
     }
 
-    //O(n^2 * V * E)
+    //O(n^2 * V + E)
     private double calculateAverageDistance(Vertex vertex, List<ArrayList<Vertex>> clusters, ArrayList<Vertex> cluster) {
         double minDistance = Double.MAX_VALUE; //O(1)
 
         for (ArrayList<Vertex> otherCluster : clusters) { //O(n)
             if (otherCluster != cluster) {
-                double distance = calculateAverageDistance(vertex, otherCluster); //O(n^2 * V * E)
+                double distance = calculateAverageDistance(vertex, otherCluster); //O(n^2 * V + E)
                 minDistance = Math.min(minDistance, distance);
             }
         }
