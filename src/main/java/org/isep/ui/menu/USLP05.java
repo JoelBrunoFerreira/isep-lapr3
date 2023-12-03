@@ -34,7 +34,7 @@ public class USLP05 {
             Connection db_connection = DriverManager.getConnection(theURL, theUser, thePassword);
 
             // Prepare the stored procedure call
-            CallableStatement callableStatement = db_connection.prepareCall("{call fnc_USBD12(?, ?, ?, ?, ?)}");
+            CallableStatement callableStatement = db_connection.prepareCall("{call proc_USBD12(?, ?, ?, ?, ?)}");
 
             // Assign values to params
             callableStatement.setString(1, paramOne); // it will replace the first '?'

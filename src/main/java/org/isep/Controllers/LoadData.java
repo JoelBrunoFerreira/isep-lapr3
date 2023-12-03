@@ -101,8 +101,6 @@ public class LoadData {
 
         calculateVertexDegrees(matrixGraph, locals);
         calculateAverageDistanceAndMinPaths(matrixGraph, locals);
-
-
         return matrixGraph;
     }
 
