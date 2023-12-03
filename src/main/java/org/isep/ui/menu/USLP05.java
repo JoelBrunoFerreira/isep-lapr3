@@ -3,10 +3,7 @@ package org.isep.ui.menu;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 public class USLP05 {
@@ -22,7 +19,7 @@ public class USLP05 {
             // Read the properties
             String theUser = properties.getProperty("username");
             String thePassword = properties.getProperty("password");
-            String theURL = properties.getProperty("dbURL_remote");
+            String theURL = properties.getProperty("dbURL_localhost");
 
             System.out.println("Connecting to database...");
             System.out.println("Database URL: " + theURL);
@@ -34,18 +31,23 @@ public class USLP05 {
             Connection db_connection = DriverManager.getConnection(theURL, theUser, thePassword);
 
             // Prepare the stored procedure call
-            CallableStatement callableStatement = db_connection.prepareCall("{call proc_USBD12(?, ?, ?, ?, ?)}");
+            CallableStatement callableStatement = db_connection.prepareCall("{call proc_USBD12(?, ?, ?, ?, ?) }");
 
             // Assign values to params
             callableStatement.setString(1, paramOne); // it will replace the first '?'
             callableStatement.setString(2, paramTwo); // it will replace the second '?'
-            callableStatement.setString(3, paramThree); // it will replace the three '?'
-            callableStatement.setString(4, paramFour); // it will replace the three '?'
-            callableStatement.setDouble(5, paramFive); // it will replace the three '?'
+            callableStatement.setString(3, paramThree); // it will replace the third '?'
+            callableStatement.setDate(4, Date.valueOf(paramFour)); // it will replace the fourth '?'
+            callableStatement.setDouble(5, paramFive); // it will replace the fifth '?'
 
             // call Stored procedure
             callableStatement.execute();
 
+            // Retrieving the result (if the function returns a value)
+            //int result = callableStatement.getInt(1);
+
+            // Using the result obtained from the function call
+            //System.out.println("Result: " + result);
             System.out.println("Registo de operação de monda efectuado com sucesso.");
             db_connection.close();
 
