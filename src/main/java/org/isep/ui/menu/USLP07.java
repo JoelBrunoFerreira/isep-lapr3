@@ -3,15 +3,12 @@ package org.isep.ui.menu;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 public class USLP07 {
 
-    public static void uslp07Start() {
+    public static void uslp07Start(String nomeParcela, String dataRealizacao, String nomeFatorDeProducao, float quantidadeFatorProducao, float area) {
 
         // Call USBD_14
         try{
@@ -39,12 +36,14 @@ public class USLP07 {
             Connection db_connection = DriverManager.getConnection(theURL, theUser, thePassword);
 
             // Prepare the stored procedure call
-            CallableStatement callableStatement = db_connection.prepareCall("{call registar_operacao_aplicacao_fator_producao(?, ?, ?)}");
+            CallableStatement callableStatement = db_connection.prepareCall("{call registar_operacao_aplicacao_fator_producao(?, ?, ?, ?, ?)}");
 
             // Assign values to params
-            callableStatement.setString(1, paramOne); // it will replace the first '?'
-            callableStatement.setInt(2, paramTwo); // it will replace the second '?'
-            callableStatement.setDouble(3, paramThree); // it will replace the three '?'
+            callableStatement.setString(1, nomeParcela); // it will replace the first '?'
+            callableStatement.setDate(2, Date.valueOf(dataRealizacao)); // it will replace the second '?'
+            callableStatement.setString(3, nomeParcela); // it will replace the first '?'
+            callableStatement.setFloat(4, quantidadeFatorProducao); // it will replace the third '?'
+            callableStatement.setFloat(5,area); // it will replace the fourth '?'
 
             // call Stored procedure
             callableStatement.execute();

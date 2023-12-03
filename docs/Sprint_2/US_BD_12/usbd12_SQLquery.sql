@@ -1,11 +1,13 @@
 -- Registar uma operação de monda, USBD12
 CREATE OR REPLACE PROCEDURE proc_USBD12 (
+    -- Procedimento recebe os seguintes 5 parametros, cada um corresponde a colunas em tabelas especificas na BD
     nome_parcela PARCELA.DESIGNACAO%type,
     especie_vegetal ESPECIEVEGETAL.NOMECOMUM%type,
     variedade_planta CULTURA.VARIEDADE%type,
     data_realizacao  OPERACAO.DATAREALIZACAO%type,
     area_monda  MONDA.AREA%type
 )
+    -- Declaração de variaveis locais que serão usadas no corpo do procedimento
     IS
     operacao_id OPERACAO.OPERACAOID%type;
     cultivo_id CULTIVO.CULTIVOID%type;

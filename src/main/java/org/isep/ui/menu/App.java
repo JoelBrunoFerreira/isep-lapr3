@@ -63,7 +63,7 @@ public class App {
     // *************************************************************************
     public static void devTeam() {
         System.out.println("\n");
-        System.out.print("Equipa de desemvolvimento:\n");
+        System.out.print("Equipa de desenvolvimento:\n");
         System.out.println("----------------------------------------------------------------");
         System.out.print("\t * Joel Bruno Teixeira Ferreira - 1191843@isep.ipp.pt \n");
         System.out.print("\t * Jorge Miguel Mendanha Pereira Cruz - 1221715@isep.ipp.pt \n");
@@ -161,16 +161,16 @@ public class App {
 
         switch (option) {
             case 1:
-                USLP04.uslp04Start();
+                USLP04.uslp04Start("Horta Nova", "Nabo Greleiro", "Senhora Conceição","2023-09-01",1.8,0.75);
                 break;
             case 2:
                 USLP05.uslp05Start("Campo Novo", "Cenoura", "Danvers Half Long", "2023-10-11", 0.5);
                 break;
             case 3:
-                USLP06.uslp06Start();
+                USLP06.uslp06Start("Campo Grande", "2023-09-20",100,"Azeitona Galega");
                 break;
             case 4:
-                USLP07.uslp07Start();
+                USLP07.uslp07Start("Campo Novo", "2023-10-06", "Fertimax Extrume de Cavalo", 1.1f,4000);
                 break;
             case 5:
                 USLP08.uslp08Start("Campo Grande", "Oliveira", "Galega", "2023-11-06", 20.0);
