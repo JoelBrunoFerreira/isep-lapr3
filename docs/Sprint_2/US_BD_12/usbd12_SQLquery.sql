@@ -52,7 +52,7 @@ BEGIN
     FROM Cultivo
     WHERE ParcelaID = parcela_id
       AND CulturaID = cultura_id
-      AND data_realizacao BETWEEN DATAINICIO AND CURRENT_DATE;
+      AND data_realizacao BETWEEN DATAINICIO AND DATAFIM;
 
     SELECT QUANTIDADE INTO cultivo_area FROM CULTIVO WHERE cultivoID = cultivo_id;
     IF area_monda > cultivo_area THEN
