@@ -1,4 +1,6 @@
 package org.isep.Repositories;
+
+import org.isep.Domain.FertirregaMix;
 import org.isep.Domain.Parcela;
 import org.isep.Domain.Regularidade;
 import org.isep.Domain.Task;
@@ -10,12 +12,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
 
 public class TaskRepository implements Serializable {
     private static final int DIAS = 30;
     private TreeMap<LocalDate, List<Task>> taskMap = new TreeMap<>();
-        private static final String MAP_FILE_PATH = "taskMapRep.ser";
+    private static final String MAP_FILE_PATH = "taskMapRep.ser";
     private LocalDate startDate = null;
 
     public TaskRepository(String filePath, LocalDate startDate) {
@@ -54,22 +58,31 @@ public class TaskRepository implements Serializable {
                         LocalTime horaFim = horaInicio.plusMinutes(duracao);
                         LocalDate nextDay = startDate;
                         Regularidade regularidade = getRegularidade(parts[2]);
+                        FertirregaMix mix = null;
+                        int recorrenciaMix = 0;
+                        if (parts.length > 3) {
+                            mix = getFertirregaMix(parts[3]);
+                            recorrenciaMix = Integer.parseInt(parts[4]);
+                        }
                         Task newTask;
                         if (regularidade.equals(Regularidade.TODOS)) {
                             for (int j = 0; j < DIAS; j++) {
-                                newTask = new Task(nextDay, horaInicio, horaFim, (new Parcela(parts[0], duracao, regularidade)));
+                                if (recorrenciaMix != 0){
+
+                                }
+                                newTask = new Task(nextDay, horaInicio, horaFim, (new Parcela(parts[0], duracao, regularidade)),mix);
                                 adicionarTarefa(taskMap, nextDay, newTask);
                                 nextDay = nextDay.plusDays(1);
                             }
                         } else if (regularidade.equals(Regularidade.PARES)) {
                             for (int j = 0; j < DIAS / 2; j++) {
                                 if (nextDay.getDayOfMonth() % 2 == 0) {
-                                    newTask = new Task(nextDay, horaInicio, horaFim, (new Parcela(parts[0], duracao, regularidade)));
+                                    newTask = new Task(nextDay, horaInicio, horaFim, (new Parcela(parts[0], duracao, regularidade)), mix);
                                     adicionarTarefa(taskMap, nextDay, newTask);
                                     nextDay = nextDay.plusDays(2);
                                 } else {
                                     nextDay = nextDay.plusDays(1);
-                                    newTask = new Task(nextDay, horaInicio, horaFim, (new Parcela(parts[0], duracao, regularidade)));
+                                    newTask = new Task(nextDay, horaInicio, horaFim, (new Parcela(parts[0], duracao, regularidade)), mix);
                                     adicionarTarefa(taskMap, nextDay, newTask);
                                     nextDay = nextDay.plusDays(2);
                                 }
@@ -77,19 +90,19 @@ public class TaskRepository implements Serializable {
                         } else if (regularidade.equals(Regularidade.IMPARES)) {
                             for (int j = 0; j < DIAS / 2; j++) {
                                 if (nextDay.getDayOfMonth() % 2 != 0) {
-                                    newTask = new Task(nextDay, horaInicio, horaFim, (new Parcela(parts[0], duracao, regularidade)));
+                                    newTask = new Task(nextDay, horaInicio, horaFim, (new Parcela(parts[0], duracao, regularidade)), mix);
                                     adicionarTarefa(taskMap, nextDay, newTask);
                                     nextDay = nextDay.plusDays(2);
                                 } else {
                                     nextDay = nextDay.plusDays(1);
-                                    newTask = new Task(nextDay, horaInicio, horaFim, (new Parcela(parts[0], duracao, regularidade)));
+                                    newTask = new Task(nextDay, horaInicio, horaFim, (new Parcela(parts[0], duracao, regularidade)), mix);
                                     adicionarTarefa(taskMap, nextDay, newTask);
                                     nextDay = nextDay.plusDays(2);
                                 }
                             }
                         } else if (regularidade.equals(Regularidade.CADA_3_DIAS)) {
                             for (int j = 0; j < DIAS / 3; j++) {
-                                newTask = new Task(nextDay, horaInicio, horaFim, (new Parcela(parts[0], duracao, regularidade)));
+                                newTask = new Task(nextDay, horaInicio, horaFim, (new Parcela(parts[0], duracao, regularidade)), mix);
                                 adicionarTarefa(taskMap, nextDay, newTask);
                                 nextDay = nextDay.plusDays(3);
                             }
@@ -122,6 +135,19 @@ public class TaskRepository implements Serializable {
                 return Regularidade.PARES;
             case "3":
                 return Regularidade.CADA_3_DIAS;
+            default:
+                return null;
+        }
+    }
+
+    private FertirregaMix getFertirregaMix(String mix) {
+        switch (mix) {
+            case "mix1":
+                return FertirregaMix.MIX1;
+            case "mix2":
+                return FertirregaMix.MIX2;
+            case "mix3":
+                return FertirregaMix.MIX3;
             default:
                 return null;
         }
