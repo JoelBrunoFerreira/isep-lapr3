@@ -29,7 +29,7 @@ END IF;
 -- Procura o ID da Especie Vegetal pelo nome
 SELECT ESPECIEVEGETALID INTO especie_vegetal_id
 FROM EspecieVegetal
-WHERE NOMECOMUM = 'Nabo Greleiro';
+WHERE NOMECOMUM = especie_vegetal;
 
 -- Procura o ID da Cultura pelo nome
 SELECT CULTURAID INTO cultura_id FROM Cultura
@@ -41,7 +41,7 @@ SELECT COUNT(*) INTO cultivo_id
 FROM Cultivo
 WHERE ParcelaID = parcela_id AND data_realizacao BETWEEN DATAINICIO AND DATAFIM;
 
-IF cultivo_id > 0
+IF cultivo_id > 0 /*AND (data_realizacao > CURRENT_DATE)*/ -- Não funciona a data no futuro
 THEN
     RAISE_APPLICATION_ERROR(-20001, 'Parcela com cultivos existentes');
 ELSE

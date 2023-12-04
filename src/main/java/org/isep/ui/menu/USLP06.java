@@ -50,8 +50,14 @@ public class USLP06 {
             db_connection.close();
 
             System.out.println("Registo de operação de colheita efectuado com sucesso.");
+            db_connection.close();
+            System.out.println();
+            App.dataBaseMenu();
+
         } catch (SQLException | FileNotFoundException e) {
-            System.out.println("Something went wrong :(");
+            System.out.println("ERRO: Não é possivel colher especies que não existem na parcela. Não são permitidas operações no futuro.");
+            System.out.println();
+            App.dataBaseMenu();
             e.printStackTrace();
         } catch (IOException e) {
             throw new RuntimeException(e);

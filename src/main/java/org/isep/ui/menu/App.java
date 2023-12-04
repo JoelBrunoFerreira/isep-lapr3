@@ -161,19 +161,50 @@ public class App {
 
         switch (option) {
             case 1:
-                USLP04.uslp04Start("Horta Nova", "Nabo Greleiro", "Senhora Conceição","2023-09-01",1.8,0.75);
+                //Sucesso:
+//                USLP04.uslp04Start("Horta Nova", "Nabo Greleiro", "Senhora Conceição","2023-09-20",0.9,0.3);
+
+                //Insucesso: Area maior que area da parcela
+//                USLP04.uslp04Start("Campo Novo", "Nabo Greleiro", "Senhora Conceição","2023-09-19",1.8,0.75);
+
+                //Insucesso: Data futuro
+                USLP04.uslp04Start("Horta Nova", "Nabo Greleiro", "Senhora Conceição","2026-09-19",1,0.3);
+
                 break;
             case 2:
-                USLP05.uslp05Start("Campo Novo", "Cenoura", "Danvers Half Long", "2023-10-11", 0.5);
+                //Sucesso:
+                USLP05.uslp05Start("Campo Novo", "Cenoura", "Danvers Half Long", "2023-09-08", 0.5);
+//                Insucesso:
+                // Não existe cultivo:
+//                USLP05.uslp05Start("Campo Novo", "Cenoura", "Danvers Half Long", "2023-10-11", 0.5);
                 break;
             case 3:
-                USLP06.uslp06Start("Campo Grande", "2023-09-20",100,"Azeitona Galega");
+                //Sucesso:
+                USLP06.uslp06Start("Campo Grande", "2023-11-05",100,"Azeitona Galega");
+
+//                Incucesso:
+                // Data futuro:
+                // USLP06.uslp06Start("Campo Grande", "2024-11-05",100,"Azeitona Galega");
+
+                // Produto inexistente:
+//                 USLP06.uslp06Start("Campo Grande", "2023-10-05",800,"Maçã Golden");
                 break;
             case 4:
-                USLP07.uslp07Start("Campo Novo", "2023-10-06", "Fertimax Extrume de Cavalo", 1.1f,4000);
+                //Sucesso:
+                USLP07.uslp07Start("Campo Novo",null ,null,"2023-10-06" ,4000,1.1,"Fertimax Extrume de Cavalo");
+
+                //Insucesso (área acima do tamanho da parcela):
+//                USLP07.uslp07Start("Campo Novo", "", "","2023-10-08" ,8000,2.1,"Fertimax Extrume de Cavalo");
+
                 break;
             case 5:
+                //Sucesso:
                 USLP08.uslp08Start("Campo Grande", "Oliveira", "Galega", "2023-11-06", 20.0);
+
+//                Incucesso:
+                // Data futuro:
+//                  USLP08.uslp08Start("Campo Grande", "Oliveira", "Galega", "2023-11-06", 60.0);
+
                 break;
             case 0:
                 runApp();

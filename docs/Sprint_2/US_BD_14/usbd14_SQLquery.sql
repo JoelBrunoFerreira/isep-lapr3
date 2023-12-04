@@ -46,17 +46,18 @@ BEGIN
         -- Procura o ID do Cultivo correspondente
         SELECT CultivoID INTO cultivo_id
         FROM Cultivo
-        WHERE ParcelaID = parcela_id AND CulturaID = cultura_id;
+        WHERE ParcelaID = parcela_id AND CulturaID = cultura_id AND data_realizacao BETWEEN DATAINICIO AND CURRENT_DATE;
         DBMS_OUTPUT.PUT_LINE('Cultivo ID encontrada: ' || cultivo_id);
     ELSE
+        --
         -- Procura o ID do Cultivo correspondente
         SELECT CultivoID INTO cultivo_id
         FROM Cultivo
-        WHERE ParcelaID = parcela_id AND CulturaID IS NULL;
+        WHERE ParcelaID = parcela_id AND CulturaID IS NULL AND data_realizacao BETWEEN DATAINICIO AND CURRENT_DATE;
         DBMS_OUTPUT.PUT_LINE('Cultivo ID encontrado: ' || cultivo_id);
     END IF;
 
-    -- Procura o ID do Produto
+    -- Procura o ID do fator de produção
     SELECT FatorProducaoID INTO fator_producao_id
     FROM FatorProducao
     WHERE NomeComercial = nome_comercial;
@@ -73,10 +74,9 @@ BEGIN
     VALUES (operacao_id, quantidade_fator_producao, area_aplicacao, fator_producao_id, cultivo_id);
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
-        RAISE_APPLICATION_ERROR(-20001, 'Dados necessários não encontrados.');
+        RAISE_APPLICATION_ERROR(-20001,'Insucesso: Dados necessários não encontrados.');
     WHEN OTHERS THEN
-        -- Em caso de outro erro, lança uma exceção
-        RAISE;
+        RAISE_APPLICATION_ERROR(-20001,'Ocorreu um erro: ' || SQLERRM);
 END registar_operacao_aplicacao_fator_producao;
 
 -- Caso de sucesso: Registar uma operação de aplicação de fator de produção no Campo Novo, em 06/10/2023, de Fertimax Extrume de Cavalo, no solo, 1.1 ha, 4000 kg
@@ -85,7 +85,7 @@ DECLARE
     nome_parcela PARCELA.DESIGNACAO%type := 'Campo Novo'; -- Replace with actual value
     especie_vegetal ESPECIEVEGETAL.NOMECOMUM%type := null;
     c_variedade CULTURA.VARIEDADE%type := null;
-    data_realizacao OPERACAO.DATAREALIZACAO%type := TO_DATE('08-09-2023', 'dd-mm-yyyy'); -- Replace with actual value
+    data_realizacao OPERACAO.DATAREALIZACAO%type := TO_DATE('06-10-2023', 'dd-mm-yyyy'); -- Replace with actual value
     quantidade_fator_producao APLICACAOFATORPRODUCAO.QUANTIDADEFATORPRODUCAO%type := 4000; -- Replace with actual value
     area_aplicacao APLICACAOFATORPRODUCAO.AREA%type := 1.1;
     nome_comercial FATORPRODUCAO.NOMECOMERCIAL%type := 'Fertimax Extrume de Cavalo'; -- Replace with actual value
