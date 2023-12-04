@@ -13,6 +13,7 @@ public class Task  implements Comparable<Task>, Serializable {
     private LocalTime horaInicioRega;
     private LocalTime horaFimRega;
     private Parcela parcela;
+    private FertirregaMix mix;
 
     public LocalTime getHoraInicioRega() {
         return horaInicioRega;
@@ -26,12 +27,13 @@ public class Task  implements Comparable<Task>, Serializable {
         return diaFim;
     }
 
-    public Task(LocalDate diaInicio, LocalTime horaInicioRega, LocalTime horaFimRega, Parcela parcela) {
+    public Task(LocalDate diaInicio, LocalTime horaInicioRega, LocalTime horaFimRega, Parcela parcela, FertirregaMix mix) {
         this.diaInicio = diaInicio;
         this.diaFim = diaInicio;//diaInicio.plusDays(1);
         this.horaInicioRega = horaInicioRega;
         this.horaFimRega = horaFimRega;
         this.parcela = parcela;
+        this.mix = mix;
     }
 
     public LocalTime getHoraFimRega() {
@@ -40,27 +42,6 @@ public class Task  implements Comparable<Task>, Serializable {
 
     public Parcela getParcela() {
         return parcela;
-    }
-
-    public boolean verificaRegaAtivaHoras(LocalDateTime dataHoraAtual) {
-        LocalTime horaAtual = dataHoraAtual.toLocalTime();
-        return !horaAtual.isBefore(horaInicioRega) && !horaAtual.isAfter(horaFimRega);
-    }
-
-    public boolean verificarRegularidadeDias(LocalDateTime dataHoraAtual) {
-        int hoje = dataHoraAtual.getDayOfMonth();
-        switch (parcela.getRegularidade()) {
-            case TODOS:
-                return true;
-            case PARES:
-                return hoje % 2 == 0;
-            case IMPARES:
-                return hoje % 2 != 0;
-            case CADA_3_DIAS:
-                return diaInicio.getDayOfMonth() >= 0 && (diaInicio.getDayOfMonth() - hoje) % 3 == 0;
-            default:
-                return false;
-        }
     }
 
     @Override

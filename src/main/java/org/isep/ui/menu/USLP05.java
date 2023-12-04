@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class USLP05 {
 
-    public static void uslp05Start(String paramOne, String paramTwo, String paramThree, String paramFour, double paramFive) {
+    public static void uslp05Start(String nomeParcela, String especieVegetal, String variedadePlanta, String dataRealizacao, double area) {
 
         // Call USBD_12
         try{
@@ -34,11 +34,11 @@ public class USLP05 {
             CallableStatement callableStatement = db_connection.prepareCall("{call proc_USBD12(?, ?, ?, ?, ?) }");
 
             // Assign values to params
-            callableStatement.setString(1, paramOne); // it will replace the first '?'
-            callableStatement.setString(2, paramTwo); // it will replace the second '?'
-            callableStatement.setString(3, paramThree); // it will replace the third '?'
-            callableStatement.setDate(4, Date.valueOf(paramFour)); // it will replace the fourth '?'
-            callableStatement.setDouble(5, paramFive); // it will replace the fifth '?'
+            callableStatement.setString(1, nomeParcela); // it will replace the first '?'
+            callableStatement.setString(2, especieVegetal); // it will replace the second '?'
+            callableStatement.setString(3, variedadePlanta); // it will replace the third '?'
+            callableStatement.setDate(4, Date.valueOf(dataRealizacao)); // it will replace the fourth '?'
+            callableStatement.setDouble(5, area); // it will replace the fifth '?'
 
             // call Stored procedure
             callableStatement.execute();
@@ -50,9 +50,13 @@ public class USLP05 {
             //System.out.println("Result: " + result);
             System.out.println("Registo de operação de monda efectuado com sucesso.");
             db_connection.close();
+            System.out.println();
+            App.dataBaseMenu();
 
         } catch (SQLException | FileNotFoundException e) {
-            System.out.println("Something went wrong :(");
+            System.out.println("ERRO: Não é permitido realizar a operação de monda cuja área seja superior à do cultivo em questão. Para executar esta operação tem que existir um cultivo.");
+            System.out.println();
+            App.dataBaseMenu();
             e.printStackTrace();
         } catch (IOException e) {
             throw new RuntimeException(e);
