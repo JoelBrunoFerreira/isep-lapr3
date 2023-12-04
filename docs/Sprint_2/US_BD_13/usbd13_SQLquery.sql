@@ -13,6 +13,10 @@ CREATE OR REPLACE PROCEDURE registar_operacao_colheita (
     cultura_id CULTURA.CULTURAID%type;
     produto_id PRODUTO.PRODUTOID%TYPE;
 BEGIN
+    IF data_realizacao > CURRENT_DATE THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Data inserida é superior à atual, não se pode efetuar operações no futuro.');
+    END IF;
+
     -- Procura o ID da Parcela pelo nome
     SELECT ParcelaID INTO parcela_id FROM Parcela
         WHERE Designacao = nome_parcela;

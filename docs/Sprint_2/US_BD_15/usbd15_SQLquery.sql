@@ -14,6 +14,11 @@ CREATE OR REPLACE PROCEDURE registar_operacao_poda (
     especie_vegetal_id ESPECIEVEGETAL.ESPECIEVEGETALID%type;
     cultivo_quantidade CULTIVO.QUANTIDADE%type;
 BEGIN
+
+    IF data_realizacao > CURRENT_DATE THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Data inserida é superior à atual, não se pode efetuar operações no futuro.');
+    END IF;
+
     -- Procura o ID da Parcela pelo nome
     SELECT ParcelaID INTO parcela_id
     FROM Parcela

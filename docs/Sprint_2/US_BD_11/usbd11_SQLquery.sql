@@ -22,8 +22,14 @@ BEGIN -- Corpo da função, contém a parte executavel
 SELECT PARCELAID, AREA INTO parcela_id, area_parcela FROM Parcela
 WHERE DESIGNACAO = nome_parcela;
 
+-- verifica se a área é superior à da parcela
 IF area_semeadura > area_parcela THEN
     RAISE_APPLICATION_ERROR(-20001, 'Área da semeadura maior que a área da parcela.');
+END IF;
+
+-- Verifica se a data é superior à atual
+IF data_realizacao > CURRENT_DATE THEN
+    RAISE_APPLICATION_ERROR(-20001, 'Data inserida é superior à atual, não se pode efetuar operações no futuro.');
 END IF;
 
 -- Procura o ID da Especie Vegetal pelo nome
@@ -41,7 +47,7 @@ SELECT COUNT(*) INTO cultivo_id
 FROM Cultivo
 WHERE ParcelaID = parcela_id AND data_realizacao BETWEEN DATAINICIO AND DATAFIM;
 
-IF cultivo_id > 0 /*AND (data_realizacao > CURRENT_DATE)*/ -- Não funciona a data no futuro
+IF cultivo_id > 0
 THEN
     RAISE_APPLICATION_ERROR(-20001, 'Parcela com cultivos existentes');
 ELSE

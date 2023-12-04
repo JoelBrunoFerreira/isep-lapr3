@@ -29,6 +29,9 @@ BEGIN
         RAISE_APPLICATION_ERROR(-20001, 'Área da monda maior que a área da parcela.');
     END IF;
 
+    IF data_realizacao > CURRENT_DATE THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Data inserida é superior à atual, não se pode efetuar operações no futuro.');
+    END IF;
 
 -- Procura o ID da Especie Vegetal pelo nome
     SELECT ESPECIEVEGETALID

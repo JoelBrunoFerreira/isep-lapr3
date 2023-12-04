@@ -30,6 +30,10 @@ BEGIN
         RAISE_APPLICATION_ERROR(-20001, 'Erro: Área de aplicação maior que a área da parcela.');
     END IF;
 
+    IF data_realizacao > CURRENT_DATE THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Data inserida é superior à atual, não se pode efetuar operações no futuro.');
+    END IF;
+
     IF c_variedade IS NOT NULL THEN
         -- Procura o ID da Especie Vegetal pelo nome
         SELECT EspecieVegetalID INTO especie_vegetal_id

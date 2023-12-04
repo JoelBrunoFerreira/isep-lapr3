@@ -161,40 +161,50 @@ public class App {
 
         switch (option) {
             case 1:
-                //Sucesso:
-//                USLP04.uslp04Start("Horta Nova", "Nabo Greleiro", "Senhora Conceição","2023-09-20",0.9,0.3);
+//                Sucesso:
+                USLP04.uslp04Start("Horta Nova", "Nabo Greleiro", "Senhora Conceição","2023-09-20",0.9,0.3);
 
-                //Insucesso: Area maior que area da parcela
+//                Insucesso:
+//                -Area maior que area da parcela:
 //                USLP04.uslp04Start("Campo Novo", "Nabo Greleiro", "Senhora Conceição","2023-09-19",1.8,0.75);
 
-                //Insucesso: Data futuro
-                USLP04.uslp04Start("Horta Nova", "Nabo Greleiro", "Senhora Conceição","2026-09-19",1,0.3);
+//                -Data no futuro
+//                USLP04.uslp04Start("Horta Nova", "Nabo Greleiro", "Senhora Conceição","2028-09-19",1,0.3);
 
                 break;
             case 2:
                 //Sucesso:
                 USLP05.uslp05Start("Campo Novo", "Cenoura", "Danvers Half Long", "2023-09-08", 0.5);
+
 //                Insucesso:
-                // Não existe cultivo:
+//                 -Não existe cultivo:
 //                USLP05.uslp05Start("Campo Novo", "Cenoura", "Danvers Half Long", "2023-10-11", 0.5);
+
+//                 -Data no futuro:
+//                USLP05.uslp05Start("Campo Novo", "Cenoura", "Danvers Half Long", "2025-09-08", 0.5);
+
                 break;
             case 3:
                 //Sucesso:
                 USLP06.uslp06Start("Campo Grande", "2023-11-05",100,"Azeitona Galega");
 
-//                Incucesso:
-                // Data futuro:
-                // USLP06.uslp06Start("Campo Grande", "2024-11-05",100,"Azeitona Galega");
-
-                // Produto inexistente:
+//                Insucesso:
+//                 -Produto inexistente:
 //                 USLP06.uslp06Start("Campo Grande", "2023-10-05",800,"Maçã Golden");
+
+//                 -Data no futuro:
+//                 USLP06.uslp06Start("Campo Grande", "2024-11-05",100,"Azeitona Galega");
                 break;
             case 4:
-                //Sucesso:
+//                Sucesso:
                 USLP07.uslp07Start("Campo Novo",null ,null,"2023-10-06" ,4000,1.1,"Fertimax Extrume de Cavalo");
 
-                //Insucesso (área acima do tamanho da parcela):
-//                USLP07.uslp07Start("Campo Novo", "", "","2023-10-08" ,8000,2.1,"Fertimax Extrume de Cavalo");
+                //Insucesso:
+//                -Área acima do tamanho da parcela
+//                USLP07.uslp07Start("Campo Novo", null, null,"2023-10-08" ,8000,2.1,"Fertimax Extrume de Cavalo");
+
+//                -Data no futuro:
+//                USLP07.uslp07Start("Campo Novo", null, null,"2024-10-08" ,8000,1.1,"Fertimax Extrume de Cavalo");
 
                 break;
             case 5:
@@ -202,9 +212,11 @@ public class App {
                 USLP08.uslp08Start("Campo Grande", "Oliveira", "Galega", "2023-11-06", 20.0);
 
 //                Incucesso:
-                // Data futuro:
+//                 -Quantidade superior à existente:
 //                  USLP08.uslp08Start("Campo Grande", "Oliveira", "Galega", "2023-11-06", 60.0);
 
+//                 -Data futuro:
+//                  USLP08.uslp08Start("Campo Grande", "Oliveira", "Galega", "2024-11-06", 20.0);
                 break;
             case 0:
                 runApp();
