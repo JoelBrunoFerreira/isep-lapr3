@@ -22,14 +22,20 @@ BEGIN -- Corpo da função, contém a parte executavel
 SELECT PARCELAID, AREA INTO parcela_id, area_parcela FROM Parcela
 WHERE DESIGNACAO = nome_parcela;
 
+-- verifica se a área é superior à da parcela
 IF area_semeadura > area_parcela THEN
     RAISE_APPLICATION_ERROR(-20001, 'Área da semeadura maior que a área da parcela.');
+END IF;
+
+-- Verifica se a data é superior à atual
+IF data_realizacao > CURRENT_DATE THEN
+    RAISE_APPLICATION_ERROR(-20001, 'Data inserida é superior à atual, não se pode efetuar operações no futuro.');
 END IF;
 
 -- Procura o ID da Especie Vegetal pelo nome
 SELECT ESPECIEVEGETALID INTO especie_vegetal_id
 FROM EspecieVegetal
-WHERE NOMECOMUM = 'Nabo Greleiro';
+WHERE NOMECOMUM = especie_vegetal;
 
 -- Procura o ID da Cultura pelo nome
 SELECT CULTURAID INTO cultura_id FROM Cultura

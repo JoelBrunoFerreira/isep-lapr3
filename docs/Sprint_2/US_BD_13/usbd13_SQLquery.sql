@@ -13,6 +13,10 @@ CREATE OR REPLACE PROCEDURE registar_operacao_colheita (
     cultura_id CULTURA.CULTURAID%type;
     produto_id PRODUTO.PRODUTOID%TYPE;
 BEGIN
+    IF data_realizacao > CURRENT_DATE THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Data inserida é superior à atual, não se pode efetuar operações no futuro.');
+    END IF;
+
     -- Procura o ID da Parcela pelo nome
     SELECT ParcelaID INTO parcela_id FROM Parcela
         WHERE Designacao = nome_parcela;
@@ -22,8 +26,9 @@ BEGIN
         WHERE DesignacaoProduto = nome_produto;
 
     -- Procura o ID do Cultivo correspondente
-    SELECT CultivoID INTO cultivo_id FROM Cultivo
-        WHERE ParcelaID = parcela_id AND CulturaID = cultura_id;
+    SELECT CultivoID INTO cultivo_id
+    FROM Cultivo
+    WHERE ParcelaID = parcela_id AND CulturaID = cultura_id AND data_realizacao BETWEEN DATAINICIO AND CURRENT_DATE;
 
     -- Gera um novo ID para a operação
     SELECT MAX(OperacaoID) + 1 INTO operacao_id FROM OPERACAO;
@@ -39,10 +44,9 @@ BEGIN
 
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
-        RAISE_APPLICATION_ERROR(-20001, 'Dados necessários não encontrados.');
+        RAISE_APPLICATION_ERROR(-20001,'Insucesso: Dados necessários não encontrados.');
     WHEN OTHERS THEN
-        -- Em caso de outro erro, lança uma exceção
-        RAISE;
+        RAISE_APPLICATION_ERROR(-20001,'Ocorreu um erro: ' || SQLERRM);
 END registar_operacao_colheita;
 
 

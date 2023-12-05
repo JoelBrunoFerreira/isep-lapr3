@@ -50,9 +50,11 @@ public class USLP04 {
 //            System.out.println("Result: " + result);
             System.out.println("Registo de operação de semeadura efectuado com sucesso.");
             db_connection.close();
+            System.out.println();
+            App.dataBaseMenu();
 
         } catch (SQLException | FileNotFoundException e) {
-            System.out.println("Não é permitido semear parcelas que contenham cultivos activos nem semear áreas superiores às da parcela.");
+            System.out.println("ERRO: Não é permitido semear parcelas que contenham cultivos activos nem semear áreas superiores às da parcela.");
             System.out.println();
             App.dataBaseMenu();
             e.printStackTrace();
