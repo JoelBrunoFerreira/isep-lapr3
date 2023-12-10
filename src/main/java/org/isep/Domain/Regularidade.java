@@ -1,5 +1,7 @@
 package org.isep.Domain;
 
-public enum Regularidade {
+import java.io.Serializable;
+
+public enum Regularidade implements Serializable {
     TODOS, IMPARES, PARES, CADA_3_DIAS;
 }

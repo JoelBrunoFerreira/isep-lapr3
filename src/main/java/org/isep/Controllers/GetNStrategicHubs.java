@@ -18,7 +18,6 @@ public class GetNStrategicHubs {
     static final String locais_small = "locais_small.csv";
     private List<Vertex> locals;
     private MatrixGraph<Vertex, Double> matrixGraph;
-    private static final LoadData loader = new LoadData();
 
     public GetNStrategicHubs(String locais, String distancias) {
         this.locals = LoadData.readCSV2(locais);
