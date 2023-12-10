@@ -84,8 +84,8 @@ public class App {
         System.out.println("3 --> Devolver rede de ligação minima, distância entre locais e distância total da rede.");
         System.out.println("4 --> Devolver a rede de cada cluster e o respectivo coeficiente de Silhoutte.");
         System.out.println("5 --> Devolver todas as rotas possíveis entre um local de origem e destino.");
-	System.out.println("10 --> Alterar horários da rede de distribuição.");        
-	System.out.println("=============================================");
+	    System.out.println("10 --> Alterar horários da rede de distribuição.");
+	    System.out.println("=============================================");
         System.out.println("0 --> Voltar ao menu inicial                |");
         System.out.println("=============================================");
 
@@ -101,10 +101,10 @@ public class App {
                 if (option >= 0 && option <= 5) {
                     validInput = true;
                 } else {
-                    System.out.println("Opção inválida. Selecione uma opção entre 1 e 5.");
+                    System.out.println("Opção inválida. Selecione uma opção entre 1 e 10.");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Opção inválida. Selecione uma opção entre 1 e 5.");
+                System.out.println("Opção inválida. Selecione uma opção entre 1 e 10.");
                 read.nextLine();
             }
         }
@@ -121,6 +121,24 @@ public class App {
                 break;
             case 4:
                 USEI05.usei05Start();
+                break;
+            case 5:
+                USEI06.usei06Start();
+                break;
+            case 6:
+                System.out.println("Not implemented yet....");
+                break;
+            case 7:
+                System.out.println("Not implemented yet....");
+                break;
+            case 8:
+                System.out.println("Not implemented yet....");
+                break;
+            case 9:
+                System.out.println("Not implemented yet....");
+                break;
+            case 10:
+                USEI11.usei11Start();
                 break;
             case 0:
                 runApp();
