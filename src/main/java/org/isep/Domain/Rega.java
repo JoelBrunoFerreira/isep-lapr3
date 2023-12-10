@@ -70,11 +70,8 @@ public class Rega implements Comparable<Rega>, Serializable {
 
     @Override
     public String toString() {
-        if (this.fertilizante == null) {
             return String.format("%s, hora de início %s, hora de fim %s.", parcela, horaInicioRega, horaFimRega);
-        } else {
-            return String.format("%s, hora de início %s, hora de fim %s, mistura: %s.", parcela, horaInicioRega, horaFimRega, fertilizante.getMix());
-        }
+
     }
 
     @Override
