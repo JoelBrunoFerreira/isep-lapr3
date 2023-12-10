@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION obter_produtos_colhidos(
+CREATE OR REPLACE FUNCTION obter_produtos_colhidos_(
     data_inicio IN DATE,
     data_fim IN DATE,
     designacao_parcela IN NVARCHAR2
@@ -41,7 +41,7 @@ EXCEPTION
 
         RAISE;
 
-END obter_produtos_colhidos;
+END obter_produtos_colhidos_;
 
 DECLARE
 
@@ -53,7 +53,7 @@ DECLARE
 
 BEGIN
 
-    c_result := obter_produtos_colhidos(TO_DATE('2023-05-20', 'YYYY-MM-DD'), TO_DATE('2023-11-06', 'YYYY-MM-DD'),
+    c_result := obter_produtos_colhidos_(TO_DATE('2023-05-20', 'YYYY-MM-DD'), TO_DATE('2023-11-06', 'YYYY-MM-DD'),
                                         'Campo Novo');
 
     LOOP
