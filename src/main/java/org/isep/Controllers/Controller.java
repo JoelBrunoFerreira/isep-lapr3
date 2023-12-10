@@ -1,8 +1,8 @@
 package org.isep.Controllers;
 
 import org.isep.Domain.OperacaoCC;
-import org.isep.Domain.Task;
-import org.isep.Repositories.TaskRepository;
+import org.isep.Domain.Rega;
+import org.isep.Repositories.RegaRepository;
 import org.isep.Repositories.CadernoDeCampoRep;
 
 import java.time.Duration;
@@ -14,12 +14,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class Controller {
-    private static TaskRepository taskRep;
+    private static RegaRepository taskRep;
     private static CadernoDeCampoRep cCampoRep;
     private LocalDateTime dataHoraPretendida;
 
     public Controller(String filePath, LocalDate startDate) {
-        taskRep = new TaskRepository(filePath, startDate);
+        taskRep = new RegaRepository(filePath, startDate);
         cCampoRep = new CadernoDeCampoRep();
     }
 
@@ -39,9 +39,9 @@ public class Controller {
         for (LocalDate date : taskRep.getTaskMap().keySet()
         ) {
             System.out.printf("Dia: %s\n", date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-            List<Task> sortedTask =  taskRep.getTaskMap().get(date);
-            Collections.sort(sortedTask);
-            for (Task t : sortedTask
+            List<Rega> sortedRega =  taskRep.getTaskMap().get(date);
+            Collections.sort(sortedRega);
+            for (Rega t : sortedRega
             ) {
                 System.out.println(t);
             }
@@ -50,10 +50,10 @@ public class Controller {
     }
 
     public void mostrarParcelasARegar() {
-        List<Task> tasks = taskRep.tasksARegar(dataHoraPretendida);
-        if (!tasks.isEmpty()) {
+        List<Rega> regas = taskRep.tasksARegar(dataHoraPretendida);
+        if (!regas.isEmpty()) {
             System.out.println("Setor a regar: ");
-            for (Task t : tasks
+            for (Rega t : regas
             ) {
                 System.out.println(t.getParcela().getSetor());
                 System.out.printf("Faltam %02d minutos para fim.\n", minutosQueFaltam(t.getHoraFimRega()));
@@ -76,7 +76,7 @@ public class Controller {
         OperacaoCC op;
         for (LocalDate ld : taskRep.getTaskMap().keySet()) {
             if (!ld.isAfter(dataHoraPretendida.toLocalDate())) {
-                for (Task t : taskRep.getTaskMap().get(ld)) {
+                for (Rega t : taskRep.getTaskMap().get(ld)) {
                     if (!t.getHoraFimRega().isAfter(dataHoraPretendida.toLocalTime())) {
                         op = new OperacaoCC(t, ld);
                         cCampoRep.registarOperacao(op);
