@@ -84,6 +84,10 @@ public class App {
         System.out.println("3 --> Devolver rede de ligação minima, distância entre locais e distância total da rede.");
         System.out.println("4 --> Devolver a rede de cada cluster e o respectivo coeficiente de Silhoutte.");
         System.out.println("5 --> Devolver todas as rotas possíveis entre um local de origem e destino.");
+        System.out.println("6 --> ........");
+        System.out.println("7 --> ........");
+        System.out.println("8 --> ........");
+        System.out.println("9 --> ........");
 	    System.out.println("10 --> Alterar horários da rede de distribuição.");
 	    System.out.println("=============================================");
         System.out.println("0 --> Voltar ao menu inicial                |");
@@ -98,7 +102,7 @@ public class App {
             try {
                 option = read.nextInt();
 
-                if (option >= 0 && option <= 5) {
+                if (option >= 0 && option <= 10) {
                     validInput = true;
                 } else {
                     System.out.println("Opção inválida. Selecione uma opção entre 1 e 10.");
@@ -126,16 +130,16 @@ public class App {
                 USEI06.usei06Start();
                 break;
             case 6:
-                System.out.println("Not implemented yet....");
+                USEI07.usei07Start();
                 break;
             case 7:
-                System.out.println("Not implemented yet....");
+                USEI08.usei08Start();
                 break;
             case 8:
-                System.out.println("Not implemented yet....");
+                USEI09.usei09Start();
                 break;
             case 9:
-                System.out.println("Not implemented yet....");
+                USEI10.usei10Start();
                 break;
             case 10:
                 USEI11.usei11Start();
