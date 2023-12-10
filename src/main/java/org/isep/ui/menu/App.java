@@ -83,8 +83,9 @@ public class App {
         System.out.println("2 --> Devolver percurso entre os dois locais mais afastados da rede de distribuição.");
         System.out.println("3 --> Devolver rede de ligação minima, distância entre locais e distância total da rede.");
         System.out.println("4 --> Devolver a rede de cada cluster e o respectivo coeficiente de Silhoutte.");
-        System.out.println("5 --> Alterar horários da rede de distribuição.");
-        System.out.println("=============================================");
+        System.out.println("5 --> Devolver todas as rotas possíveis entre um local de origem e destino.");
+	System.out.println("10 --> Alterar horários da rede de distribuição.");        
+	System.out.println("=============================================");
         System.out.println("0 --> Voltar ao menu inicial                |");
         System.out.println("=============================================");
 
@@ -120,9 +121,6 @@ public class App {
                 break;
             case 4:
                 USEI05.usei05Start();
-                break;
-            case 5:
-                USEI11.usei11Start();
                 break;
             case 0:
                 runApp();
