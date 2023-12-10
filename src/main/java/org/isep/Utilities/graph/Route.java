@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Representa um percurso com um caminho, distância total e tempo total.
  */
-public class Route {
+public class Route implements Comparable<Route> {
     private List<Local> path;
     private double totalDistance;
     private double totalTime;
@@ -48,4 +48,8 @@ public class Route {
         this.totalTime = totalTime;
     }
 
+    @Override
+    public int compareTo(Route o) {
+        return Integer.compare(this.getPath().size(), o.getPath().size());
+    }
 }

@@ -7,6 +7,7 @@ import org.isep.Utilities.graph.matrix.MatrixGraph;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.function.BinaryOperator;
 
@@ -140,6 +141,47 @@ public class LoadData {
         for (Vertex local : locals) {
             local.setDegree(matrixGraph.inDegree(local));
         }
+    }
+
+
+    public static void changeSchedule(String file, List<Vertex> locals) { // esinf11.csv
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                boolean found = false;
+                String[] data = line.split(",");
+
+                for (Vertex local: locals) {
+                    if(data[0].equals(local.getName())){
+                        found = true;
+                        System.out.println("Horário anterior à alteração - " + local.getName() + ": ");
+                        System.out.println("Horário de abertura: " + local.getOpeningTime());
+                        System.out.println("Horário de fecho: " + local.getClosingTime());
+                        System.out.println();
+
+                        local.setOpeningTime(LocalTime.parse(data[1]));
+                        local.setClosingTime(LocalTime.parse(data[2]));
+
+                        System.out.println("Novo horário - " + local.getName() + ": ");
+                        System.out.println("Horário de abertura: " + local.getOpeningTime());
+                        System.out.println("Horário de fecho: " + local.getClosingTime());
+                        System.out.println();
+                        break;
+                    }
+                }
+                if(!found){
+                    System.out.println("ERRO: " + data[0] + " não existe no sistema.");
+                }
+
+
+            }
+        } catch (IOException | NumberFormatException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

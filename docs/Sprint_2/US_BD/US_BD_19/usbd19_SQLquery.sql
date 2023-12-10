@@ -25,46 +25,49 @@ RETURN aplicacoes_fator_producao;
 END obter_aplicacoes_fator_producao;
 
 
+DECLARE
+    -- Declaração de parâmetros de input
+    data_inicio_param        DATE := TO_DATE('01-01-2019', 'dd-mm-yyyy');
+    data_fim_param           DATE := TO_DATE('06-07-2023', 'dd-mm-yyyy');
+    designacao_parcela_param NVARCHAR2(100) := 'Lameiro do Moinho';
 
-CREATE OR REPLACE PROCEDURE imprimir_aplicacoes_fator_producao(data_inicio DATE, data_fim DATE, designacao_parcela NVARCHAR2)
-AS
-    cursor_aplicacoes   SYS_REFCURSOR;
-    v_TipoFatorProducao NVARCHAR2(100);
-    v_DataRealizacao    DATE;
-    v_NomeComercial     NVARCHAR2(100);
-    v_ParcelaID         INT;
-    v_Cultura           NVARCHAR2(200);
+    -- Declaração de variáveis para obter dados do cursor
+    descricao_tipo_fator     VARCHAR2(100);
+    data_realizacao          DATE;
+    nome_comercial           VARCHAR2(100);
+    parcela_id               NUMBER;
+    cultura                  VARCHAR2(100);
+
+    -- Declara o cursor
+    result_cursor            SYS_REFCURSOR;
 BEGIN
-    -- Chama a função e obtém o cursor
-    cursor_aplicacoes := obter_aplicacoes_fator_producao(data_inicio, data_fim, designacao_parcela);
+    -- chamar a função e armazenar o cursor na sua variável
+    result_cursor := obter_aplicacoes_fator_producao(data_inicio_param, data_fim_param, designacao_parcela_param);
 
-    -- Loop para percorrer cada linha do cursor
+    -- Imprimir os parâmetros para verificação
+
+    DBMS_OUTPUT.PUT_LINE('Parcela = ' || designacao_parcela_param);
+
+    -- Ciclo sobre o cursor para obter os dados
     LOOP
-FETCH cursor_aplicacoes INTO v_TipoFatorProducao, v_DataRealizacao, v_NomeComercial, v_ParcelaID, v_Cultura;
-        EXIT WHEN cursor_aplicacoes%NOTFOUND;
+        FETCH result_cursor INTO descricao_tipo_fator, data_realizacao, nome_comercial, parcela_id, cultura;
 
-        -- Imprime os resultados
-        DBMS_OUTPUT.PUT_LINE('Tipo Fator Producao: ' || v_TipoFatorProducao ||
-                             ', Data Realizacao: ' || TO_CHAR(v_DataRealizacao, 'DD/MM/YYYY') ||
-                             ', Nome Comercial: ' || v_NomeComercial ||
-                             ', Parcela ID: ' || v_ParcelaID ||
-                             ', Cultura: ' || v_Cultura);
-END LOOP;
+        -- Sai do ciclo se não encontrar mais dados
+        EXIT WHEN result_cursor%NOTFOUND;
+
+        -- Imprime os dados obtidos
+        DBMS_OUTPUT.PUT_LINE('Tipo Fator Producao: ' || descricao_tipo_fator ||
+                             ', Data Realizacao: ' || TO_CHAR(data_realizacao, 'dd-mm-yyyy') ||
+                             ', Nome Comercial: ' || nome_comercial ||
+                             ', Cultura: ' || NVL(cultura, 'Sem cultura'));
+    END LOOP;
 
     -- Fecha o cursor
-CLOSE cursor_aplicacoes;
+    CLOSE result_cursor;
+
 EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Sem dados para mostrar.');
     WHEN OTHERS THEN
-        -- Em caso de erro, imprime a mensagem de erro e fecha o cursor
-        DBMS_OUTPUT.PUT_LINE('Erro: ' || SQLERRM);
-        IF cursor_aplicacoes%ISOPEN THEN
-            CLOSE cursor_aplicacoes;
-END IF;
-END imprimir_aplicacoes_fator_producao;
-
-
-BEGIN
-    imprimir_aplicacoes_fator_producao(TO_DATE('2019-01-01', 'YYYY-MM-DD'),
-                                       TO_DATE('2023-07-06', 'YYYY-MM-DD'),
-                                       'Lameiro do Moinho');
+        DBMS_OUTPUT.PUT_LINE('Ocorreu um erro: ' || SQLERRM);
 END;
