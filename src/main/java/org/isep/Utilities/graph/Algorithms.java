@@ -102,21 +102,24 @@ public class Algorithms {
         path.push(vOrig);
         visited[g.key(vOrig)] = true;
 
-        for (V vAdj : g.adjVertices(vOrig)) {
-            if (vAdj == vDest) {
-                path.push(vDest);
-                paths.add(path);
-                path.pop();
-            } else {
+        if (vOrig == vDest) {
+            // If the origin is the destination, add a copy of the path to the paths list
+            paths.add(new LinkedList<>(path));
+        } else {
+            for (V vAdj : g.adjVertices(vOrig)) {
                 if (!visited[g.key(vAdj)]) {
                     allPaths(g, vAdj, vDest, visited, path, paths);
                 }
             }
-            path.pop();
         }
+
+        // Backtrack: remove the last vertex from the current path
+        path.pop();
+        visited[g.key(vOrig)] = false;
     }
 
-    /** Returns all paths from vOrig to vDest
+    /**
+     * Returns all paths from vOrig to vDest
      *
      * @param g     Graph instance
      * @param vOrig information of the Vertex origin
@@ -124,7 +127,6 @@ public class Algorithms {
      * @return paths ArrayList with all paths from vOrig to vDest
      */
     public static <V, E> ArrayList<LinkedList<V>> allPaths(Graph<V, E> g, V vOrig, V vDest) {
-
         LinkedList<V> path = new LinkedList<>();
         ArrayList<LinkedList<V>> paths = new ArrayList<>();
         boolean[] visited = new boolean[g.numVertices()];
