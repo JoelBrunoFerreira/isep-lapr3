@@ -22,7 +22,7 @@ public class RoutesBetweenLocations {
         Local origin = findLocalByName(graph, origName);
         Local destiny = findLocalByName(graph, destName);
 
-        if (!graph.validVertex(origin) || !graph.validVertex(destiny)) {
+        if (!graph.validVertex(origin) || !graph.validVertex(destiny) || velocityKmH < 0 || autonomyKm < 0) {
             return null;
         }
 
@@ -75,7 +75,7 @@ public class RoutesBetweenLocations {
      * @param name
      * @return vértice encontrado ou null
      */
-    private static Local findLocalByName(MatrixGraph<Local, Double> graph, String name) { // Complexidade: O(V)
+    public static Local findLocalByName(MatrixGraph<Local, Double> graph, String name) { // Complexidade: O(V)
         for (Local local : graph.vertices()) {
             if (local.getName().equals(name)) {
                 return local;
