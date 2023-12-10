@@ -83,7 +83,9 @@ public class App {
         System.out.println("2 --> Devolver percurso entre os dois locais mais afastados da rede de distribuição.");
         System.out.println("3 --> Devolver rede de ligação minima, distância entre locais e distância total da rede.");
         System.out.println("4 --> Devolver a rede de cada cluster e o respectivo coeficiente de Silhoutte.");
-        System.out.println("=============================================");
+        System.out.println("5 --> Devolver todas as rotas possíveis entre um local de origem e destino.");
+	System.out.println("10 --> Alterar horários da rede de distribuição.");        
+	System.out.println("=============================================");
         System.out.println("0 --> Voltar ao menu inicial                |");
         System.out.println("=============================================");
 
@@ -96,13 +98,13 @@ public class App {
             try {
                 option = read.nextInt();
 
-                if (option >= 0 && option <= 4) {
+                if (option >= 0 && option <= 5) {
                     validInput = true;
                 } else {
-                    System.out.println("Opção inválida. Selecione uma opção entre 1 e 4.");
+                    System.out.println("Opção inválida. Selecione uma opção entre 1 e 5.");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Opção inválida. Selecione uma opção entre 1 e 4.");
+                System.out.println("Opção inválida. Selecione uma opção entre 1 e 5.");
                 read.nextLine();
             }
         }

@@ -21,7 +21,7 @@ BEGIN
 END fncUSBD20;
 
 
--- Bloco para teste:
+-- Bloco para teste1:
 DECLARE
     result_cursor SYS_REFCURSOR;
     designacao_parcela_param PARCELA.Designacao%type := 'Lameiro da Ponte';

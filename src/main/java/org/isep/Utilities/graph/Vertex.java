@@ -104,6 +104,7 @@ public class Vertex implements Comparable<Vertex> {
         return node;
     }
 
+
     // Setters
     // -------------------------------------
     public void setVisited(boolean visited) {
@@ -120,6 +121,14 @@ public class Vertex implements Comparable<Vertex> {
 
     public void setDegree(int degree) {
         this.degree = degree;
+    }
+
+    public void setOpeningTime(LocalTime openingTime) {
+        this.openingTime = openingTime;
+    }
+
+    public void setClosingTime(LocalTime closingTime) {
+        this.closingTime = closingTime;
     }
 
     public void setAverageDistance(double averageDistance) {
@@ -141,6 +150,7 @@ public class Vertex implements Comparable<Vertex> {
     public void setNode(Node node) {
         this.node = node;
     }
+
 
 
     // Methods
