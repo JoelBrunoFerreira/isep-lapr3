@@ -60,3 +60,58 @@ EXCEPTION
     WHEN OTHERS THEN
         RAISE_APPLICATION_ERROR(-20001,'Ocorreu um erro: ' || SQLERRM);
 END registar_operacao_poda;
+
+-- Bloco de teste sucesso
+DECLARE
+nome_parcela PARCELA.DESIGNACAO%type := 'Campo Grande'; -- Substituir pelo nome da parcela
+    especie_vegetal ESPECIEVEGETAL.NOMECOMUM%type := 'Oliveira'; -- Substituir pela especie vegetal
+    c_variedade CULTURA.VARIEDADE%type := 'Galega'; -- Substituir pela variedade
+    data_realizacao OPERACAO.DATAREALIZACAO%type := TO_DATE('2023-11-06', 'yyyy-mm-dd'); -- Substituir pela data
+    quantidade_poda PODA.QUANTIDADE%TYPE:= 20; -- Substituir pela quantidade de poda
+
+
+BEGIN
+    -- Chama o procedimento
+    registar_operacao_poda(
+            nome_parcela,
+            especie_vegetal,
+            c_variedade,
+            data_realizacao,
+            quantidade_poda
+    );
+
+    -- Se nenhuma excepção for levantada, imprime a seguinte mensagem:
+    DBMS_OUTPUT.PUT_LINE('Procedimento executado correctamente!');
+EXCEPTION
+    WHEN OTHERS THEN
+        -- Se existir excepções, imprime a seguinte mensagem::
+        DBMS_OUTPUT.PUT_LINE('Erro: ' || SQLERRM);
+END;
+
+
+-- Bloco de teste insucesso
+DECLARE
+nome_parcela PARCELA.DESIGNACAO%type := 'Campo Grande'; -- Substituir pelo nome da parcela
+    especie_vegetal ESPECIEVEGETAL.NOMECOMUM%type := 'Oliveira'; -- Substituir pela especie vegetal
+    c_variedade CULTURA.VARIEDADE%type := 'Galega'; -- Substituir pela variedade
+    data_realizacao OPERACAO.DATAREALIZACAO%type := TO_DATE('2023-11-06', 'yyyy-mm-dd'); -- Substituir pela data
+    quantidade_poda PODA.QUANTIDADE%TYPE:= 60; -- Substituir pela quantidade de poda
+
+
+BEGIN
+    -- Chama o procedimento
+    registar_operacao_poda(
+            nome_parcela,
+            especie_vegetal,
+            c_variedade,
+            data_realizacao,
+            quantidade_poda
+    );
+
+    -- Se nenhuma excepção for levantada, imprime a seguinte mensagem:
+    DBMS_OUTPUT.PUT_LINE('Procedimento executado correctamente!');
+EXCEPTION
+    WHEN OTHERS THEN
+        -- Se existir excepções, imprime a seguinte mensagem::
+        DBMS_OUTPUT.PUT_LINE('Erro: ' || SQLERRM);
+END;
