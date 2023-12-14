@@ -1,9 +1,12 @@
 package org.isep.ui.menu;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class App {
+    public static ArrayList<String> uslp04DataS = new ArrayList<>();
+    public static ArrayList<Double> uslp04DataD = new ArrayList<>();
 
     public static Scanner read = new Scanner(System.in);
     public static void runApp() {
@@ -185,16 +188,34 @@ public class App {
 
         switch (option) {
             case 1:
-//                Sucesso:
-                USLP04.uslp04Start("Horta Nova", "Nabo Greleiro", "Senhora Conceição","2023-09-20",0.9,0.3);
+                // Caso de Sucesso:
+                uslp04GetUserInput();
+                USLP04.uslp04Start(uslp04DataS.get(0), // Horta Nova
+                        uslp04DataS.get(1),            // Nabo Greleiro
+                        uslp04DataS.get(2),            // Senhora Conceição
+                        uslp04DataS.get(3),            // 2023-09-20
+                        uslp04DataD.get(0),            // 0.9
+                        uslp04DataD.get(1));           // 0.3
 
-//                Insucesso:
-//                -Area maior que area da parcela:
-//                USLP04.uslp04Start("Campo Novo", "Nabo Greleiro", "Senhora Conceição","2023-09-19",1.8,0.75);
+               // Casos de Insucesso:
+                /*
+               // * Area maior que area da parcela:
+                USLP04.uslp04Start(uslp04DataS.get(0), // Campo Novo
+                        uslp04DataS.get(1),            // Nabo Greleiro
+                        uslp04DataS.get(2),            // Senhora Conceição
+                        uslp04DataS.get(3),            // 2023-09-19
+                        uslp04DataD.get(0),            // 1.8
+                        uslp04DataD.get(1));           // 0.75
 
-//                -Data no futuro
-//                USLP04.uslp04Start("Horta Nova", "Nabo Greleiro", "Senhora Conceição","2028-09-19",1,0.3);
+                // * Data no futuro
+                USLP04.uslp04Start(uslp04DataS.get(0), // Campo Novo
+                        uslp04DataS.get(1),            // Nabo Greleiro
+                        uslp04DataS.get(2),            // Senhora Conceição
+                        uslp04DataS.get(3),            // 2023-09-19
+                        uslp04DataD.get(0),            // 1
+                        uslp04DataD.get(1));           // 0.3
 
+                 */
                 break;
             case 2:
                 //Sucesso:
@@ -247,6 +268,63 @@ public class App {
                 break;
         }
 
+    }
+
+    public static void uslp04GetUserInput() {
+
+        String nomeParcela;
+        String especieVegetal;
+        String variedadePlanta;
+        String data;
+        double quantidade;
+        double areaSemeadura;
+
+        System.out.println("================================================");
+        System.out.println("Inserir dados para inserir operação de semeadura");
+        System.out.println("================================================");
+        System.out.println();
+
+        System.out.println("Insira o nome da Parcela: ");
+        nomeParcela = read.nextLine();
+        read.next();
+        uslp04DataS.add(0, nomeParcela);
+
+        System.out.println("Insira o nome da especie vegetal: ");
+        especieVegetal = read.nextLine();
+        read.next();
+        uslp04DataS.add(1, especieVegetal);
+
+        System.out.println("Insira a variedade da planta: ");
+        variedadePlanta= read.nextLine();
+        read.next();
+        uslp04DataS.add(2, variedadePlanta);
+
+        System.out.println("Insira a data: -> yyyy-mm-dd");
+        data = read.nextLine();
+        read.next();
+        uslp04DataS.add(3, data);
+
+        // Input validation for quantity (non-negative)
+        do {
+            System.out.println("Insira a quantidade: ");
+            while (!read.hasNextDouble()) {
+                System.out.println("Por favor, insira um número válido para a quantidade.");
+                read.next(); // To clear the invalid input
+            }
+            quantidade = read.nextDouble();
+        } while (quantidade < 0);
+        uslp04DataD.add(0, quantidade);
+
+        // Input validation for seedbed area (non-negative)
+        do {
+            System.out.println("Insira a área da semeadura: ");
+            while (!read.hasNextDouble()) {
+                System.out.println("Por favor, insira um número válido para a área de semeadura.");
+                read.next(); // To clear the invalid input
+            }
+            areaSemeadura = read.nextDouble();
+        } while (areaSemeadura < 0);
+        uslp04DataD.add(1, areaSemeadura);
     }
 
     public static void askAgain() {

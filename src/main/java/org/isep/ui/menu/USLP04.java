@@ -21,10 +21,12 @@ public class USLP04 {
             String thePassword = properties.getProperty("password");
             String theURL = properties.getProperty("dbURL_localhost");
 
+            System.out.println();
+            System.out.println("==================================================");
             System.out.println("Connecting to database...");
             System.out.println("Database URL: " + theURL);
             System.out.println("User: " + theUser);
-            System.out.println("=========================================================");
+            System.out.println("==================================================");
             System.out.println();
 
             // Get a connection
