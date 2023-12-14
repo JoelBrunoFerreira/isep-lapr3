@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -109,6 +110,9 @@ class RoutesBetweenLocationsTest {
         List<Double> expectedDistances1 = new ArrayList<>(List.of(95.957));
         List<Double> expectedDistances2 = new ArrayList<>(List.of(65.574, 114.913));
 
+        List<Local> expectedHubs1 = new ArrayList<>(List.of(l2));
+        List<Local> expectedHubs2 = new ArrayList<>(List.of(l3, l2));
+
         String origName = "CT7";
         String destName = "CT14";
         double autonomyKm = 200;
@@ -145,15 +149,23 @@ class RoutesBetweenLocationsTest {
         assertEquals(expectedTotalTime1, actualTotalTime1);
         assertEquals(expectedTotalTime2, actualTotalTime2);
 
+        //verificar os hubs em cada rota:
+        List<Local> actualHubs1 = routes.get(0).getHubs();
+        List<Local> actualHubs2 = routes.get(1).getHubs();
+
+        assertEquals(expectedHubs1, actualHubs1);
+        assertEquals(expectedHubs2, actualHubs2);
+
         //print
         System.out.println("Percursos desde " + origName + " para " + destName + " com " + autonomyKm + "km de autonomia a uma velocidade de "+velocityKmH+"km/h:");
+        Collections.sort(routes);
         for (Route route : routes) {
             System.out.println("Percurso: " + route.getPath());
-            System.out.println(route.getDistances());
+            System.out.println("Distâncias entre locais: " + route.getDistances());
             System.out.printf("Distância total: %.3fKm\n", route.getTotalDistance());
             System.out.printf("Tempo total: %.2f horas.\n", route.getTotalTime());
+            System.out.printf("Hubs: %s", route.getHubs());
             System.out.println("---------------");
-
         }
     }
 

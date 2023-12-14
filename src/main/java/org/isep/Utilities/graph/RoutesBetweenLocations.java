@@ -1,18 +1,20 @@
 package org.isep.Utilities.graph;
 
+import org.isep.Controllers.GetNStrategicHubs;
 import org.isep.Utilities.graph.matrix.MatrixGraph;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RoutesBetweenLocations {
+    private static final GetNStrategicHubs USEI02 = new GetNStrategicHubs("locais_small.csv", "distancias_small.csv");
 
     /**
      * Encontra rotas entre um local de origem e um local dentro com uma certa autonomia e a uma certa velocidade.
      *
      * @param graph      o grafo a ser pesquisado
-     * @param origName o nome da localização de origem
-     * @param destName    o nome da localização do hub
+     * @param origName   o nome da localização de origem
+     * @param destName   o nome da localização do hub
      * @param autonomyKm a autonomia do veículo elétrico em quilómetros
      * @return uma lista de rotas
      */
@@ -52,7 +54,10 @@ public class RoutesBetweenLocations {
 
         if (currentLocal.equals(finalLocal) && currentDistance <= autonomyKm) {
             currentTime = calculateTime(currentDistance, velocityKmH);
-            routes.add(new Route(new ArrayList<>(currentPath), currentDistance, currentTime, getDistances(currentPath, graph)));
+            Route newRoute = new Route(new ArrayList<>(currentPath), currentDistance, currentTime, getDistances(currentPath, graph));
+            List<Local> hubs = getHubs(newRoute);
+            newRoute.setHubs(hubs);
+            routes.add(newRoute);
             return;
         }
 
@@ -77,7 +82,7 @@ public class RoutesBetweenLocations {
      */
     public static Local findLocalByName(MatrixGraph<Local, Double> graph, String name) { // Complexidade: O(V)
         for (Local local : graph.vertices()) {
-            if (local.getName().equals(name)) {
+            if (local.getName().equalsIgnoreCase(name)) {
                 return local;
             }
         }
@@ -86,9 +91,10 @@ public class RoutesBetweenLocations {
 
     /**
      * Calcula o tempo entre cada local
+     *
      * @param distanceKm
      * @param speedKmH
-     * @return  tempo total da viagem
+     * @return tempo total da viagem
      */
     public static double calculateTime(double distanceKm, double speedKmH) { // Complexidade: O(1)
         if (speedKmH == 0) {
@@ -100,6 +106,7 @@ public class RoutesBetweenLocations {
 
     /**
      * Calcula as distâncias entre os locais da rota.
+     *
      * @param path
      * @param graph
      * @return lista das distâncias
@@ -118,5 +125,23 @@ public class RoutesBetweenLocations {
         }
 
         return distances;
+    }
+
+    private static List<Local> getHubs(Route route) { //O (V logV)
+        List<Local> result = new ArrayList<>();
+
+        List<Local> newPath = new ArrayList<>(route.getPath());
+        newPath.remove(0);
+
+        List<Vertex> hubs = USEI02.getNStrategicHubs(17);
+
+        for (Local l : newPath) {
+            for (Vertex h : hubs) {
+                if (l.getName().equalsIgnoreCase(h.getName())) {
+                    result.add(l);
+                }
+            }
+        }
+        return result;
     }
 }

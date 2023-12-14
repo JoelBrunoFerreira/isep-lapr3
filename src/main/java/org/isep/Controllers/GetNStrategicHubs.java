@@ -1,7 +1,6 @@
 package org.isep.Controllers;
 
 
-
 import org.isep.Utilities.graph.Vertex;
 import org.isep.Utilities.graph.matrix.MatrixGraph;
 
@@ -9,8 +8,7 @@ import org.isep.Utilities.graph.matrix.MatrixGraph;
 import java.util.*;
 
 
-
-public class GetNStrategicHubs {
+public class GetNStrategicHubs<T extends Vertex, Local> {
 
     static final String distancias_big = "distancias_big.csv";
     static final String distancias_small = "distancias_small.csv";
@@ -24,45 +22,31 @@ public class GetNStrategicHubs {
         this.matrixGraph = LoadData.fillMatrixGraph(distancias, locals);
     }
 
+    public List<T> getNStrategicHubs(int numberOfStrategicHubs) {
+        List<T> nStrategicHubs = new ArrayList<>(); // O(1)
 
-    //O(V logV)
-    public List<Vertex> getNStrategicHubs(int numberOfStrategicHubs) {
-        List<Vertex> nStrategicHubs = new ArrayList<>(); //O(1)
+        List<T> allLocalsSorted = getAllVerticesSorted(); // O(V logV)
 
-        ArrayList<Vertex> allLocalsSorted = getAllVerticesSorted(); //O(V logV)
-
-        for (int i = 0; i < numberOfStrategicHubs; i++) { //O(n)
+        for (int i = 0; i < numberOfStrategicHubs && i < allLocalsSorted.size(); i++) { // O(min(n, V))
             nStrategicHubs.add(allLocalsSorted.get(i));
         }
 
         return nStrategicHubs;
     }
 
-    //O(V logV)
-    private ArrayList<Vertex> getAllVerticesSorted() {
+    // O(V logV)
+    private List<T> getAllVerticesSorted() {
+        List<T> vertices = (List<T>) new ArrayList<>(matrixGraph.vertices());
 
-        ArrayList<Vertex> vertices = matrixGraph.vertices();
-        Comparator<Vertex> vertexComparator = new Comparator<Vertex>() { //O(V logV)
-            @Override
-            public int compare(Vertex v1, Vertex v2) {
-                int degreeComparison = Integer.compare(v2.getDegree(), v1.getDegree());
-                if (degreeComparison != 0) {
-                    return degreeComparison;
-                }
-
-                int numMinPathsComparison  = Integer.compare(v2.getNumMinPaths(), v1.getNumMinPaths());
-                if (numMinPathsComparison  != 0) {
-                    return numMinPathsComparison ;
-                }
-
-                return Double.compare(v1.getAverageDistance(), v2.getAverageDistance());
-            }
-        };
+        Comparator<T> vertexComparator = Comparator
+                .<T, Integer>comparing(Vertex::getDegree)
+                .thenComparing(Vertex::getNumMinPaths)
+                .thenComparingDouble(Vertex::getAverageDistance)
+                .reversed();
 
         vertices.sort(vertexComparator);
 
         return vertices;
-
     }
 
 }

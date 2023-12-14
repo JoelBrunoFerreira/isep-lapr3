@@ -43,9 +43,10 @@ public class USEI06 {
                 Collections.sort(routes);
                 for (Route route : routes) {
                     System.out.println("Percurso: " + route.getPath());
-                    System.out.println(route.getDistances());
+                    System.out.println("Distâncias entre locais: " + route.getDistances());
                     System.out.printf("Distância total: %.3fKm\n", route.getTotalDistance());
                     System.out.printf("Tempo total: %.2f horas.\n", route.getTotalTime());
+                    System.out.printf("Hubs: %s", route.getHubs());
                     System.out.println("---------------");
                 }
             }
