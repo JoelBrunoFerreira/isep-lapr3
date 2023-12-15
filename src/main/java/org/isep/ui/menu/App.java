@@ -185,6 +185,7 @@ public class App {
                 read.nextLine();
             }
         }
+        read.nextLine();
 
         switch (option) {
             case 1:
@@ -272,39 +273,53 @@ public class App {
 
     public static void uslp04GetUserInput() {
 
-        String nomeParcela;
-        String especieVegetal;
-        String variedadePlanta;
-        String data;
-        double quantidade;
-        double areaSemeadura;
-
         System.out.println("================================================");
         System.out.println("Inserir dados para inserir operação de semeadura");
         System.out.println("================================================");
         System.out.println();
 
-        System.out.println("Insira o nome da Parcela: ");
-        nomeParcela = read.nextLine();
-        read.next();
+        String nomeParcela = "";
+        while (nomeParcela.isEmpty()) {
+            System.out.println("Insira o nome da Parcela: ");
+            nomeParcela = read.nextLine().trim();
+            if (nomeParcela.isEmpty()) {
+                System.out.println("Por favor, insira um valor para a Parcela.");
+            }
+        }
         uslp04DataS.add(0, nomeParcela);
 
-        System.out.println("Insira o nome da especie vegetal: ");
-        especieVegetal = read.nextLine();
-        read.next();
+        String especieVegetal = "";
+        while (especieVegetal.isEmpty()) {
+            System.out.println("Insira o nome da espécie vegetal: ");
+            especieVegetal = read.nextLine().trim();
+            if (especieVegetal.isEmpty()) {
+                System.out.println("Por favor, insira um valor para a espécie vegetal.");
+            }
+        }
         uslp04DataS.add(1, especieVegetal);
 
-        System.out.println("Insira a variedade da planta: ");
-        variedadePlanta= read.nextLine();
-        read.next();
+        String variedadePlanta = "";
+        while (variedadePlanta.isEmpty()) {
+            System.out.println("Insira a variedade da planta: ");
+            variedadePlanta = read.nextLine().trim();
+            if (variedadePlanta.isEmpty()) {
+                System.out.println("Por favor, insira um valor para a variedade da planta.");
+            }
+        }
         uslp04DataS.add(2, variedadePlanta);
 
-        System.out.println("Insira a data: -> yyyy-mm-dd");
-        data = read.nextLine();
-        read.next();
-        uslp04DataS.add(3, data);
+        String dataRealizacao = "";
+        while (dataRealizacao.isEmpty()) {
+            System.out.println("Insira a data de realização: -> yyyy-mm-dd");
+            dataRealizacao = read.nextLine().trim();
+            if (dataRealizacao.isEmpty()) {
+                System.out.println("Por favor, insira um valor para a data de realização.");
+            }
+        }
+        uslp04DataS.add(3, dataRealizacao);
 
         // Input validation for quantity (non-negative)
+        double quantidade;
         do {
             System.out.println("Insira a quantidade: ");
             while (!read.hasNextDouble()) {
@@ -316,6 +331,7 @@ public class App {
         uslp04DataD.add(0, quantidade);
 
         // Input validation for seedbed area (non-negative)
+        double areaSemeadura;
         do {
             System.out.println("Insira a área da semeadura: ");
             while (!read.hasNextDouble()) {
