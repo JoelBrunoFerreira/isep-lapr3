@@ -8,6 +8,7 @@ import java.util.List;
 
 public class RoutesBetweenLocations {
     private static final GetNStrategicHubs USEI02 = new GetNStrategicHubs("locais_small.csv", "distancias_small.csv");
+    private static List<Vertex> hubs = USEI02.getNStrategicHubs(10);
 
     /**
      * Encontra rotas entre um local de origem e um local dentro com uma certa autonomia e a uma certa velocidade.
@@ -132,8 +133,6 @@ public class RoutesBetweenLocations {
 
         List<Local> newPath = new ArrayList<>(route.getPath());
         newPath.remove(0);
-
-        List<Vertex> hubs = USEI02.getNStrategicHubs(17);
 
         for (Local l : newPath) {
             for (Vertex h : hubs) {

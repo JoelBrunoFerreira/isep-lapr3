@@ -110,8 +110,8 @@ class RoutesBetweenLocationsTest {
         List<Double> expectedDistances1 = new ArrayList<>(List.of(95.957));
         List<Double> expectedDistances2 = new ArrayList<>(List.of(65.574, 114.913));
 
-        List<Local> expectedHubs1 = new ArrayList<>(List.of(l2));
-        List<Local> expectedHubs2 = new ArrayList<>(List.of(l3, l2));
+        List<Local> expectedHubs1 = new ArrayList<>();
+        List<Local> expectedHubs2 = new ArrayList<>(List.of(l3));
 
         String origName = "CT7";
         String destName = "CT14";
@@ -161,10 +161,16 @@ class RoutesBetweenLocationsTest {
         Collections.sort(routes);
         for (Route route : routes) {
             System.out.println("Percurso: " + route.getPath());
-            System.out.println("Distâncias entre locais: " + route.getDistances());
+            if (!route.getDistances().isEmpty()){
+                System.out.println("Distâncias entre locais: " + route.getDistances());
+            }
             System.out.printf("Distância total: %.3fKm\n", route.getTotalDistance());
             System.out.printf("Tempo total: %.2f horas.\n", route.getTotalTime());
-            System.out.printf("Hubs: %s", route.getHubs());
+            if (route.getHubs().isEmpty()){
+                System.out.println("No hubs.");
+            }else{
+                System.out.printf("Hubs: %s\n", route.getHubs());
+            }
             System.out.println("---------------");
         }
     }
