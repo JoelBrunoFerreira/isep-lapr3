@@ -5,8 +5,25 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class App {
+    // USLPO4 Inputs
     public static ArrayList<String> uslp04DataS = new ArrayList<>();
     public static ArrayList<Double> uslp04DataD = new ArrayList<>();
+
+    // USLPO5 Inputs
+    public static ArrayList<String> uslp05DataS = new ArrayList<>();
+    public static ArrayList<Double> uslp05DataD = new ArrayList<>();
+
+    // USLPO6 Inputs
+    public static ArrayList<String> uslp06DataS = new ArrayList<>();
+    public static ArrayList<Float> uslp06DataF = new ArrayList<>();
+
+    // USLPO7 Inputs
+    public static ArrayList<String> uslp07DataS = new ArrayList<>();
+    public static ArrayList<Double> uslp07DataD = new ArrayList<>();
+
+    // USLPO8 Inputs
+    public static ArrayList<String> uslp08DataS = new ArrayList<>();
+    public static ArrayList<Double> uslp08DataD = new ArrayList<>();
 
     public static Scanner read = new Scanner(System.in);
     public static void runApp() {
@@ -219,56 +236,122 @@ public class App {
                  */
                 break;
             case 2:
-                //Sucesso:
-                USLP05.uslp05Start("Campo Novo", "Cenoura", "Danvers Half Long", "2023-09-08", 0.5);
+                // Caso de Sucesso:
+                uslp05GetUserInput();
+                USLP05.uslp05Start(uslp05DataS.get(0), // Campo Novo
+                        uslp05DataS.get(1),            // Cenoura
+                        uslp05DataS.get(2),            // Danvers Half Long
+                        uslp05DataS.get(3),            // 2023-09-08
+                        uslp05DataD.get(0));           // 0.5
 
-//                Insucesso:
-//                 -Não existe cultivo:
-//                USLP05.uslp05Start("Campo Novo", "Cenoura", "Danvers Half Long", "2023-10-11", 0.5);
 
-//                 -Data no futuro:
-//                USLP05.uslp05Start("Campo Novo", "Cenoura", "Danvers Half Long", "2025-09-08", 0.5);
+                // Casos de Insucesso:
+                /*
+                // * Não existe cultivo:
+                USLP05.uslp05Start(uslp05DataS.get(0), // Campo Novo
+                        uslp05DataS.get(1),            // Cenoura
+                        uslp05DataS.get(2),            // Danvers Half Long
+                        uslp05DataS.get(3),            // 2023-10-11
+                        uslp05DataD.get(0));           // 0.5
 
+                // * Data no futuro
+                USLP05.uslp05Start(uslp05DataS.get(0), // Campo Novo
+                        uslp05DataS.get(1),            // Cenoura
+                        uslp05DataS.get(2),            // Danvers Half Long
+                        uslp05DataS.get(3),            // 2025-09-08
+                        uslp05DataD.get(0));           // 0.5
+
+                 */
                 break;
             case 3:
-                //Sucesso:
-                USLP06.uslp06Start("Campo Grande", "2023-11-05",100,"Azeitona Galega");
+                // Caso de Sucesso:
+                uslp06GetUserInput();
+                USLP06.uslp06Start(uslp06DataS.get(0), // Campo Grande
+                        uslp06DataS.get(1),            // 2023-11-05
+                        uslp06DataF.get(0),            // 100
+                        uslp06DataS.get(2));           // Azeitona Galega
 
-//                Insucesso:
-//                 -Produto inexistente:
-//                 USLP06.uslp06Start("Campo Grande", "2023-10-05",800,"Maçã Golden");
 
-//                 -Data no futuro:
-//                 USLP06.uslp06Start("Campo Grande", "2024-11-05",100,"Azeitona Galega");
+                // Casos de Insucesso:
+                /*
+                // * Produto inexistente:
+                USLP06.uslp06Start(uslp06DataS.get(0), // Campo Grande
+                        uslp06DataS.get(1),            // 2023-10-05
+                        uslp06DataF.get(0),            // 800
+                        uslp06DataS.get(2));           // Maçã Golden
+
+                // * Data no futuro:
+                USLP06.uslp06Start(uslp06DataS.get(0), // Campo Grande
+                        uslp06DataS.get(1),            // 2024-11-05
+                        uslp06DataF.get(0),            // 100
+                        uslp06DataS.get(2));           // Azeitona Galega
+
+                 */
                 break;
             case 4:
-//                Sucesso:
-                USLP07.uslp07Start("Campo Novo",null ,null,"2023-10-06" ,4000,1.1,"Fertimax Extrume de Cavalo");
+               // Caso de Sucesso:
+                uslp07GetUserInput();
+                USLP07.uslp07Start(uslp07DataS.get(0), // Campo Novo
+                        uslp07DataS.get(1),            // Null
+                        uslp07DataS.get(2),            // Null
+                        uslp07DataS.get(3),            // 2023-10-06
+                        uslp07DataD.get(0),            // 4000
+                        uslp07DataD.get(1),            // 1.1
+                        uslp07DataS.get(4));           // Fertimax Extrume de Cavalo
 
-                //Insucesso:
-//                -Área acima do tamanho da parcela
-//                USLP07.uslp07Start("Campo Novo", null, null,"2023-10-08" ,8000,2.1,"Fertimax Extrume de Cavalo");
+                // Casos de Insucesso:
+                /*
+                // * Área acima do tamanho da parcela
+                USLP07.uslp07Start(uslp07DataS.get(0), // Campo Novo
+                        uslp07DataS.get(1),            // Null
+                        uslp07DataS.get(2),            // Null
+                        uslp07DataS.get(3),            // 2023-10-08
+                        uslp07DataD.get(0),            // 8000
+                        uslp07DataD.get(1),            // 2.1
+                        uslp07DataS.get(4));           // Fertimax Extrume de Cavalo
 
-//                -Data no futuro:
-//                USLP07.uslp07Start("Campo Novo", null, null,"2024-10-08" ,8000,1.1,"Fertimax Extrume de Cavalo");
+                // * Data no futuro:
+                USLP07.uslp07Start(uslp07DataS.get(0), // Campo Novo
+                        uslp07DataS.get(1),            // Null
+                        uslp07DataS.get(2),            // Null
+                        uslp07DataS.get(3),            // 2024-10-08
+                        uslp07DataD.get(0),            // 8000
+                        uslp07DataD.get(1),            // 1.1
+                        uslp07DataS.get(4));           // Fertimax Extrume de Cavalo
 
+                 */
                 break;
             case 5:
-                //Sucesso:
-                USLP08.uslp08Start("Campo Grande", "Oliveira", "Galega", "2023-11-06", 20.0);
+                //Caso de Sucesso:
+                uslp08GetUserInput();
+                USLP08.uslp08Start(uslp08DataS.get(0), // Campo Grande
+                        uslp08DataS.get(1),            // Oliveira
+                        uslp08DataS.get(2),            // Galega
+                        uslp08DataS.get(3),            // 2023-11-06
+                        uslp08DataD.get(0));           // 20.0
 
-//                Incucesso:
-//                 -Quantidade superior à existente:
-//                  USLP08.uslp08Start("Campo Grande", "Oliveira", "Galega", "2023-11-06", 60.0);
+               // Casos de Incucesso:
+                /*
+               // * Quantidade superior à existente:
+                USLP08.uslp08Start(uslp08DataS.get(0), // Campo Grande
+                        uslp08DataS.get(1),            // Oliveira
+                        uslp08DataS.get(2),            // Galega
+                        uslp08DataS.get(3),            // 2023-11-06
+                        uslp08DataD.get(0));           // 60.0
 
-//                 -Data futuro:
-//                  USLP08.uslp08Start("Campo Grande", "Oliveira", "Galega", "2024-11-06", 20.0);
+                // * Data futuro:
+                USLP08.uslp08Start(uslp08DataS.get(0), // Campo Grande
+                        uslp08DataS.get(1),            // Oliveira
+                        uslp08DataS.get(2),            // Galega
+                        uslp08DataS.get(3),            // 2024-11-06
+                        uslp08DataD.get(0));           // 20.0
+
+                 */
                 break;
             case 0:
                 runApp();
                 break;
         }
-
     }
 
     public static void uslp04GetUserInput() {
@@ -341,6 +424,257 @@ public class App {
             areaSemeadura = read.nextDouble();
         } while (areaSemeadura < 0);
         uslp04DataD.add(1, areaSemeadura);
+    }
+
+    public static void uslp05GetUserInput() {
+
+        System.out.println("================================================");
+        System.out.println("Inserir dados para inserir uma operação de monda");
+        System.out.println("================================================");
+        System.out.println();
+
+        String nomeParcela = "";
+        while (nomeParcela.isEmpty()) {
+            System.out.println("Insira o nome da Parcela: ");
+            nomeParcela = read.nextLine().trim();
+            if (nomeParcela.isEmpty()) {
+                System.out.println("Por favor, insira um valor para a Parcela.");
+            }
+        }
+        uslp05DataS.add(0, nomeParcela);
+
+        String especieVegetal = "";
+        while (especieVegetal.isEmpty()) {
+            System.out.println("Insira o nome da espécie vegetal: ");
+            especieVegetal = read.nextLine().trim();
+            if (especieVegetal.isEmpty()) {
+                System.out.println("Por favor, insira um valor para a espécie vegetal.");
+            }
+        }
+        uslp05DataS.add(1, especieVegetal);
+
+        String variedadePlanta = "";
+        while (variedadePlanta.isEmpty()) {
+            System.out.println("Insira a variedade da planta: ");
+            variedadePlanta = read.nextLine().trim();
+            if (variedadePlanta.isEmpty()) {
+                System.out.println("Por favor, insira um valor para a variedade da planta.");
+            }
+        }
+        uslp05DataS.add(2, variedadePlanta);
+
+        String dataRealizacao = "";
+        while (dataRealizacao.isEmpty()) {
+            System.out.println("Insira a data de realização: -> yyyy-mm-dd");
+            dataRealizacao = read.nextLine().trim();
+            if (dataRealizacao.isEmpty()) {
+                System.out.println("Por favor, insira um valor para a data de realização.");
+            }
+        }
+        uslp05DataS.add(3, dataRealizacao);
+
+        // Input validation for seedbed area (non-negative)
+        double areaSemeadura;
+        do {
+            System.out.println("Insira a área da semeadura: ");
+            while (!read.hasNextDouble()) {
+                System.out.println("Por favor, insira um número válido para a área de semeadura.");
+                read.next(); // To clear the invalid input
+            }
+            areaSemeadura = read.nextDouble();
+        } while (areaSemeadura < 0);
+        uslp05DataD.add(0, areaSemeadura);
+    }
+
+    public static void uslp06GetUserInput() {
+
+        System.out.println("===============================================");
+        System.out.println("Inserir dados para inserir operação de colheita");
+        System.out.println("===============================================");
+        System.out.println();
+
+        String nomeParcela = "";
+        while (nomeParcela.isEmpty()) {
+            System.out.println("Insira o nome da Parcela: ");
+            nomeParcela = read.nextLine().trim();
+            if (nomeParcela.isEmpty()) {
+                System.out.println("Por favor, insira um valor para a Parcela.");
+            }
+        }
+        uslp06DataS.add(0, nomeParcela);
+
+        String dataRealizacao = "";
+        while (dataRealizacao.isEmpty()) {
+            System.out.println("Insira a data de realização: -> yyyy-mm-dd");
+            dataRealizacao = read.nextLine().trim();
+            if (dataRealizacao.isEmpty()) {
+                System.out.println("Por favor, insira um valor para a data de realização.");
+            }
+        }
+        uslp06DataS.add(1, dataRealizacao);
+
+        float quantidadeColhida;
+        do {
+            System.out.println("Insira a quantidade: ");
+            while (!read.hasNextDouble()) {
+                System.out.println("Por favor, insira um número válido para a quantidade.");
+                read.next(); // To clear the invalid input
+            }
+            quantidadeColhida = read.nextFloat();
+        } while (quantidadeColhida < 0);
+        uslp06DataF.add(0, quantidadeColhida);
+
+        String nomeProduto = "";
+        while (nomeProduto.isEmpty()) {
+            System.out.println("Insira o nome do produto: ");
+            nomeProduto = read.nextLine().trim();
+            if (nomeProduto.isEmpty()) {
+                System.out.println("Por favor, insira um valor para o nome do produto.");
+            }
+        }
+        uslp06DataS.add(2, nomeProduto);
+    }
+
+    public static void uslp07GetUserInput() {
+
+        System.out.println("======================================================================");
+        System.out.println("Inserir dados para inserir operação de aplicação de factor de produção");
+        System.out.println("======================================================================");
+        System.out.println();
+
+        String nomeParcela = "";
+        while (nomeParcela.isEmpty()) {
+            System.out.println("Insira o nome da Parcela: ");
+            nomeParcela = read.nextLine().trim();
+            if (nomeParcela.isEmpty()) {
+                System.out.println("Por favor, insira um valor para a Parcela.");
+            }
+        }
+        uslp07DataS.add(0, nomeParcela);
+
+        String especieVegetal = "";
+        while (especieVegetal.isEmpty()) {
+            System.out.println("Insira o nome da espécie vegetal: ");
+            especieVegetal = read.nextLine().trim();
+            if (especieVegetal.isEmpty()) {
+                System.out.println("Por favor, insira um valor para a espécie vegetal.");
+            }
+        }
+        uslp07DataS.add(1, especieVegetal);
+
+        String variedadePlanta = "";
+        while (variedadePlanta.isEmpty()) {
+            System.out.println("Insira a variedade da planta: ");
+            variedadePlanta = read.nextLine().trim();
+            if (variedadePlanta.isEmpty()) {
+                System.out.println("Por favor, insira um valor para a variedade da planta.");
+            }
+        }
+        uslp07DataS.add(2, variedadePlanta);
+
+        String dataRealizacao = "";
+        while (dataRealizacao.isEmpty()) {
+            System.out.println("Insira a data de realização: -> yyyy-mm-dd");
+            dataRealizacao = read.nextLine().trim();
+            if (dataRealizacao.isEmpty()) {
+                System.out.println("Por favor, insira um valor para a data de realização.");
+            }
+        }
+        uslp07DataS.add(3, dataRealizacao);
+
+        // Input validation for quantity (non-negative)
+        double quantidadeFactorProducao;
+        do {
+            System.out.println("Insira a quantidade: ");
+            while (!read.hasNextDouble()) {
+                System.out.println("Por favor, insira um número válido para a quantidade.");
+                read.next(); // To clear the invalid input
+            }
+            quantidadeFactorProducao = read.nextDouble();
+        } while (quantidadeFactorProducao < 0);
+        uslp07DataD.add(0, quantidadeFactorProducao);
+
+        // Input validation for seedbed area (non-negative)
+        double areaSemeadura;
+        do {
+            System.out.println("Insira a área da semeadura: ");
+            while (!read.hasNextDouble()) {
+                System.out.println("Por favor, insira um número válido para a área de semeadura.");
+                read.next(); // To clear the invalid input
+            }
+            areaSemeadura = read.nextDouble();
+        } while (areaSemeadura < 0);
+        uslp07DataD.add(1, areaSemeadura);
+
+        String nomeFactorProducao = "";
+        while (nomeFactorProducao.isEmpty()) {
+            System.out.println("Insira o nome do factor produção: ");
+            nomeFactorProducao = read.nextLine().trim();
+            if (nomeFactorProducao.isEmpty()) {
+                System.out.println("Por favor, insira um valor para o nome do factor produção.");
+            }
+        }
+        uslp07DataS.add(4, nomeFactorProducao);
+    }
+
+    public static void uslp08GetUserInput() {
+
+        System.out.println("===========================================");
+        System.out.println("Inserir dados para inserir operação de poda");
+        System.out.println("===========================================");
+        System.out.println();
+
+        String nomeParcela = "";
+        while (nomeParcela.isEmpty()) {
+            System.out.println("Insira o nome da Parcela: ");
+            nomeParcela = read.nextLine().trim();
+            if (nomeParcela.isEmpty()) {
+                System.out.println("Por favor, insira um valor para a Parcela.");
+            }
+        }
+        uslp08DataS.add(0, nomeParcela);
+
+        String especieVegetal = "";
+        while (especieVegetal.isEmpty()) {
+            System.out.println("Insira o nome da espécie vegetal: ");
+            especieVegetal = read.nextLine().trim();
+            if (especieVegetal.isEmpty()) {
+                System.out.println("Por favor, insira um valor para a espécie vegetal.");
+            }
+        }
+        uslp08DataS.add(1, especieVegetal);
+
+        String variedadePlanta = "";
+        while (variedadePlanta.isEmpty()) {
+            System.out.println("Insira a variedade da planta: ");
+            variedadePlanta = read.nextLine().trim();
+            if (variedadePlanta.isEmpty()) {
+                System.out.println("Por favor, insira um valor para a variedade da planta.");
+            }
+        }
+        uslp08DataS.add(2, variedadePlanta);
+
+        String dataRealizacao = "";
+        while (dataRealizacao.isEmpty()) {
+            System.out.println("Insira a data de realização: -> yyyy-mm-dd");
+            dataRealizacao = read.nextLine().trim();
+            if (dataRealizacao.isEmpty()) {
+                System.out.println("Por favor, insira um valor para a data de realização.");
+            }
+        }
+        uslp08DataS.add(3, dataRealizacao);
+
+        // Input validation for quantity (non-negative)
+        double quantidadePoda;
+        do {
+            System.out.println("Insira a quantidade: ");
+            while (!read.hasNextDouble()) {
+                System.out.println("Por favor, insira um número válido para a quantidade.");
+                read.next(); // To clear the invalid input
+            }
+            quantidadePoda = read.nextDouble();
+        } while (quantidadePoda < 0);
+        uslp04DataD.add(0, quantidadePoda);
     }
 
     public static void askAgain() {
