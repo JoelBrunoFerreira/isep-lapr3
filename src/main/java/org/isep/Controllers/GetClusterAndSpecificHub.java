@@ -1,15 +1,12 @@
 package org.isep.Controllers;
 
-import org.isep.Utilities.graph.Algorithms;
-import org.isep.Utilities.graph.Edge;
-import org.isep.Utilities.graph.Graph;
-import org.isep.Utilities.graph.Vertex;
+import org.isep.Utilities.graph.*;
 import org.isep.Utilities.graph.matrix.MatrixGraph;
 
 import java.util.*;
 import java.util.function.BinaryOperator;
 
-import static org.isep.Utilities.graph.Algorithms.shortestPath;
+import static org.isep.Utilities.graph.Algorithms.shortestPaths;
 
 public class GetClusterAndSpecificHub {
 
@@ -27,16 +24,21 @@ public class GetClusterAndSpecificHub {
         this.matrixGraph = LoadData.fillMatrixGraph(distancias, locals);
     }
 
+    public MatrixGraph<Vertex, Double> getMatrixGraph() {
+        return matrixGraph;
+    }
 
-    public Map<ArrayList<Vertex>, Vertex> getClustersAndSpecificHub(int numberOfClusters){
-
-        Map<ArrayList<Vertex>, Vertex> clustersAndSpecificHub = new HashMap<>();
-
+    public Map<Vertex, ArrayList<Vertex>> getClustersAndSpecificHub(int numberOfClusters){
         List<ArrayList<Vertex>> clusters = getNStrategicClusters(numberOfClusters);
 
+        if(clusters == null){
+            return null;
+        }
+
+        Map<Vertex, ArrayList<Vertex>> clustersAndSpecificHub = new HashMap<>();
         for (ArrayList <Vertex> cluster: clusters) {
             Vertex specificHub = getSpecificHub(cluster);
-            clustersAndSpecificHub.put(cluster, specificHub);
+            clustersAndSpecificHub.put(specificHub, cluster);
         }
 
         return clustersAndSpecificHub;
@@ -46,25 +48,33 @@ public class GetClusterAndSpecificHub {
 
 
     private List<ArrayList<Vertex>> getNStrategicClusters(int numberOfClusters) {
+        if(numberOfClusters <= 0 || numberOfClusters > matrixGraph.vertices().size()){
+            return null;
+        }
 
         List<ArrayList<Vertex>> clusters = new ArrayList<>();
 
-        Graph<Vertex, Double> minimumSpanningTree = Algorithms.kruskalAlgorithm(matrixGraph);
+        if(numberOfClusters == 1){
+            ArrayList<Vertex> cluster = matrixGraph.vertices();
+            clusters.add(cluster);
+        }
 
-        Collection<Edge<Vertex, Double>> edges = minimumSpanningTree.edges();
+
+        Collection<Edge<Vertex, Double>> edges = matrixGraph.edges();
         List<Edge<Vertex, Double>> edgeList = new ArrayList<>(edges);
-        SortEdgesByWeight(edgeList);
+        ArrayList<Distance> distances = GetDistancesList(matrixGraph, edgeList);
+        sortDistancesByMinPaths(distances);
 
-        int obtainedClusters = 0;
+        int obtainedClusters = 1;
         int i = 0;
-        while (obtainedClusters < numberOfClusters && i < edgeList.size()) {
-            Edge<Vertex, Double> currentEdge = edgeList.get(i);
-            Vertex vOrig = currentEdge.getVOrig();
-            Vertex vDest = currentEdge.getVDest();
+        while (obtainedClusters < numberOfClusters && i < distances.size()) {
+            Distance currentEdge = distances.get(i);
+            Vertex vOrig = currentEdge.getStartVertex();
+            Vertex vDest = currentEdge.getTargetVertex();
 
-            minimumSpanningTree.removeEdge(vOrig, vDest);
+            matrixGraph.removeEdge(vOrig, vDest);
 
-            List<ArrayList<Vertex>> connectedComponents = getConnectedComponents(minimumSpanningTree);
+            List<ArrayList<Vertex>> connectedComponents = getConnectedComponents(matrixGraph);
 
             if (connectedComponents.size() == numberOfClusters) {
                 clusters.addAll(connectedComponents);
@@ -77,6 +87,7 @@ public class GetClusterAndSpecificHub {
 
         return clusters;
     }
+
 
     private List<ArrayList<Vertex>> getConnectedComponents(Graph<Vertex, Double> graph) {
         List<ArrayList<Vertex>> connectedComponents = new ArrayList<>();
@@ -101,22 +112,52 @@ public class GetClusterAndSpecificHub {
     }
 
 
-    private void SortEdgesByWeight(List<Edge<Vertex, Double>> edgeList) {
+    private ArrayList<Distance> GetDistancesList(MatrixGraph<Vertex, Double> matrixGraph, List<Edge<Vertex, Double>> edgeList) {
+        ArrayList<Distance> distances = new ArrayList<>();
 
-        int n = edgeList.size();
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                Edge<Vertex, Double> edge1 = edgeList.get(j);
-                Edge<Vertex, Double> edge2 = edgeList.get(j + 1);
+        for (Vertex vertex : locals) {
+            Comparator<Double> comparator = Comparator.naturalOrder();
+            BinaryOperator<Double> sum = Double::sum;
+            Double zero = 0.0;
 
+            ArrayList<LinkedList<Vertex>> paths = new ArrayList<>();
+            ArrayList<Double> dists = new ArrayList<>();
 
-                if (edge1.getWeight() > edge2.getWeight()) {
-                    Collections.swap(edgeList, j, j + 1);
+            boolean success = shortestPaths(matrixGraph, vertex, comparator, sum, zero, paths, dists);
+
+            if (success) {
+
+                int i = 0;
+                for (LinkedList<Vertex> path : paths) {
+                    if (i < path.size() - 1) {
+                        Vertex vOrig = path.get(i);
+                        Vertex vDest = path.get(i + 1);
+                        Distance distance = new Distance(matrixGraph.edge(vOrig, vDest).getWeight(), vOrig, vDest);
+                        distances.add(distance);
+                    }
                 }
-            }
-        }
 
+                i = 0;
+                for(LinkedList<Vertex> path : paths){
+                    if(i < path.size() - 1) {
+                        for (Distance d : distances) {
+                            if(path.get(i).equals(d.getStartVertex()) && path.get(i + 1).equals(d.getTargetVertex())){
+                                d.incrementMinPaths();
+                            }
+                        }
+                    }
+                }
+
+            }
+
+        }
+        return distances;
     }
+
+    private void sortDistancesByMinPaths(ArrayList<Distance> distances) {
+        distances.sort(Comparator.comparingInt(Distance::getMinPaths).reversed());
+    }
+
 
     private Vertex getSpecificHub(ArrayList<Vertex> cluster) {
         Vertex specificHub = null;
