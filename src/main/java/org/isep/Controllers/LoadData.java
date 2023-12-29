@@ -1,5 +1,6 @@
 package org.isep.Controllers;
 
+import org.isep.Utilities.graph.Distance;
 import org.isep.Utilities.graph.Edge;
 import org.isep.Utilities.graph.Vertex;
 import org.isep.Utilities.graph.matrix.MatrixGraph;
@@ -100,10 +101,12 @@ public class LoadData {
             e.printStackTrace();
         }
 
+
         calculateVertexDegrees(matrixGraph, locals);
         calculateAverageDistanceAndMinPaths(matrixGraph, locals);
         return matrixGraph;
     }
+
 
     private static void calculateAverageDistanceAndMinPaths(MatrixGraph<Vertex, Double> matrixGraph, List<Vertex> locals) {
         for (Vertex vertex : locals) {

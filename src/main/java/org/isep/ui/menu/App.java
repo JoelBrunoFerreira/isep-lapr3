@@ -106,7 +106,7 @@ public class App {
         System.out.println("5 --> Devolver todas as rotas possíveis entre um local de origem e destino.");
         System.out.println("6 --> ........");
         System.out.println("7 --> ........");
-        System.out.println("8 --> ........");
+        System.out.println("8 --> Devolver N clusters com 1 hub por cluster");
         System.out.println("9 --> ........");
 	    System.out.println("10 --> Alterar horários da rede de distribuição.");
 	    System.out.println("=============================================");
