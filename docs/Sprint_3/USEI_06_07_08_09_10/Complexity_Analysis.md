@@ -24,7 +24,6 @@
 
 
 
-
 ## USEI07
 ### Methods Used | Time Complexity:
 
@@ -34,6 +33,7 @@
 ### Methods Used | Time Complexity:
 
 
+
 ## USEI09
 ### Methods Used | Time Complexity:
 
@@ -41,6 +41,15 @@
 
 ## USEI10
 ### Methods Used | Time Complexity:
+> getResidualCapacity() | O(1)
+
+> addResidualFlowTo() | O(1)
+
+> addEdge() | O(1) 
+
+> hasAugmentingPath() | O(V + E)
+
+> FordFulkerson | O(V + E) * E
 
 
 ## USEI11
