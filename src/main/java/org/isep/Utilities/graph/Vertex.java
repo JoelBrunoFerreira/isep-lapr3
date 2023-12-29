@@ -9,18 +9,19 @@ import java.util.List;
 
 public class Vertex implements Comparable<Vertex> {
     private final String name;
+    private int ID;
     private boolean isVisited;
     private double distance;  // --> Represents the distance from the starting vertex USEI03
     private double latitude;
     private double longitude;
     private LocalTime openingTime;
     private LocalTime closingTime;
-    private final int numerOfEmployees;
+    private int numerOfEmployees;
     private int degree;
     private double averageDistance;  // --> Represents the avg distance to all vertices
     private int numMinPaths; // ---> number of minPanths
     private Vertex predecessor; // --> Represents the previous vertex on the shortest path
-    private final List<EdgeEI03> adjacencyList;
+    private List<EdgeEI03> adjacencyList;
     private Node node;  // --> Will represent a node in the disjoint set
 
     MatrixGraph<String, Integer> instance = null;
@@ -44,6 +45,10 @@ public class Vertex implements Comparable<Vertex> {
             this.openingTime = LocalTime.of(12, 0, 0);
             this.closingTime = LocalTime.of(17, 0, 0);
         }
+    }
+    public Vertex(int ID, String name) {
+        this.ID = ID;
+        this.name = name;
     }
 
     // Getters
@@ -102,6 +107,10 @@ public class Vertex implements Comparable<Vertex> {
 
     public Node getNode() {
         return node;
+    }
+
+    public int getID() {
+        return ID;
     }
 
 

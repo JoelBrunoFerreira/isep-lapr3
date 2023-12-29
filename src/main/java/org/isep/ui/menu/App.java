@@ -99,16 +99,16 @@ public class App {
         System.out.println("=============================================");
         System.out.println("|           Rede de Distribuição            |");
         System.out.println("=============================================");
-        System.out.println("1 --> Listar hubs por ordem decrescente de centralidade e influência.");
-        System.out.println("2 --> Devolver percurso entre os dois locais mais afastados da rede de distribuição.");
-        System.out.println("3 --> Devolver rede de ligação minima, distância entre locais e distância total da rede.");
-        System.out.println("4 --> Devolver a rede de cada cluster e o respectivo coeficiente de Silhoutte.");
-        System.out.println("5 --> Devolver todas as rotas possíveis entre um local de origem e destino.");
+        System.out.println("1 --> Listar hubs por ordem decrescente de centralidade e influência. - USEI02");
+        System.out.println("2 --> Devolver percurso entre os dois locais mais afastados da rede de distribuição. - USEI03");
+        System.out.println("3 --> Devolver rede de ligação minima, distância entre locais e distância total da rede. - USEI04");
+        System.out.println("4 --> Devolver a rede de cada cluster e o respectivo coeficiente de Silhoutte. - USEI05");
+        System.out.println("5 --> Devolver todas as rotas possíveis entre um local de origem e destino. - USEI06");
         System.out.println("6 --> ........");
         System.out.println("7 --> ........");
-        System.out.println("8 --> Devolver N clusters com 1 hub por cluster");
-        System.out.println("9 --> ........");
-	    System.out.println("10 --> Alterar horários da rede de distribuição.");
+        System.out.println("8 --> Devolver N clusters com 1 hub por cluster. USEI09");
+        System.out.println("9 --> Devolver rede máxima de transporte de cabazes e número máximo de cabazes transportados. - USEI10");
+	    System.out.println("10 --> Alterar horários da rede de distribuição. - USEI11");
 	    System.out.println("=============================================");
         System.out.println("0 --> Voltar ao menu inicial                |");
         System.out.println("=============================================");
@@ -271,7 +271,7 @@ public class App {
                         uslp06DataF.get(0),            // 100
                         uslp06DataS.get(2));           // Azeitona Galega
 
-
+              
                 // Casos de Insucesso:
                 /*
                 // * Produto inexistente:
