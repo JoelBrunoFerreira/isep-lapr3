@@ -20,80 +20,53 @@ class GetPathWithMaxHubsTest {
 
     static final String locais_small = "locais_small.csv";
 
-    GetPathWithMaxHubs getPathWithMaxHubs = new GetPathWithMaxHubs(locais_small, distancias_small);
+    GetPathWithMaxHubs getPathWithMaxHubs = new GetPathWithMaxHubs(locais_big, distancias_big);
 
     @Test
-
-    void testGetPathWithMaxHubs(){
+    void testGetPathWithMaxHubs() {
 
         LocalTime initialTime = LocalTime.of(8, 0);
-
         LocalTime finalTime = LocalTime.of(18, 0);
-
         Vertex origin = null;
-
         ArrayList<Vertex> vertices = getPathWithMaxHubs.getMatrixGraph().vertices();
 
-        for(Vertex local: vertices){
-
-            if(local.getName().equals("CT1")){
-
+        for (Vertex local : vertices) {
+            if (local.getName().equals("CT1")) {
                 origin = local;
-
             }
-
         }
 
         double autonomy = 200.0;
-
         double averageSpeed = 50.0;
-
         double unloadingTime = 0.5;
-
         double chargingTime = 1.5;
-
-        int numberOfHubs = 5;
+        int numberOfHubs = 40;
 
         LinkedList<Vertex> path = getPathWithMaxHubs.getPathWithMaxHubs(initialTime, finalTime, origin, autonomy, averageSpeed, unloadingTime, chargingTime, numberOfHubs);
 
-        int hubsPassed = 0;
-
-        for (Vertex local: path){
-
+        for (Vertex local : path) {
             System.out.println(local.getName());
 
-            if(local.getIsHub()){
-
-                hubsPassed++;
-
-            }
-
         }
-
-        System.out.println("número de vértices: " + path.size());
-
-        System.out.println("número de hubs: " + hubsPassed);
 
         System.out.print("vértices que representam hubs: ");
-
-        for (Vertex local: path){
-
-            if(local.getIsHub() == true){
-
+        ArrayList<Vertex> visited = new ArrayList<>();
+        for (Vertex local : path) {
+            if (local.getIsHub() == true && !visited.contains(local)) {
                 System.out.print(local.getName() + " ");
-
+                visited.add(local);
             }
-
         }
+        System.out.println();
+        System.out.println("número de vértices no percurso: " + path.size());
+        System.out.println("número de hubs no percurso: " + visited.size());
 
         assertNotNull(path);
-
         assertFalse(path.isEmpty());
 
     }
 
     @Test
-
     void calculateUnloadingTime() {
 
         Vertex v1 = new Vertex("C10");
@@ -110,7 +83,7 @@ class GetPathWithMaxHubsTest {
 
         hubs.add(v3);
 
-        LocalTime unloadingTime = LocalTime.of(0,30,0);
+        LocalTime unloadingTime = LocalTime.of(0, 30, 0);
 
         LocalTime result = getPathWithMaxHubs.calculateUnloadingTime(hubs, unloadingTime);
 
@@ -121,7 +94,6 @@ class GetPathWithMaxHubsTest {
     }
 
     @Test
-
     void calculateChargingTime() {
 
         Vertex v1 = new Vertex("C10");
@@ -138,7 +110,7 @@ class GetPathWithMaxHubsTest {
 
         hubs.add(v3);
 
-        LocalTime unloadingTime = LocalTime.of(0,30,0);
+        LocalTime unloadingTime = LocalTime.of(0, 30, 0);
 
         LocalTime result = getPathWithMaxHubs.calculateChargingTime(hubs, unloadingTime);
 
@@ -148,4 +120,12 @@ class GetPathWithMaxHubsTest {
 
     }
 
+    @Test
+    void getNStrategicHubs() {
+        int numberOfHubs = 17;
+
+        List<Vertex> hubs = getPathWithMaxHubs.getNStrategicHubs(numberOfHubs);
+
+        assertEquals(hubs.size(), numberOfHubs);
+    }
 }

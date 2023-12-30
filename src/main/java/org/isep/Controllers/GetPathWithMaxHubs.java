@@ -19,6 +19,7 @@ public class GetPathWithMaxHubs<T extends Vertex> {
     private final MatrixGraph<Vertex, Double> matrixGraph;
 
 
+
     public GetPathWithMaxHubs(String locais, String distancias) {
         this.locals = LoadData.readCSV2(locais);
         this.matrixGraph = LoadData.fillMatrixGraph(distancias, locals);
@@ -37,9 +38,9 @@ public class GetPathWithMaxHubs<T extends Vertex> {
         List<Vertex> hubs = getNStrategicHubs(numberOfHubs);
         for(Vertex local: hubs){
             local.IsHub();
-            if(local.getName().equals(origin.getName())){
-                hubs.remove(origin);
-            }
+        }
+        if(origin.getIsHub()){
+            hubs.remove(origin);
         }
 
 
@@ -90,6 +91,7 @@ public class GetPathWithMaxHubs<T extends Vertex> {
             }
 
         }
+        path.add(partialPath.getLast());
 
         return path;
     }
@@ -98,20 +100,23 @@ public class GetPathWithMaxHubs<T extends Vertex> {
 
         double speedInMettersPerSecond = averageSpeed + 1000 / 3600;
         long currentTimeInSeconds = currentTime.toSecondOfDay();
-        Vertex currentLocal = partialPath.getFirst();
 
-        for (int i = 1; i < partialPath.size() - 1; i++) {
-            Vertex nextLocal = partialPath.get(i);
+
+
+        for (int i = 0; i < partialPath.size() - 1; i++) {
+            Vertex currentLocal = partialPath.get(i);
+            Vertex nextLocal = partialPath.get(i + 1);
 
             currentLocal.setDepartureTime(currentTime);
 
             double distance = matrixGraph.edge(currentLocal, nextLocal).getWeight();
-            if (autonomy > distance / 1000) {
+            double distanceInKm = distance / 1000;
+            if (autonomy < distanceInKm) {
                 autonomy = maxAutonomy;
                 currentLocal.IsUsedAsChargingPoint();
                 currentTimeInSeconds += chargingTime * 3600;
             }
-            autonomy = autonomy - distance;
+            autonomy = autonomy - distanceInKm;
             double spentTime = Math.round(distance / speedInMettersPerSecond);
 
             currentTimeInSeconds += spentTime;
@@ -120,7 +125,13 @@ public class GetPathWithMaxHubs<T extends Vertex> {
             long seconds = currentTimeInSeconds % 60;
 
             currentLocal = nextLocal;
-            currentLocal.setArrivalTime(LocalTime.of((int) hours, (int) minutes, (int) seconds));
+            if (hours < 24) {
+                currentLocal.setArrivalTime(LocalTime.of((int) hours, (int) minutes, (int) seconds));
+
+            }
+
+
+
 
         }
 
@@ -157,8 +168,9 @@ public class GetPathWithMaxHubs<T extends Vertex> {
             long hours = arrivalTime / 3600;
             long minutes = (arrivalTime % 3600) / 60;
             long seconds = arrivalTime % 60;
-            hub.setArrivalTime(LocalTime.of((int) hours, (int) minutes, (int) seconds));
-
+            if(hours < 24) {
+                hub.setArrivalTime(LocalTime.of((int) hours, (int) minutes, (int) seconds));
+            }
             hubAndShortestPath.put(hub, shortestPath);
         }
 
@@ -184,7 +196,7 @@ public class GetPathWithMaxHubs<T extends Vertex> {
     }
 
 
-    private List<Vertex> getNStrategicHubs(int numberOfStrategicHubs) {
+    public List<Vertex> getNStrategicHubs(int numberOfStrategicHubs) {
         List<Vertex> nStrategicHubs = new ArrayList<>(); // O(1)
 
         List<T> allLocalsSorted = getAllVerticesSorted(); // O(V logV)
