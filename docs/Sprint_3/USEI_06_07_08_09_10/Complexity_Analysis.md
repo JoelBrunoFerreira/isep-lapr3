@@ -26,7 +26,11 @@
 
 ## USEI07
 ### Methods Used | Time Complexity:
+> getNextHubToVisit() | O(n * (V + E) + n  log n)
 
+> computePath() | O(n)
+
+> getPathWithMaxHubs() | O(n * (V + E) + n log n)
 
 
 ## USEI08
@@ -36,7 +40,17 @@
 
 ## USEI09
 ### Methods Used | Time Complexity:
+> getSpecificHub() | O(n log n)
 
+> sortDistancesByMinPaths() | O(n log n)
+
+> GetDistancesList() | O(V * (V + E) * log V)
+
+> getConnectedComponents() | O(V * (V + E))
+
+> getNStrategicClusters | O((V + E) + V * (V + E) * log V)
+
+> getClustersAndSpecificHub | O((V + E) + V * (V + E) * log V)
 
 
 ## USEI10
@@ -50,8 +64,4 @@
 > hasAugmentingPath() | O(V + E)
 
 > FordFulkerson | O(V + E) * E
-
-
-## USEI11
-### Methods Used | Time Complexity:
 
