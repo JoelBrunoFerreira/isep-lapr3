@@ -11,11 +11,15 @@ public class Vertex implements Comparable<Vertex> {
     private final String name;
     private int ID;
     private boolean isVisited;
+    private boolean isHub = false;
+    private boolean usedAsChargingPoint = false;
     private double distance;  // --> Represents the distance from the starting vertex USEI03
     private double latitude;
     private double longitude;
     private LocalTime openingTime;
     private LocalTime closingTime;
+    private LocalTime arrivalTime;
+    private LocalTime departureTime;
     private int numerOfEmployees;
     private int degree;
     private double averageDistance;  // --> Represents the avg distance to all vertices
@@ -112,6 +116,21 @@ public class Vertex implements Comparable<Vertex> {
     public int getID() {
         return ID;
     }
+    public LocalTime getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public LocalTime getDepartureTime() {
+        return departureTime;
+    }
+
+    public boolean getIsHub() {
+        return isHub;
+    }
+
+    public boolean getIsUsedAsChargingPoint() {
+        return usedAsChargingPoint;
+    }
 
 
     // Setters
@@ -158,6 +177,22 @@ public class Vertex implements Comparable<Vertex> {
 
     public void setNode(Node node) {
         this.node = node;
+    }
+
+    public void setArrivalTime(LocalTime arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+
+    public void setDepartureTime(LocalTime time) {
+        this.departureTime = time;
+    }
+
+    public void IsHub() {
+        this.isHub = true;
+    }
+
+    public void IsUsedAsChargingPoint() {
+        this.usedAsChargingPoint = true;
     }
 
 
