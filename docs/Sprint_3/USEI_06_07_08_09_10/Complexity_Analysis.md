@@ -35,6 +35,22 @@
 
 ## USEI08
 ### Methods Used | Time Complexity:
+> findHamiltonianCycle | O(V!)
+ 
+> findHamiltonianCycleUtil | O(V!)
+>> Estes métodos exploram todas as permutações possíveis, tornando-os de natureza exponencial e computacionalmente caro, 
+especialmente para grafos maiores. É importante notar que encontrar um ciclo hamiltoniano é um problema NP-difícil, 
+e não existe nenhum algoritmo de tempo polinomial conhecido para ele no caso geral.
+ 
+> areAdjacent | O(n)
+
+> getEdgeLength | O(n)
+ 
+> getNumberOfCollaborators | O(n)
+ 
+> getTimeInfo | O(1)
+ 
+> displayPath | O(n) 
 
 
 
