@@ -6,6 +6,7 @@ import org.isep.Utilities.graph.matrix.MatrixGraph;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Vertex implements Comparable<Vertex> {
     private final String name;
@@ -219,6 +220,23 @@ public class Vertex implements Comparable<Vertex> {
         // OR
         // v2 < v1 if v2.distance < v1.distance
         return Double.compare(this.distance, otherVertex.getDistance());
+    }
+
+    // Equals
+    // ------------------------------------
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vertex vertex = (Vertex) o;
+        return name.equals(vertex.name);
+    }
+
+    // HashCode
+    // --------------------------------------
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 
     // toString

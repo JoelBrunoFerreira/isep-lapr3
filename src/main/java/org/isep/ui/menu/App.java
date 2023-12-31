@@ -106,7 +106,7 @@ public class App {
         System.out.println("5 --> Devolver todas as rotas possíveis entre um local de origem e destino. - USEI06");
         System.out.println("6 --> Encontrar para um produtor que parte de um local origem o percurso de entrega que maximiza o " +
                 "número de hubs pelo qual passa - USEI07");
-        System.out.println("7 --> ........");
+        System.out.println("7 --> Devolver circuito, distancia total, número de carregamentos e tempo total. - USEI08");
         System.out.println("8 --> Devolver N clusters com 1 hub por cluster. USEI09");
         System.out.println("9 --> Devolver rede máxima de transporte de cabazes e número máximo de cabazes transportados. - USEI10");
 	    System.out.println("10 --> Alterar horários da rede de distribuição. - USEI11");
