@@ -1,6 +1,5 @@
 --USBD27
 --Não é possível alterar ou apagar os logs.
-
 CREATE OR REPLACE TRIGGER trgApagarOuAlterarLogs
 BEFORE DELETE OR UPDATE ON Log
 FOR EACH ROW
