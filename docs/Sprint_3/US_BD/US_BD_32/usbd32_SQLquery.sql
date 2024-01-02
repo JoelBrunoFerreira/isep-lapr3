@@ -86,8 +86,8 @@ FOR i IN 1..cultivos.COUNT LOOP
 SELECT MAX(OperacaoID) INTO operacao_id FROM Operacao;
 
 -- Insere na tabela Rega com o ID de Operacao
-INSERT INTO Rega(OperacaoID, Hora, Duracao, SetorID, CultivoID, ReceitaID)
-VALUES (operacao_id, hora_rega, duracao_rega, v_setor_id, cultivos(i), v_receita_id);
+INSERT INTO Rega(OperacaoID, Hora, Duracao, SetorID, CultivoID)
+VALUES (operacao_id, hora_rega, duracao_rega, v_setor_id, cultivos(i));
 
 -- Se Fertirrega:
 IF tipo_operacao = 'Fertirrega' THEN
