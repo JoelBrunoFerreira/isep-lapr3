@@ -2,7 +2,7 @@
 CREATE OR REPLACE TYPE Lista AS VARRAY(200) OF VARCHAR2(50);
 
 CREATE OR REPLACE PROCEDURE registar_receita_fertirrega (
-    receita_id Receita.ReceitaID%type,
+    receita_id IN Receita.ReceitaID%type,
     nomes_comerciais IN Lista,
     quantidades IN Lista,
     unidades IN Lista
