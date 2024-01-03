@@ -141,11 +141,11 @@ END;
 
 Operação de rega antes da anulação:
 
-![USBD32_Pre-Dados.png](Images%2FUSBD32_Pre-Dados.png)
+![USBD32_Pre-Dados.png](Images/USBD30_Pre-Dados.png)
 
 O resultado após a anulação é o seguinte:
 
-![USBD32_Caso_Sucesso.png](Images%2FUSBD32_Caso_Sucesso.png)
+![USBD32_Caso_Sucesso.png](Images/USBD30_Caso_Sucesso.png)
 
 ### Caso Insucesso
 
@@ -191,4 +191,4 @@ END;
 
 O resultado é um erro por já passarem mais de 3 dias sobre a data de realização.
 
-![USBD32_Caso_Insucesso.png](Images%2FUSBD32_Caso_Insucesso.png)
+![USBD32_Caso_Insucesso.png](Images/USBD30_Caso_Insucesso.png)

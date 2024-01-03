@@ -114,7 +114,8 @@ END;
 
 Para verificar os resultados pequisou-se pela receita e vericou se que ficou registada, e que inclui os 3 componentes.
 
-![USBD31_Caso_Sucesso](Images/USBD31_Caso_Sucesso.png)
+![USBD31_Caso_Sucesso](sucesso1_USBD31.png)
+![USBD31_Caso_Sucesso](sucesso2_usbd31.png)
 
 ### Caso Insucesso
 
@@ -140,5 +141,5 @@ END;
 
 O resultado esperado é um erro por não existir um dos componentes registado no sistema.
 
-![USBD31_Caso_Insucesso](Images/USBD31_Caso_Insucesso.png)
+![USBD31_Caso_Insucesso](insucesso_usbd31.png)
 
