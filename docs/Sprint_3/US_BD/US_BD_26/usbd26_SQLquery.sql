@@ -24,8 +24,8 @@ BEGIN
         tipo := 'Atualização';
     END IF;
 
-    INSERT INTO LOGOPERACOES (LogID, TIPOLOG, OPERACAOID, TipoOperacao, DataCriacao, DataRealizacao, Estado, CultivoID, Area, Modo, FatorProducaoID)
-    VALUES (log_id, tipo, :NEW.OPERACAOID, tipo_op, data_criacao, data_realizacao, estado_op, :NEW.CULTIVOID, :NEW.AREA, :NEW.MODO, :NEW.FATORPRODUCAOID);
+    INSERT INTO LOGOPERACOES (LogID, TIPOLOG, OPERACAOID, TipoOperacao, DataCriacao, DataRealizacao, Estado, CultivoID, Area, Modo)
+    VALUES (log_id, tipo, :NEW.OPERACAOID, tipo_op, data_criacao, data_realizacao, estado_op, :NEW.CULTIVOID, :NEW.AREA, :NEW.MODO);
 END;
 
 --OP SEMEADURA
@@ -143,8 +143,8 @@ BEGIN
         FROM APLICACAOFATORPRODUCAO
         WHERE APLICACAOFATORPRODUCAO.OPERACAOID = :NEW.OPERACAOID;
     END IF;
-    INSERT INTO LOGOPERACOES (LogID, TIPOLOG, OPERACAOID, TipoOperacao, DataCriacao, DataRealizacao, Estado, CultivoID, Hora, SETORID, Duracao, AREA, RECEITAID)
-    VALUES (log_id, tipo, :NEW.OPERACAOID, tipo_op, data_criacao, data_realizacao, estado_op, :NEW.CULTIVOID, :NEW.HORA, :NEW.SETORID, :NEW.DURACAO, area_fp, :NEW.RECEITAID);
+    INSERT INTO LOGOPERACOES (LogID, TIPOLOG, OPERACAOID, TipoOperacao, DataCriacao, DataRealizacao, Estado, CultivoID, Hora, SETORID, Duracao, AREA)
+    VALUES (log_id, tipo, :NEW.OPERACAOID, tipo_op, data_criacao, data_realizacao, estado_op, :NEW.CULTIVOID, :NEW.HORA, :NEW.SETORID, :NEW.DURACAO, area_fp);
 END;
 
 

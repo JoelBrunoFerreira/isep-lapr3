@@ -16,7 +16,7 @@ FROM (
          FROM REGA
                   INNER JOIN OPERACAO ON REGA.OPERACAOID = OPERACAO.OPERACAOID
          WHERE OPERACAO.TIPOOPERACAO = 'Rega'
-           AND OPERACAO.DATAREALIZACAO BETWEEN TO_DATE('01-01-2023', 'dd-mm-yyyy') AND TO_DATE('31-12-2023', 'dd-mm-yyyy')
+           AND OPERACAO.DATAREALIZACAO BETWEEN TO_DATE('01-01-'||ano_civil, 'dd-mm-yyyy') AND TO_DATE('31-12-'||ano_civil, 'dd-mm-yyyy')
          GROUP BY SETORID);
 IF consumo_total != 0 THEN
         DBMS_OUTPUT.PUT_LINE('CONSUMO TOTAL = '||consumo_total||' min.');
@@ -37,7 +37,7 @@ WHERE CULTIVO.CULTURAID IS NOT NULL
         FROM REGA
                  INNER JOIN OPERACAO ON REGA.OPERACAOID = OPERACAO.OPERACAOID
         WHERE OPERACAO.TIPOOPERACAO = 'Rega'
-          AND OPERACAO.DATAREALIZACAO BETWEEN TO_DATE('01-01-2023', 'dd-mm-yyyy') AND TO_DATE('31-12-2023', 'dd-mm-yyyy')
+          AND OPERACAO.DATAREALIZACAO BETWEEN TO_DATE('01-01-'||ano_civil, 'dd-mm-yyyy') AND TO_DATE('31-12-'||ano_civil, 'dd-mm-yyyy')
         GROUP BY SETORID
         HAVING SUM(DURACAO) = consumo_total));
 RETURN cur_result;
