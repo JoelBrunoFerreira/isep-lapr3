@@ -1,3 +1,13 @@
+-- USBD24:
+-- Todos os registos relacionados com operações tem que ter registado o instante em que foram criados.
+CREATE OR REPLACE TRIGGER trgCriacaoOperacaoTimestamp
+    BEFORE INSERT ON Operacao
+    FOR EACH ROW
+BEGIN
+    :NEW.DataCriacao := SYSDATE;
+END;
+
+---------------------------------------------------------------------------------------------------------------------------------------------
 --USBD26
 --Criar um log sempre que haja uma introdução ou alteração de operação:
 --OPERACAO
@@ -139,6 +149,7 @@ DECLARE
     tipo_op OPERACAO.TIPOOPERACAO%TYPE;
     estado_op OPERACAO.ESTADO%TYPE;
     area_fp APLICACAOFATORPRODUCAO.AREA%TYPE := null;
+    --cultivo_id APLICACAOFATORPRODUCAO.CULTIVOID%TYPE := null;
 BEGIN
     SELECT NVL(MAX(LOGID), 0) + 1 INTO log_id FROM LOGOPERACOES;
 
@@ -276,3 +287,100 @@ BEGIN
     INSERT INTO LOGOPERACOES (LogID, TIPOLOG, OPERACAOID, TipoOperacao, DataCriacao, DataRealizacao, Estado, CULTIVOID, QUANTIDADE)
     VALUES (log_id, tipo, :NEW.OPERACAOID, tipo_op, data_criacao, data_realizacao, estado_op, :NEW.CULTIVOID, :NEW.QUANTIDADE);
 END;
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+--USBD27
+--Não é possível alterar ou apagar os logs.
+CREATE OR REPLACE TRIGGER trgApagarOuAlterarLogs
+BEFORE DELETE OR UPDATE ON LOGOPERACOES
+FOR EACH ROW
+BEGIN
+    RAISE_APPLICATION_ERROR(-20001, 'Não é permitido excluir ou atualizar registos de logs.');
+END;
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+--USBD28
+--Não apagar uma operação:
+CREATE OR REPLACE TRIGGER trgNaoApagarOperacao
+BEFORE DELETE ON Operacao
+FOR EACH ROW
+BEGIN
+    	RAISE_APPLICATION_ERROR(-20001, 'Erro: Operação ilegal/não permitida.');
+END;
+
+-- Op. Plantação:
+CREATE OR REPLACE TRIGGER trgNaoApagarOpPlantacao
+BEFORE DELETE ON Plantacao
+FOR EACH ROW
+BEGIN
+    	RAISE_APPLICATION_ERROR(-20001, 'Erro: Operação ilegal/não permitida.');
+END;
+
+-- Op. Semeadura:
+CREATE OR REPLACE TRIGGER trgNaoApagarOpSemeadura
+BEFORE DELETE ON Semeadura
+FOR EACH ROW
+BEGIN
+    	RAISE_APPLICATION_ERROR(-20001, 'Erro: Operação ilegal/não permitida.');
+END;
+
+-- Op. Poda:
+CREATE OR REPLACE TRIGGER trgNaoApagarOpPoda
+BEFORE DELETE ON Poda
+FOR EACH ROW
+BEGIN
+    	RAISE_APPLICATION_ERROR(-20001, 'Erro: Operação ilegal/não permitida.');
+END;
+
+-- Op. Rega
+CREATE OR REPLACE TRIGGER trgNaoApagarOpRega
+BEFORE DELETE ON Rega
+FOR EACH ROW
+BEGIN
+    	RAISE_APPLICATION_ERROR(-20001, 'Erro: Operação ilegal/não permitida.');
+END;
+
+-- Op. Colheita
+CREATE OR REPLACE TRIGGER trgNaoApagarOpColheita
+BEFORE DELETE ON Colheita
+FOR EACH ROW
+BEGIN
+    	RAISE_APPLICATION_ERROR(-20001, 'Erro: Operação ilegal/não permitida.');
+END;
+
+-- Op. Monda
+CREATE OR REPLACE TRIGGER trgNaoApagarOpMonda
+BEFORE DELETE ON Monda
+FOR EACH ROW
+BEGIN
+    	RAISE_APPLICATION_ERROR(-20001, 'Erro: Operação ilegal/não permitida.');
+END;
+
+-- Op. Incorporação Solo
+CREATE OR REPLACE TRIGGER trgNaoApagarOpIncorporacaoSolo
+BEFORE DELETE ON IncorporacaoSolo
+FOR EACH ROW
+BEGIN
+    	RAISE_APPLICATION_ERROR(-20001, 'Erro: Operação ilegal/não permitida.');
+END;
+
+-- Op. Mobilização Solo
+CREATE OR REPLACE TRIGGER trgNaoApagarOpMobilizacaoSolo
+BEFORE DELETE ON MobilizacaoSolo
+FOR EACH ROW
+BEGIN
+    	RAISE_APPLICATION_ERROR(-20001, 'Erro: Operação ilegal/não permitida.');
+END;
+
+-- Op. Aplicação Fator Produção
+CREATE OR REPLACE TRIGGER trgNaoApagarOpAplicacaoFatorProducao
+BEFORE DELETE ON AplicacaoFatorProducao
+FOR EACH ROW
+BEGIN
+    	RAISE_APPLICATION_ERROR(-20001, 'Erro: Operação ilegal/não permitida.');
+END;
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+

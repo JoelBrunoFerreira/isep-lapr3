@@ -12,12 +12,12 @@ BEGIN
     -- Preenche o consumo_total com a duracao de rega máxima durante o ano_civil, passado como parametro
 SELECT MAX(DuracaoTotal) INTO consumo_total
 FROM (
-         Select SUM(DURACAO) as DuracaoTotal
+         Select DISTINCT(SUM(DURACAO)) as DuracaoTotal
          FROM REGA
                   INNER JOIN OPERACAO ON REGA.OPERACAOID = OPERACAO.OPERACAOID
          WHERE OPERACAO.TIPOOPERACAO = 'Rega'
            AND OPERACAO.DATAREALIZACAO BETWEEN TO_DATE('01-01-'||ano_civil, 'dd-mm-yyyy') AND TO_DATE('31-12-'||ano_civil, 'dd-mm-yyyy')
-         GROUP BY SETORID);
+         GROUP BY OPERACAO.DATAREALIZACAO, SETORID);
 IF consumo_total != 0 THEN
         DBMS_OUTPUT.PUT_LINE('CONSUMO TOTAL = '||consumo_total||' min.');
 END IF;
@@ -38,7 +38,7 @@ WHERE CULTIVO.CULTURAID IS NOT NULL
                  INNER JOIN OPERACAO ON REGA.OPERACAOID = OPERACAO.OPERACAOID
         WHERE OPERACAO.TIPOOPERACAO = 'Rega'
           AND OPERACAO.DATAREALIZACAO BETWEEN TO_DATE('01-01-'||ano_civil, 'dd-mm-yyyy') AND TO_DATE('31-12-'||ano_civil, 'dd-mm-yyyy')
-        GROUP BY SETORID
+        GROUP BY OPERACAO.DATAREALIZACAO, SETORID
         HAVING SUM(DURACAO) = consumo_total));
 RETURN cur_result;
 END;
