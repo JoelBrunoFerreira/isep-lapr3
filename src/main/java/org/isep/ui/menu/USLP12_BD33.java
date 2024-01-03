@@ -10,7 +10,7 @@ public class USLP12_BD33 {
 
     public static void uslp12_bd33Start(String anoCivil) {
 
-        // Call USBD_33
+        // USBD_33
         try{
             // Load the credentials file
             Properties properties = new Properties();

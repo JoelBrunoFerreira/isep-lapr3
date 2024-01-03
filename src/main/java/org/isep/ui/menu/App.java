@@ -25,6 +25,12 @@ public class App {
     public static ArrayList<String> uslp08DataS = new ArrayList<>();
     public static ArrayList<Double> uslp08DataD = new ArrayList<>();
 
+    // USLP11_BD32 Inputs
+    public static ArrayList<Integer> uslp11DataI = new ArrayList<>();
+    public static ArrayList<String> uslp11DataS = new ArrayList<>();
+
+    // ****************************************************************************************************************
+
     public static Scanner read = new Scanner(System.in);
     public static void runApp() {
 
@@ -723,6 +729,13 @@ public class App {
     }
 
     public static void uslp11GetUserInput() { // --> USBD32
+
+        System.out.println("============================================");
+        System.out.println("Inserir dados para registar operação de rega");
+        System.out.println("============================================");
+        System.out.println();
+
+        
 
     }
 
