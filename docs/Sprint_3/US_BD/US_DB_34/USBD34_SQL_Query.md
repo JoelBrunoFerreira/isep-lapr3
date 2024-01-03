@@ -1,4 +1,4 @@
-# US BD06
+# US BD 34
 * USBD34 Como Gestor Agrícola, pretendo obter a lista das substâncias de fatores de produção usadas noutros anos civis, mas não usadas no ano civil indicado.
 
 ### SQL Query

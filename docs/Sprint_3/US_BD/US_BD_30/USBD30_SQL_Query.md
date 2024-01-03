@@ -1,4 +1,4 @@
-# US BD06
+# US BD 30
 * USBD30 Como Gestor Agrícola, pretendo anular uma operação que estava prevista e não se realizou ou que foi criada por engano, sabendo que isso só é possível até aos 3 dias seguintes à sua data prevista de execução, se não houver operações posteriores dependentes desta.
 ### SQL Query
 
