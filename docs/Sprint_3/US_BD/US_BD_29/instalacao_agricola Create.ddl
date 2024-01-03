@@ -1,6 +1,7 @@
-CREATE TABLE AplicacaoFatorProducao (OperacaoID number(10) NOT NULL, QuantidadeFatorProducao double precision NOT NULL, Area double precision, FatorProducaoID number(19) NOT NULL, CultivoID number(10) NOT NULL, PRIMARY KEY (OperacaoID));
+CREATE TABLE AplicacaoFatorProducao (OperacaoID number(10) NOT NULL, Area double precision, CultivoID number(10) NOT NULL, PRIMARY KEY (OperacaoID));
+CREATE TABLE AplicacaoFatorProducao_FatorProducao (OperacaoID number(10) NOT NULL, FatorProducaoID number(19) NOT NULL, QuantidadeFatorProducao double precision NOT NULL, UnidadeID number(10) NOT NULL, PRIMARY KEY (OperacaoID, FatorProducaoID));
 CREATE TABLE Colheita (OperacaoID number(10) NOT NULL, QuantidadeProduto double precision NOT NULL, ProdutoID number(10) NOT NULL, CultivoID number(10) NOT NULL, PRIMARY KEY (OperacaoID));
-CREATE TABLE Cultivo (CultivoID number(10) NOT NULL, CulturaID number(10), ParcelaID number(10) NOT NULL, DataInicio date NOT NULL, DataFim date, Quantidade number(10), UnidadeID number(10), EstadoFenologicoID number(10), PRIMARY KEY (CultivoID));
+CREATE TABLE Cultivo (CultivoID number(10) NOT NULL, CulturaID number(10), ParcelaID number(10) NOT NULL, DataInicio date NOT NULL, DataFim date, Quantidade number(10) NOT NULL, UnidadeID number(10), EstadoFenologicoID number(10), PRIMARY KEY (CultivoID));
 CREATE TABLE Cultura (CulturaID number(10) NOT NULL, Variedade nvarchar2(255) NOT NULL, EspecieVegetalID number(10) NOT NULL, PRIMARY KEY (CulturaID));
 CREATE TABLE Edificio (EdificioID number(10) NOT NULL, DesignacaoEdificio varchar2(255) NOT NULL, Area double precision, UnidadeID number(10), TipoEdificioID number(10) NOT NULL, PRIMARY KEY (EdificioID));
 CREATE TABLE Elemento (ElementoID number(19) NOT NULL, Designacao varchar2(255) NOT NULL, Simbolo nvarchar2(255) NOT NULL, PRIMARY KEY (ElementoID));
@@ -13,7 +14,7 @@ CREATE TABLE FormaDispersao (FormaDispersaoID number(10) NOT NULL, DesignacaoFor
 CREATE TABLE Formato (FormatoID number(10) NOT NULL, DescricaoFormato varchar2(255) NOT NULL, PRIMARY KEY (FormatoID));
 CREATE TABLE Grandeza (GrandezaID number(10) NOT NULL, DesignacaoGrandeza varchar2(255) NOT NULL, PRIMARY KEY (GrandezaID));
 CREATE TABLE IncorporacaoSolo (OperacaoID number(10) NOT NULL, Area double precision NOT NULL, CultivoID number(10) NOT NULL, PRIMARY KEY (OperacaoID));
-CREATE TABLE Log (LogID number(10) NOT NULL, TipoOperacao nvarchar2(255) NOT NULL, DataCriacao date NOT NULL, DataRealizacao date NOT NULL, Estado nvarchar2(255) NOT NULL, ParcelaID number(10), CultivoID number(10), SetorID number(10), Quantidade number(10), Area number(10), Hora timestamp(0), Modo nvarchar2(255), UnidadeID number(10), ProdutoID number(10), FatorProducaoID number(10), ReceitaID number(10), PRIMARY KEY (LogID));
+CREATE TABLE LogOperacoes (LogID number(10) NOT NULL, TipoLog nvarchar2(255) NOT NULL, OperacaoID number(10) NOT NULL, TipoOperacao nvarchar2(255) NOT NULL, DataCriacao date NOT NULL, DataRealizacao date NOT NULL, Estado nvarchar2(255) NOT NULL, ParcelaID number(10), CultivoID number(10), SetorID number(10), Quantidade double precision, Area double precision, Hora timestamp(0), Modo nvarchar2(255), UnidadeID number(10), ProdutoID number(10), Duracao number(10), ReceitaID number(10), PRIMARY KEY (LogID));
 CREATE TABLE Medição (MedicaoID number(10) NOT NULL, Timestamp number(10) NOT NULL, ValorMedido double precision NOT NULL, UnidadeID number(10) NOT NULL, SensorSoloID number(10), SensorMeteorologicoID number(19), PRIMARY KEY (MedicaoID));
 CREATE TABLE MobilizacaoSolo (OperacaoID number(10) NOT NULL, Area double precision NOT NULL, ParcelaID number(10) NOT NULL, PRIMARY KEY (OperacaoID));
 CREATE TABLE Monda (OperacaoID number(10) NOT NULL, Modo nvarchar2(255), Area double precision NOT NULL, CultivoID number(10) NOT NULL, FatorProducaoID number(19), PRIMARY KEY (OperacaoID));
@@ -32,12 +33,12 @@ CREATE TABLE Poda (OperacaoID number(10) NOT NULL, Quantidade double precision N
 CREATE TABLE Produto (ProdutoID number(10) NOT NULL, DesignacaoProduto varchar2(255) NOT NULL, CulturaID number(10) NOT NULL, PRIMARY KEY (ProdutoID));
 CREATE TABLE Receita (ReceitaID number(10) NOT NULL, PRIMARY KEY (ReceitaID));
 CREATE TABLE Receita_FatorProducao (ReceitaID number(10) NOT NULL, FatorProducaoID number(19) NOT NULL, Quantidade double precision NOT NULL, UnidadeID number(10) NOT NULL, PRIMARY KEY (ReceitaID, FatorProducaoID));
-CREATE TABLE Rega (OperacaoID number(10) NOT NULL, Hora timestamp(7) NOT NULL, Duracao number(10) NOT NULL, SetorID number(10) NOT NULL, ParcelaID number(10) NOT NULL, ReceitaID number(10), PRIMARY KEY (OperacaoID));
+CREATE TABLE Rega (OperacaoID number(10) NOT NULL, Hora timestamp(7) NOT NULL, Duracao number(10) NOT NULL, SetorID number(10) NOT NULL, CultivoID number(10) NOT NULL, PRIMARY KEY (OperacaoID));
 CREATE TABLE Semeadura (OperacaoID number(10) NOT NULL, Quantidade double precision, Area double precision, CultivoID number(10) NOT NULL, PRIMARY KEY (OperacaoID));
 CREATE TABLE SensorMeteorologico (SensorMeteorologicoID number(19) NOT NULL, TipoSensorID number(19) NOT NULL, PRIMARY KEY (SensorMeteorologicoID));
 CREATE TABLE SensorSolo (SensorSoloID number(10) NOT NULL, TipoSensorID number(19) NOT NULL, PRIMARY KEY (SensorSoloID));
 CREATE TABLE Setor (SetorID number(10) NOT NULL, Caudal number(10) NOT NULL, DataInicio date NOT NULL, DataFim date, FormaDispersaoID number(10), PRIMARY KEY (SetorID));
-CREATE TABLE Setor_Parcela (SetorID number(10) NOT NULL, ParcelaID number(10) NOT NULL, PRIMARY KEY (SetorID, ParcelaID));
+CREATE TABLE Setor_Cultivo (SetorID number(10) NOT NULL, CultivoID number(10) NOT NULL, PRIMARY KEY (SetorID, CultivoID));
 CREATE TABLE TipoCultura (TipoCulturaID number(10) NOT NULL, DesignacaoTipoCultura varchar2(255) NOT NULL, PRIMARY KEY (TipoCulturaID));
 CREATE TABLE TipoEdificio (TipoEdificioID number(10) NOT NULL, DesignacaoTipoEdificio varchar2(255) NOT NULL, PRIMARY KEY (TipoEdificioID));
 CREATE TABLE TipoFatorProducao (TipoFatorProducaoID number(10) NOT NULL, DescricaoTipoFatorProducao varchar2(255) NOT NULL, PRIMARY KEY (TipoFatorProducaoID));
@@ -91,7 +92,6 @@ ALTER TABLE Poda ADD CONSTRAINT FKPoda982064 FOREIGN KEY (OperacaoID) REFERENCES
 ALTER TABLE Colheita ADD CONSTRAINT FKColheita498865 FOREIGN KEY (OperacaoID) REFERENCES Operacao (OperacaoID);
 ALTER TABLE AplicacaoFatorProducao ADD CONSTRAINT FKAplicacaoF29512 FOREIGN KEY (OperacaoID) REFERENCES Operacao (OperacaoID);
 ALTER TABLE Colheita ADD CONSTRAINT FKColheita534443 FOREIGN KEY (ProdutoID) REFERENCES Produto (ProdutoID);
-ALTER TABLE AplicacaoFatorProducao ADD CONSTRAINT FKAplicacaoF231816 FOREIGN KEY (FatorProducaoID) REFERENCES FatorProducao (FatorProducaoID);
 ALTER TABLE Plantacao ADD CONSTRAINT FKPlantacao917011 FOREIGN KEY (CultivoID) REFERENCES Cultivo (CultivoID);
 ALTER TABLE Semeadura ADD CONSTRAINT FKSemeadura212280 FOREIGN KEY (CultivoID) REFERENCES Cultivo (CultivoID);
 ALTER TABLE Monda ADD CONSTRAINT FKMonda91030 FOREIGN KEY (CultivoID) REFERENCES Cultivo (CultivoID);
@@ -103,11 +103,14 @@ ALTER TABLE Monda ADD CONSTRAINT FKMonda150620 FOREIGN KEY (FatorProducaoID) REF
 ALTER TABLE MobilizacaoSolo ADD CONSTRAINT FKMobilizaca580191 FOREIGN KEY (ParcelaID) REFERENCES Parcela (ParcelaID);
 ALTER TABLE MobilizacaoSolo ADD CONSTRAINT FKMobilizaca665071 FOREIGN KEY (OperacaoID) REFERENCES Operacao (OperacaoID);
 ALTER TABLE Cultivo ADD CONSTRAINT FKCultivo65281 FOREIGN KEY (EstadoFenologicoID) REFERENCES EstadoFenologico (EstadoFenologicoID);
-ALTER TABLE Setor_Parcela ADD CONSTRAINT FKSetor_Parc520595 FOREIGN KEY (SetorID) REFERENCES Setor (SetorID);
-ALTER TABLE Setor_Parcela ADD CONSTRAINT FKSetor_Parc945974 FOREIGN KEY (ParcelaID) REFERENCES Parcela (ParcelaID);
-ALTER TABLE Rega ADD CONSTRAINT FKRega328503 FOREIGN KEY (SetorID, ParcelaID) REFERENCES Setor_Parcela (SetorID, ParcelaID);
 ALTER TABLE Receita_FatorProducao ADD CONSTRAINT FKReceita_Fa762224 FOREIGN KEY (ReceitaID) REFERENCES Receita (ReceitaID);
 ALTER TABLE Receita_FatorProducao ADD CONSTRAINT FKReceita_Fa229957 FOREIGN KEY (FatorProducaoID) REFERENCES FatorProducao (FatorProducaoID);
 ALTER TABLE Receita_FatorProducao ADD CONSTRAINT FKReceita_Fa901204 FOREIGN KEY (UnidadeID) REFERENCES Unidade (UnidadeID);
-ALTER TABLE Rega ADD CONSTRAINT FKRega666571 FOREIGN KEY (ReceitaID) REFERENCES Receita (ReceitaID);
+ALTER TABLE AplicacaoFatorProducao_FatorProducao ADD CONSTRAINT FKAplicacaoF508274 FOREIGN KEY (OperacaoID) REFERENCES AplicacaoFatorProducao (OperacaoID);
+ALTER TABLE AplicacaoFatorProducao_FatorProducao ADD CONSTRAINT FKAplicacaoF933620 FOREIGN KEY (FatorProducaoID) REFERENCES FatorProducao (FatorProducaoID);
+ALTER TABLE AplicacaoFatorProducao_FatorProducao ADD CONSTRAINT FKAplicacaoF262373 FOREIGN KEY (UnidadeID) REFERENCES Unidade (UnidadeID);
+ALTER TABLE Setor_Cultivo ADD CONSTRAINT FKSetor_Cult542536 FOREIGN KEY (SetorID) REFERENCES Setor (SetorID);
+ALTER TABLE Setor_Cultivo ADD CONSTRAINT FKSetor_Cult275502 FOREIGN KEY (CultivoID) REFERENCES Cultivo (CultivoID);
+ALTER TABLE Rega ADD CONSTRAINT FKRega641521 FOREIGN KEY (SetorID, CultivoID) REFERENCES Setor_Cultivo (SetorID, CultivoID);
+ALTER TABLE LogOperacoes ADD CONSTRAINT FKLogOperaco80362 FOREIGN KEY (OperacaoID) REFERENCES Operacao (OperacaoID);
 
