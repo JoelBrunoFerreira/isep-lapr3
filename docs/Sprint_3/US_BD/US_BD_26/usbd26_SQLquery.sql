@@ -1,5 +1,20 @@
 --USBD26
 --Criar um log sempre que haja uma introdução ou alteração de operação:
+--OPERACAO
+CREATE OR REPLACE TRIGGER trg_criacao_alteracao_operacao
+    AFTER UPDATE ON OPERACAO
+                     FOR EACH ROW
+DECLARE
+log_id LOGOPERACOES.LOGID%type;
+    tipo LOGOPERACOES.TIPOLOG%type := 'Atualização';
+BEGIN
+SELECT NVL(MAX(LOGID), 0) + 1 INTO log_id
+FROM LOGOPERACOES;
+
+INSERT INTO LOGOPERACOES (LogID, TIPOLOG, OPERACAOID, TipoOperacao, DataCriacao, DataRealizacao, Estado)
+VALUES (log_id, tipo, :NEW.OPERACAOID, :NEW.TIPOOPERACAO, :NEW.DATACRIACAO, :NEW.DATAREALIZACAO, :NEW.ESTADO);
+END;
+
 --OP MONDA
 CREATE OR REPLACE TRIGGER trg_criacao_alteracao_monda
     BEFORE INSERT OR UPDATE ON Monda
@@ -124,7 +139,6 @@ DECLARE
     tipo_op OPERACAO.TIPOOPERACAO%TYPE;
     estado_op OPERACAO.ESTADO%TYPE;
     area_fp APLICACAOFATORPRODUCAO.AREA%TYPE := null;
-    --cultivo_id APLICACAOFATORPRODUCAO.CULTIVOID%TYPE := null;
 BEGIN
     SELECT NVL(MAX(LOGID), 0) + 1 INTO log_id FROM LOGOPERACOES;
 

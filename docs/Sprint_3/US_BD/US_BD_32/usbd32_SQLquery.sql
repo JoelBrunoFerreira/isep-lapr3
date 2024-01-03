@@ -148,7 +148,7 @@ END registar_operacao_rega;
 
 DECLARE
 setor_id SETOR.SETORID%type := 10;
-    data_realizacao OPERACAO.DATAREALIZACAO%type := TO_DATE('2023-09-02', 'YYYY-MM-DD');
+    data_realizacao OPERACAO.DATAREALIZACAO%type := TO_DATE('2024-01-04', 'YYYY-MM-DD');
     hora_rega REGA.HORA%type := TO_TIMESTAMP( '05:00', 'hh24:mi');
     duracao_rega REGA.DURACAO%type := 90;
     receita_id RECEITA.RECEITAID%type := 11;
@@ -171,7 +171,7 @@ FOR r_operacao IN (
         WHERE Operacao.DataRealizacao = data_realizacao
             AND Rega.SetorID = setor_id
             AND Rega.Hora = hora_rega
-            AND (Operacao.TipoOperacao = 'Fertirrega' OR (Rega.ReceitaID IS NULL AND Operacao.TipoOperacao = 'Rega'))
+            AND (Operacao.TipoOperacao = 'Fertirrega' OR (Operacao.TipoOperacao = 'Rega'))
     ) LOOP
         operacao_id := r_operacao.OPERACAOID;
         DBMS_OUTPUT.PUT_LINE('Operacao: ' || 'ID: ' || r_operacao.OPERACAOID || ', Data Realizacao: ' || r_operacao.DataRealizacao || ', Data Criacao: ' || r_operacao.DataCriacao ||  ', Tipo Operacao: ' || r_operacao.TipoOperacao || ', Estado: ' || r_operacao.Estado);

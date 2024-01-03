@@ -39,7 +39,7 @@ END anular_operacao;
 -- NOTA: MUDAR O DIA!
 DECLARE
 setor_id SETOR.SETORID%type := 11;
-    data_realizacao OPERACAO.DATAREALIZACAO%type := TO_DATE('2024-01-02', 'YYYY-MM-DD');
+    data_realizacao OPERACAO.DATAREALIZACAO%type := TO_DATE('2024-01-03', 'YYYY-MM-DD');
     hora_rega REGA.HORA%type := TO_TIMESTAMP( '15:00', 'hh24:mi');
     duracao_rega REGA.DURACAO%type := 60;
     receita_id RECEITA.RECEITAID%type;
@@ -58,14 +58,14 @@ BEGIN
 FOR r_operacao IN (
         SELECT Operacao.OPERACAOID, Operacao.DATAREALIZACAO, Operacao.DATACRIACAO, Operacao.TIPOOPERACAO, Operacao.ESTADO
         FROM Operacao
-        JOIN REGA ON Operacao.OPERACAOID = REGA.OPERACAOID
+                 JOIN REGA ON Operacao.OPERACAOID = REGA.OPERACAOID
         WHERE Operacao.DataRealizacao = data_realizacao
-            AND Rega.SetorID = setor_id
-            AND Rega.Hora = hora_rega
-            AND (Operacao.TipoOperacao = 'Fertirrega' OR (Rega.ReceitaID IS NULL AND Operacao.TipoOperacao = 'Rega'))
-    ) LOOP
-        operacao_id := r_operacao.OPERACAOID;
-        DBMS_OUTPUT.PUT_LINE('Operacao: ' || 'ID: ' || r_operacao.OPERACAOID || ', Data Realizacao: ' || r_operacao.DataRealizacao || ', Data Criacao: ' || r_operacao.DataCriacao ||  ', Tipo Operacao: ' || r_operacao.TipoOperacao || ', Estado: ' || r_operacao.Estado);
+          AND Rega.SetorID = setor_id
+          AND Rega.Hora = hora_rega
+          AND Operacao.TipoOperacao IN ('Fertirrega', 'Rega')
+        ) LOOP
+            operacao_id := r_operacao.OPERACAOID;
+            DBMS_OUTPUT.PUT_LINE('Operacao: ' || 'ID: ' || r_operacao.OPERACAOID || ', Data Realizacao: ' || r_operacao.DataRealizacao || ', Data Criacao: ' || r_operacao.DataCriacao ||  ', Tipo Operacao: ' || r_operacao.TipoOperacao || ', Estado: ' || r_operacao.Estado);
 
 FOR r_rega IN (SELECT * FROM Rega WHERE OperacaoID = operacao_id) LOOP
 SELECT PARCELAID, CULTURAID INTO parcela_id, cultura_id FROM CULTIVO WHERE CULTIVOID = r_rega.CULTIVOID;
@@ -75,9 +75,9 @@ SELECT NOMECOMUM INTO nome_comum FROM ESPECIEVEGETAL WHERE ESPECIEVEGETALID = es
 DBMS_OUTPUT.PUT_LINE('Rega: ' || 'ID: ' || r_rega.OPERACAOID || ', Hora: ' || TO_CHAR(r_rega.Hora, 'hh24:mi') || ', Duracao: ' || r_rega.Duracao || ', Setor ID: ' || r_rega.SetorID || ', Parcela: ' || designacao_parcela || ', Cultura: ' || nome_comum || ' ' ||  v_variedade);
 END LOOP;
 
-        IF receita_id IS NOT NULL THEN
-            FOR r_aplicacao IN (SELECT * FROM AplicacaoFatorProducao WHERE OperacaoID = operacao_id) LOOP
-                DBMS_OUTPUT.PUT_LINE( 'Aplicacao Fator Producao' || 'ID: ' || r_aplicacao.OPERACAOID || ', Area: ' || r_aplicacao.Area || ', Parcela: ' || designacao_parcela || ', Cultura: ' || nome_comum || ' ' || v_variedade);
+            IF receita_id IS NOT NULL THEN
+                FOR r_aplicacao IN (SELECT * FROM AplicacaoFatorProducao WHERE OperacaoID = operacao_id) LOOP
+                        DBMS_OUTPUT.PUT_LINE( 'Aplicacao Fator Producao' || 'ID: ' || r_aplicacao.OPERACAOID || ', Area: ' || r_aplicacao.Area || ', Parcela: ' || designacao_parcela || ', Cultura: ' || nome_comum || ' ' || v_variedade);
 END LOOP;
 
 
@@ -96,13 +96,12 @@ WHERE UnidadeID = r_fator_producao.UnidadeID;
 DBMS_OUTPUT.PUT_LINE('Fator Producao: ' || nome_comercial || ', Quantidade: ' || r_fator_producao.QuantidadeFatorProducao || ' ' ||  unidade_designacao);
 END LOOP;
 END IF;
-        DBMS_OUTPUT.PUT_LINE(CHR(10));
+            DBMS_OUTPUT.PUT_LINE(CHR(10));
 END LOOP;
 EXCEPTION
     WHEN OTHERS THEN
         DBMS_OUTPUT.PUT_LINE('Erro: ' || SQLERRM);
 END;
-
 
 
 DECLARE
@@ -126,6 +125,8 @@ WHEN OTHERS THEN
             DBMS_OUTPUT.PUT_LINE('Erro: ' || SQLERRM);
 END;
 END;
+
+select * from OPERACAO;
 
 -- Caso de Insucesso:
 DECLARE
