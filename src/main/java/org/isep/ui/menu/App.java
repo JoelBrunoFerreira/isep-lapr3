@@ -180,6 +180,11 @@ public class App {
         System.out.println("3 --> Registar uma operação de colheita.");
         System.out.println("4 --> Registar uma operação de aplicação de factor de produção.");
         System.out.println("5 --> Registar uma operação de poda.");
+        System.out.println("6 --> Anular uma operação não realizada.");
+        System.out.println("7 --> Registar uma receita de fertirrega para usar em operações de rega.");
+        System.out.println("8 --> Registar uma operação de rega, incluindo a componente de fertirrega. (se aplicável)");
+        System.out.println("9 --> Obter a lista das culturas com maior consumo de água - por ano civil.");
+        System.out.println("10 --> Obter a lista de substâncias de factores de produção.");
         System.out.println("=============================================");
         System.out.println("0 --> Voltar ao menu inicial                |");
         System.out.println("=============================================");
@@ -193,13 +198,13 @@ public class App {
             try {
                 option = read.nextInt();
 
-                if (option >= 0 && option <= 5) {
+                if (option >= 0 && option <= 10) {
                     validInput = true;
                 } else {
-                    System.out.println("Opção inválida. Selecione uma opção entre 1 e 5.");
+                    System.out.println("Opção inválida. Selecione uma opção entre 0 e 10.");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Opção inválida. Selecione uma opção entre 1 e 5.");
+                System.out.println("Opção inválida. Selecione uma opção entre 0 e 10.");
                 read.nextLine();
             }
         }
@@ -348,6 +353,21 @@ public class App {
                         uslp08DataD.get(0));           // 20.0
 
                  */
+                break;
+            case 6:
+                System.out.println("not implemented yet...");
+                break;
+            case 7:
+                System.out.println("not implemented yet...");
+                break;
+            case 8:
+                System.out.println("not implemented yet...");
+                break;
+            case 9:
+                USLP12_BD33.uslp12_bd33Start(uslp12GetUserInput());
+                break;
+            case 10:
+                System.out.println("not implemented yet...");
                 break;
             case 0:
                 runApp();
@@ -676,6 +696,40 @@ public class App {
             quantidadePoda = read.nextDouble();
         } while (quantidadePoda < 0);
         uslp04DataD.add(0, quantidadePoda);
+    }
+
+    public static void uslp09GetUserInput() { // --> USBD30
+
+    }
+
+    public static void uslp10GetUserInput() { // --> USBD31
+
+    }
+
+    public static void uslp11GetUserInput() { // --> USBD32
+
+    }
+
+    public static String uslp12GetUserInput() { // --> USBD33
+
+        System.out.println("====================================================================");
+        System.out.println("Obter a lista das culturas com maior consumo de água - por ano civil");
+        System.out.println("====================================================================");
+        System.out.println();
+
+        String anoCivil = "";
+        while (anoCivil.isEmpty()) {
+            System.out.println("Insira o ano civil: -> yyyy-mm-dd");
+            anoCivil = read.nextLine().trim();
+            if (anoCivil.isEmpty()) {
+                System.out.println("Por favor, insira um valor para o ano civil.");
+            }
+        }
+        return anoCivil;
+    }
+
+    public static void uslp13GetUserInput() { // --> USBD34
+
     }
 
     public static void askAgain() {
