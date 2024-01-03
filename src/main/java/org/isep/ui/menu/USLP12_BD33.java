@@ -36,7 +36,7 @@ public class USLP12_BD33 {
             CallableStatement callableStatement = db_connection.prepareCall("{call fncCultivosMaiorRega(?) }");
 
             // Assign values to params
-            callableStatement.setDate(1, Date.valueOf(anoCivil)); // it will replace the first '?'
+            callableStatement.setString(1, anoCivil); // it will replace the first '?'
 
             // call Stored procedure
             callableStatement.execute();

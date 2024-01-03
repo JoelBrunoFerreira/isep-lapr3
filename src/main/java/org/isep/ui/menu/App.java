@@ -714,7 +714,7 @@ public class App {
         // Input validation for quantity (non-negative)
         int operacaoId;
         do {
-            System.out.println("Insira o ID da operação: ");
+            System.out.println("Insira o ID da operação que quer anular: ");
             while (!read.hasNextInt()) {
                 System.out.println("Por favor, insira um ID válido para a operação.");
                 read.next(); // To clear the invalid input
@@ -730,13 +730,6 @@ public class App {
 
     public static void uslp11GetUserInput() { // --> USBD32
 
-        System.out.println("============================================");
-        System.out.println("Inserir dados para registar operação de rega");
-        System.out.println("============================================");
-        System.out.println();
-
-        
-
     }
 
     public static String uslp12GetUserInput() { // --> USBD33
@@ -748,7 +741,7 @@ public class App {
 
         String anoCivil = "";
         while (anoCivil.isEmpty()) {
-            System.out.println("Insira o ano civil: -> yyyy-mm-dd");
+            System.out.println("Insira o ano civil: -> yyyy");
             anoCivil = read.nextLine().trim();
             if (anoCivil.isEmpty()) {
                 System.out.println("Por favor, insira um valor para o ano civil.");
