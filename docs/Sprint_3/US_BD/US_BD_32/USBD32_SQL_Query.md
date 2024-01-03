@@ -1,4 +1,4 @@
-# US BD06
+# US BD 32
 * USBD32 Como Gestor Agrıcola, pretendo registar uma operacao de rega, incluindo a componente de fertirrega (se aplicavel).
 
 ### SQL Query
@@ -36,116 +36,116 @@ IS
     PRAGMA EXCEPTION_INIT(e_receita_not_found, -20004);
 BEGIN
     -- Inicia uma transação
-    SAVEPOINT transaction_start;
+SAVEPOINT transaction_start;
 
-    tipo_operacao := CASE WHEN receita_id IS NOT NULL THEN 'Fertirrega' ELSE 'Rega' END;
+tipo_operacao := CASE WHEN receita_id IS NOT NULL THEN 'Fertirrega' ELSE 'Rega' END;
     estado_operacao := CASE WHEN TRUNC(data_realizacao) >= TRUNC(CURRENT_DATE) THEN 'Pendente' ELSE 'Realizado' END;
 
-    BEGIN
+BEGIN
         -- Verifica se o setor existe
-        SELECT SetorID
-        INTO v_setor_id
-        FROM Setor
-        WHERE SetorID = setor_id;
-        
-        -- Procura os ID dos Cultivos para aquele setor
-        SELECT CultivoID
-           BULK COLLECT INTO cultivos
-        FROM Setor_Cultivo
-        WHERE SetorID = v_setor_id;
-        
-        -- Para cada cultivo, ir buscar a cultura e para cada cultura ir buscar a area
-        
-        IF tipo_operacao = 'Fertirrega' THEN
-            SELECT ReceitaID
-            INTO v_receita_id
-            FROM RECEITA
-            WHERE RECEITAID = receita_id;
-            
-            -- Vai buscar os fatores de producao
-            SELECT FatorProducaoID, Quantidade, UnidadeID
-                BULK COLLECT INTO fatores_producao, quantidades_fator_producao_por_area, unidades
-            FROM Receita_FatorProducao
-            WHERE ReceitaID = v_receita_id;
-        
-        END IF;
+SELECT SetorID
+INTO v_setor_id
+FROM Setor
+WHERE SetorID = setor_id;
 
-    EXCEPTION
+-- Procura os ID dos Cultivos para aquele setor
+SELECT CultivoID
+           BULK COLLECT INTO cultivos
+FROM Setor_Cultivo
+WHERE SetorID = v_setor_id;
+
+IF tipo_operacao = 'Fertirrega' THEN
+SELECT ReceitaID
+INTO v_receita_id
+FROM RECEITA
+WHERE RECEITAID = receita_id;
+
+-- Vai buscar os fatores de producao
+SELECT FatorProducaoID, Quantidade, UnidadeID
+    BULK COLLECT INTO fatores_producao, quantidades_fator_producao_por_area, unidades
+FROM Receita_FatorProducao
+WHERE ReceitaID = v_receita_id;
+
+END IF;
+
+EXCEPTION
         WHEN NO_DATA_FOUND THEN
             -- Se não encontrar o setor ou a receita
             IF v_setor_id IS NULL THEN
                 RAISE e_setor_not_found;
             ELSIF v_receita_id IS NULL AND tipo_operacao = 'Fertirrega' THEN
                 RAISE e_receita_not_found;
-            END IF;
-    END;
+END IF;
+END;
 
     -- Para cada cultivo:
-    FOR i IN 1..cultivos.COUNT LOOP
-
+FOR i IN 1..cultivos.COUNT LOOP
         -- Insere na tabela Operacao
         INSERT INTO Operacao (DataRealizacao, TipoOperacao, Estado)
         VALUES (data_realizacao, tipo_operacao, estado_operacao);
 
-        SELECT MAX(OperacaoID) INTO operacao_id FROM Operacao;
+SELECT MAX(OperacaoID) INTO operacao_id FROM Operacao;
 
-        -- Insere na tabela Rega com o ID de Operacao
-        INSERT INTO Rega(OperacaoID, Hora, Duracao, SetorID, CultivoID)
-        VALUES (operacao_id, hora_rega, duracao_rega, v_setor_id, cultivos(i));
-        
-        -- Se Fertirrega:
-        IF tipo_operacao = 'Fertirrega' THEN
-            SELECT Quantidade
-            INTO quantidade_arvores
-            FROM Cultivo
-            WHERE CultivoID = cultivos(i);
-    
-            area_aplicacao := area_planta * quantidade_arvores / 10000;
-            
-            INSERT INTO AplicacaoFatorProducao(OperacaoID, Area, CultivoID)
-            VALUES (operacao_id, area_aplicacao, cultivos(i));
-            
-            -- Para cada fator producao:
-            FOR j IN 1..fatores_producao.COUNT LOOP
+-- Se Fertirrega:
+IF tipo_operacao = 'Fertirrega' THEN
+SELECT Quantidade
+INTO quantidade_arvores
+FROM Cultivo
+WHERE CultivoID = cultivos(i);
+
+area_aplicacao := area_planta * quantidade_arvores / 10000;
+
+INSERT INTO AplicacaoFatorProducao(OperacaoID, Area, CultivoID)
+VALUES (operacao_id, area_aplicacao, cultivos(i));
+
+-- Para cada fator producao:
+FOR j IN 1..fatores_producao.COUNT LOOP
                 quantidade_fator_producao := area_aplicacao * quantidades_fator_producao_por_area(j);
 
-                SELECT UnidadeID INTO kg_ha_unidade_id FROM Unidade WHERE DescricaoUnidade = 'kg/ha';
-                SELECT UnidadeID INTO l_ha_unidade_id FROM Unidade WHERE DescricaoUnidade = 'l/ha';
-                SELECT UnidadeID INTO kg_unidade_id FROM Unidade WHERE DescricaoUnidade = 'kg';
-                SELECT UnidadeID INTO l_unidade_id FROM Unidade WHERE DescricaoUnidade = 'l';
-                
-                unidade_id := CASE
+SELECT UnidadeID INTO kg_ha_unidade_id FROM Unidade WHERE DescricaoUnidade = 'kg/ha';
+SELECT UnidadeID INTO l_ha_unidade_id FROM Unidade WHERE DescricaoUnidade = 'l/ha';
+SELECT UnidadeID INTO kg_unidade_id FROM Unidade WHERE DescricaoUnidade = 'kg';
+SELECT UnidadeID INTO l_unidade_id FROM Unidade WHERE DescricaoUnidade = 'l';
+
+unidade_id := CASE
                     WHEN unidades(j) = kg_ha_unidade_id THEN kg_unidade_id
                     WHEN unidades(j) = l_ha_unidade_id THEN l_unidade_id
-                END;
+END;
 
-                INSERT INTO AplicacaoFatorProducao_FatorProducao(OperacaoID, FatorProducaoID, QuantidadeFatorProducao, UnidadeID)
-                VALUES (operacao_id, fatores_producao(j), quantidade_fator_producao, unidade_id);
-            END LOOP;
-        END IF;
-    END LOOP;
 
-    COMMIT;
+INSERT INTO AplicacaoFatorProducao_FatorProducao(OperacaoID, FatorProducaoID, QuantidadeFatorProducao, UnidadeID)
+VALUES (operacao_id, fatores_producao(j), quantidade_fator_producao, unidade_id);
+END LOOP;
+END IF;
 
-    IF tipo_operacao = 'Fertirrega' THEN
+        -- Insere na tabela Rega com o ID de Operacao
+INSERT INTO Rega(OperacaoID, Hora, Duracao, SetorID, CultivoID)
+VALUES (operacao_id, hora_rega, duracao_rega, v_setor_id, cultivos(i));
+
+END LOOP;
+
+COMMIT;
+
+IF tipo_operacao = 'Fertirrega' THEN
         DBMS_OUTPUT.PUT_LINE('Sucesso: Operação de Fertirrega registada.');
-    ELSE
+ELSE
         DBMS_OUTPUT.PUT_LINE('Sucesso: Operação de Rega registada.');
-    END IF;
+END IF;
 EXCEPTION
     WHEN e_setor_not_found THEN
         ROLLBACK TO transaction_start;
         RAISE_APPLICATION_ERROR(-20003, 'Setor não encontrado.');
-    WHEN e_receita_not_found THEN
+WHEN e_receita_not_found THEN
         ROLLBACK TO transaction_start;
         RAISE_APPLICATION_ERROR(-20004, 'Receita não encontrada.');
-    WHEN NO_DATA_FOUND THEN
+WHEN NO_DATA_FOUND THEN
         ROLLBACK TO transaction_start;
         RAISE_APPLICATION_ERROR(-20001, 'Insucesso: Dados necessários não encontrados.');
-    WHEN OTHERS THEN
+WHEN OTHERS THEN
         ROLLBACK TO transaction_start;
         RAISE_APPLICATION_ERROR(-20001, 'Ocorreu um erro: ' || SQLERRM);
 END registar_operacao_rega;
+
 ```
 
 ### Caso Sucesso
@@ -153,7 +153,6 @@ END registar_operacao_rega;
 Inserir 02/09/2023 operação de fertirrega, setor 10, 90 min, 05:00, receita 10
 
 ```sql
-
 DECLARE
     setor_id SETOR.SETORID%type := 10;
     data_realizacao OPERACAO.DATAREALIZACAO%type := TO_DATE('2023-09-02', 'YYYY-MM-DD');
@@ -170,8 +169,9 @@ DECLARE
     nome_comercial FATORPRODUCAO.NOMECOMERCIAL%type;
     unidade_designacao UNIDADE.DESCRICAOUNIDADE%TYPE;
 BEGIN
+    
     registar_operacao_rega(setor_id, data_realizacao, hora_rega, duracao_rega, receita_id);
-
+    
     FOR r_operacao IN (
         SELECT Operacao.OPERACAOID, Operacao.DATAREALIZACAO, Operacao.DATACRIACAO, Operacao.TIPOOPERACAO, Operacao.ESTADO
         FROM Operacao
@@ -179,7 +179,7 @@ BEGIN
         WHERE Operacao.DataRealizacao = data_realizacao
             AND Rega.SetorID = setor_id
             AND Rega.Hora = hora_rega
-            AND (Operacao.TipoOperacao = 'Fertirrega' OR (Rega.ReceitaID IS NULL AND Operacao.TipoOperacao = 'Rega'))
+            AND Operacao.TipoOperacao IN ('Fertirrega', 'Rega')
     ) LOOP
         operacao_id := r_operacao.OPERACAOID;
         DBMS_OUTPUT.PUT_LINE('Operacao: ' || 'ID: ' || r_operacao.OPERACAOID || ', Data Realizacao: ' || r_operacao.DataRealizacao || ', Data Criacao: ' || r_operacao.DataCriacao ||  ', Tipo Operacao: ' || r_operacao.TipoOperacao || ', Estado: ' || r_operacao.Estado);
@@ -204,7 +204,7 @@ BEGIN
                 FROM APLICACAOFATORPRODUCAO_FATORPRODUCAO
                 JOIN FATORPRODUCAO ON APLICACAOFATORPRODUCAO_FATORPRODUCAO.FatorProducaoID = FATORPRODUCAO.FatorProducaoID
                 WHERE APLICACAOFATORPRODUCAO_FATORPRODUCAO.OperacaoID = operacao_id AND FATORPRODUCAO.FATORPRODUCAOID = r_fator_producao.FATORPRODUCAOID;
-                
+
                 SELECT DESCRICAOUNIDADE
                 INTO unidade_designacao
                 FROM UNIDADE
@@ -219,8 +219,6 @@ EXCEPTION
     WHEN OTHERS THEN
         DBMS_OUTPUT.PUT_LINE('Erro: ' || SQLERRM);
 END;
-
-
 ```
 
 ### Resultado
@@ -239,7 +237,7 @@ Mostrar que foram registadas as duas seguintes operações compostas:
 
 Cada operação tem de dar lugar a duas operações especializadas com o mesmo ID, uma rega e uma aplicação de fator de produção.
 
-![USBD34_SQL_Query_Output_2023](Images/USBD32_Caso_Sucesso.png)
+![USBD32_Caso_Sucesso](Images/USBD32_Caso_Sucesso.png)
 
 ### Caso Insucesso
 
@@ -264,7 +262,7 @@ END;
 
 ### Resultado
 
-O resultado espero é um erro porque não existe esta receita de fertirrega registada no sistema.
+O resultado esperado é um erro porque não existe esta receita de fertirrega registada no sistema.
 
-![USBD34_SQL_Query_Output_2017](Images/USBD32_Caso_Insucesso.png)
+![USBD32_Caso_Insucesso](Images/USBD32_Caso_Insucesso.png)
 
