@@ -355,7 +355,7 @@ public class App {
                  */
                 break;
             case 6:
-                System.out.println("not implemented yet...");
+                USLP09_BD30.uslp09_bd30Start(uslp09GetUserInput());
                 break;
             case 7:
                 System.out.println("not implemented yet...");
@@ -698,8 +698,24 @@ public class App {
         uslp04DataD.add(0, quantidadePoda);
     }
 
-    public static void uslp09GetUserInput() { // --> USBD30
+    public static int uslp09GetUserInput() { // --> USBD30
 
+        System.out.println("=================================");
+        System.out.println("Anular uma operação não realizada");
+        System.out.println("=================================");
+        System.out.println();
+
+        // Input validation for quantity (non-negative)
+        int operacaoId;
+        do {
+            System.out.println("Insira o ID da operação: ");
+            while (!read.hasNextInt()) {
+                System.out.println("Por favor, insira um ID válido para a operação.");
+                read.next(); // To clear the invalid input
+            }
+            operacaoId = read.nextInt();
+        } while (operacaoId < 0);
+        return operacaoId;
     }
 
     public static void uslp10GetUserInput() { // --> USBD31

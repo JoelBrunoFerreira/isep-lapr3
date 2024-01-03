@@ -41,11 +41,6 @@ public class USLP12_BD33 {
             // call Stored procedure
             callableStatement.execute();
 
-            // Retrieving the result (if the function returns a value)
-//            String result = callableStatement.getString(6);
-
-            // Using the result obtained from the function call
-//            System.out.println("Result: " + result);
             System.out.println("Lista das culturas com maior consumo de água do ano: " + anoCivil);
             db_connection.close();
             System.out.println();
