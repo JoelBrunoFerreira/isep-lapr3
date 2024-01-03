@@ -271,17 +271,16 @@ END;
 
 ```
 
-### Caso Sucesso 1
+### Caso Sucesso
 
 Pesquisa efetuada sobre a tabela log para mostrar que todas as operações realizadas acima aparecem no log, incluindo a anulação.
 
 
 ```sql
-
-
+SELECT * FROM LOGOPERACOES;
 ```
 
 ### Resultado
 
-
+![sucesso_usbd26.png](sucesso_usbd26.png)
 
