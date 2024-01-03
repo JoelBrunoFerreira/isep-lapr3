@@ -1,5 +1,40 @@
 -- USBD30 Como Gestor Agrícola, pretendo anular uma operação que estava prevista e não se realizou ou que foi criada por engano, sabendo que isso só é possível até aos 3 dias seguintes à sua data prevista de execução, se não houver operações posteriores dependentes desta.
 
+CREATE OR REPLACE PROCEDURE anular_operacao(
+    operacao_id OPERACAO.OPERACAOID%TYPE
+) AS
+    data_realizacao OPERACAO.DATAREALIZACAO%TYPE;
+    estado_operacao OPERACAO.ESTADO%TYPE;
+    data_limite DATE;
+BEGIN
+    -- Obtém o ID da operação a ser anulada
+SELECT DATAREALIZACAO, ESTADO
+INTO data_realizacao, estado_operacao
+FROM Operacao
+WHERE OPERACAOID = operacao_id;
+
+-- Calcula a data limite para anulação (3 dias após a data prevista de execução)
+data_limite := data_realizacao + 3;
+
+    IF TRUNC(SYSDATE) <= TRUNC(data_limite) AND estado_operacao <> 'Realizado' THEN
+        -- Atualiza o estado da operação para 'Anulado'
+UPDATE Operacao
+SET Estado = 'Anulado'
+WHERE OperacaoID = operacao_id;
+
+COMMIT;
+DBMS_OUTPUT.PUT_LINE('Operação anulada com sucesso.');
+ELSE
+        DBMS_OUTPUT.PUT_LINE('Não é possível anular a operação após o período permitido.');
+END IF;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Operação não encontrada.');
+WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Erro: ' || SQLERRM);
+END anular_operacao;
+
+-- Caso de sucesso:
 --Inserir operação de rega com data no dia da defesa, setor 11, 60 min, 15:00
 -- NOTA: MUDAR O DIA!
 DECLARE
@@ -70,41 +105,6 @@ END;
 
 
 
-CREATE OR REPLACE PROCEDURE anular_operacao(
-    operacao_id OPERACAO.OPERACAOID%TYPE
-) AS
-    data_realizacao OPERACAO.DATAREALIZACAO%TYPE;
-    estado_operacao OPERACAO.ESTADO%TYPE;
-    data_limite DATE;
-BEGIN
-    -- Obtém o ID da operação a ser anulada
-SELECT DATAREALIZACAO, ESTADO
-INTO data_realizacao, estado_operacao
-FROM Operacao
-WHERE OPERACAOID = operacao_id;
-
--- Calcula a data limite para anulação (3 dias após a data prevista de execução)
-data_limite := data_realizacao + 3;
-
-    IF TRUNC(SYSDATE) <= TRUNC(data_limite) AND estado_operacao <> 'Realizado' THEN
-        -- Atualiza o estado da operação para 'Anulado'
-UPDATE Operacao
-SET Estado = 'Anulado'
-WHERE OperacaoID = operacao_id;
-
-COMMIT;
-DBMS_OUTPUT.PUT_LINE('Operação anulada com sucesso.');
-ELSE
-        DBMS_OUTPUT.PUT_LINE('Não é possível anular a operação após o período permitido.');
-END IF;
-EXCEPTION
-    WHEN NO_DATA_FOUND THEN
-        DBMS_OUTPUT.PUT_LINE('Operação não encontrada.');
-WHEN OTHERS THEN
-        DBMS_OUTPUT.PUT_LINE('Erro: ' || SQLERRM);
-END anular_operacao;
-
--- Caso de sucesso:
 DECLARE
 operacao_id OPERACAO.OPERACAOID%TYPE := 431;
 BEGIN
