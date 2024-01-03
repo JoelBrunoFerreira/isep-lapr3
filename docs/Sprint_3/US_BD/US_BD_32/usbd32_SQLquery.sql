@@ -50,8 +50,6 @@ SELECT CultivoID
 FROM Setor_Cultivo
 WHERE SetorID = v_setor_id;
 
--- Para cada cultivo, ir buscar a cultura e para cada cultura ir buscar a area
-
 IF tipo_operacao = 'Fertirrega' THEN
 SELECT ReceitaID
 INTO v_receita_id
@@ -85,10 +83,6 @@ FOR i IN 1..cultivos.COUNT LOOP
 
 SELECT MAX(OperacaoID) INTO operacao_id FROM Operacao;
 
--- Insere na tabela Rega com o ID de Operacao
-INSERT INTO Rega(OperacaoID, Hora, Duracao, SetorID, CultivoID)
-VALUES (operacao_id, hora_rega, duracao_rega, v_setor_id, cultivos(i));
-
 -- Se Fertirrega:
 IF tipo_operacao = 'Fertirrega' THEN
 SELECT Quantidade
@@ -120,6 +114,11 @@ INSERT INTO AplicacaoFatorProducao_FatorProducao(OperacaoID, FatorProducaoID, Qu
 VALUES (operacao_id, fatores_producao(j), quantidade_fator_producao, unidade_id);
 END LOOP;
 END IF;
+
+        -- Insere na tabela Rega com o ID de Operacao
+INSERT INTO Rega(OperacaoID, Hora, Duracao, SetorID, CultivoID)
+VALUES (operacao_id, hora_rega, duracao_rega, v_setor_id, cultivos(i));
+
 END LOOP;
 
 COMMIT;
@@ -148,7 +147,7 @@ END registar_operacao_rega;
 
 DECLARE
 setor_id SETOR.SETORID%type := 10;
-    data_realizacao OPERACAO.DATAREALIZACAO%type := TO_DATE('2024-01-04', 'YYYY-MM-DD');
+    data_realizacao OPERACAO.DATAREALIZACAO%type := TO_DATE('2023-09-04', 'YYYY-MM-DD');
     hora_rega REGA.HORA%type := TO_TIMESTAMP( '05:00', 'hh24:mi');
     duracao_rega REGA.DURACAO%type := 90;
     receita_id RECEITA.RECEITAID%type := 11;
@@ -171,7 +170,7 @@ FOR r_operacao IN (
         WHERE Operacao.DataRealizacao = data_realizacao
             AND Rega.SetorID = setor_id
             AND Rega.Hora = hora_rega
-            AND (Operacao.TipoOperacao = 'Fertirrega' OR (Operacao.TipoOperacao = 'Rega'))
+            AND Operacao.TipoOperacao IN ('Fertirrega', 'Rega')
     ) LOOP
         operacao_id := r_operacao.OPERACAOID;
         DBMS_OUTPUT.PUT_LINE('Operacao: ' || 'ID: ' || r_operacao.OPERACAOID || ', Data Realizacao: ' || r_operacao.DataRealizacao || ', Data Criacao: ' || r_operacao.DataCriacao ||  ', Tipo Operacao: ' || r_operacao.TipoOperacao || ', Estado: ' || r_operacao.Estado);
@@ -216,7 +215,7 @@ END;
 
 DECLARE
 setor_id SETOR.SETORID%type := 10;
-    data_realizacao OPERACAO.DATAREALIZACAO%type := TO_DATE('2023-09-02', 'YYYY-MM-DD');
+    data_realizacao OPERACAO.DATAREALIZACAO%type := TO_DATE('2023-09-04', 'YYYY-MM-DD');
     hora_rega REGA.HORA%type := TO_TIMESTAMP( '05:00', 'hh24:mi');
     duracao_rega REGA.DURACAO%type := 90;
     receita_id RECEITA.RECEITAID%type := 50;
@@ -226,6 +225,3 @@ EXCEPTION
     WHEN OTHERS THEN
         DBMS_OUTPUT.PUT_LINE('Erro: ' || SQLERRM);
 END;
-
-
-select * from cultivo;
