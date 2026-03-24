@@ -15,8 +15,6 @@ O projecto consiste no desenvolvimento de uma solução informática que apoia a
 
 O desenvolvimento segue uma metodologia ágil baseada em **SCRUM**, organizado em três sprints de quatro semanas, e adopta a abordagem **TDD (Test-Driven Development)**.
 
-O enunciado do projecto encontra-se em anexo: [`PI_Enunciado_2023_24.pdf`](PI_Enunciado_2023_24.pdf)
-
 ---
 
 ## Equipa
